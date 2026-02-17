@@ -18,8 +18,8 @@ const hasAnyEquipmentEquipped = computed(() => {
   return !!(t.equipArmorId || t.equipGlovesId || t.equipAccessory1Id || t.equipAccessory2Id)
 })
 
-const activeCharacterName = computed(() => activeCharacter.value ? activeCharacter.value.name : '未选择干员')
-const activeWeaponName = computed(() => activeWeapon.value ? activeWeapon.value.name : '未装备武器')
+const activeCharacterName = computed(() => activeCharacter.value ? activeCharacter.value.name : 'no OP')
+const activeWeaponName = computed(() => activeWeapon.value ? activeWeapon.value.name : 'Unarmed')
 const activeLibraryTab = ref('character')
 const hasWeaponLibrary = computed(() => store.activeWeaponSkillLibrary.length > 0)
 const currentLibrary = computed(() => {
@@ -36,16 +36,16 @@ const activeLibraryTitle = computed(() => {
 // 技能类型完整名称映射
 const getFullTypeName = (type) => {
   const map = {
-    'attack': '重击',
-    'dodge': '闪避',
-    'skill': '战技',
-    'link': '连携',
-    'ultimate': '终结技',
-    'execution': '处决',
-    'weapon': '武器',
-    'set': '套装'
+    'attack': 'attack',
+    'dodge': 'dodge',
+    'skill': 'skill',
+    'link': 'combo',
+    'ultimate': 'ultimate',
+    'execution': 'finisher',
+    'weapon': 'weapon',
+    'set': 'set'
   }
-  return map[type] || '技能'
+  return map[type] || 'skill'
 }
 
 // 图标路径
@@ -428,7 +428,7 @@ function onNativeDragEnd() {
           :class="{ active: hasActiveCharacter && activeLibraryTab === 'character' }"
           :disabled="!hasActiveCharacter"
           @click="activeLibraryTab = 'character'">
-          干员
+          OP
         </button>
         <button
           class="lib-tab"
@@ -436,7 +436,7 @@ function onNativeDragEnd() {
           :disabled="!hasWeaponLibrary || !hasActiveCharacter"
           title="需要为当前干员选择武器"
           @click="activeLibraryTab = 'weapon'">
-          武器
+          WPN
         </button>
         <button
           class="lib-tab"
@@ -444,18 +444,18 @@ function onNativeDragEnd() {
           :disabled="!hasActiveCharacter || !hasAnyEquipmentEquipped"
           title="需要先装备任意装备"
           @click="activeLibraryTab = 'set'">
-          装备
+          SET
         </button>
       </div>
       <div class="header-divider"></div>
     </div>
 
     <div v-if="activeTrack && activeCharacter && activeLibraryTab === 'character'" class="gauge-settings-panel">
-      <div class="panel-tag">干员数值</div>
+      <div class="panel-tag">Operator stats</div>
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">初始充能</span>
+          <span class="label">Initial charge</span>
           <span class="value cyan">{{ initialGaugeValue }}</span>
         </div>
         <div class="setting-controls">
@@ -468,7 +468,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">充能上限</span>
+          <span class="label">Charge limit</span>
           <span class="value gold">{{ maxGaugeValue }}</span>
         </div>
         <div class="setting-controls">
@@ -481,7 +481,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">充能效率</span>
+          <span class="label">Charging efficiency</span>
           <span class="value green">{{ gaugeEfficiencyValue }}%</span>
         </div>
         <div class="setting-controls">
@@ -494,7 +494,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">连携技冷却缩减</span>
+          <span class="label">CD reduction</span>
           <span class="value gold">{{ linkCdReductionValue }}%</span>
         </div>
         <div class="setting-controls">
@@ -507,7 +507,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">源石技艺强度</span>
+          <span class="label">Arts power</span>
           <span class="value purple">{{ originiumArtsPowerValue }}</span>
         </div>
         <div class="setting-controls">
@@ -519,11 +519,11 @@ function onNativeDragEnd() {
     </div>
 
     <div v-if="activeTrack && activeCharacter && activeLibraryTab === 'weapon' && activeWeapon" class="gauge-settings-panel">
-      <div class="panel-tag">武器数值</div>
+      <div class="panel-tag">Weapon stats</div>
 
       <div class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">通用词条 1</span>
+          <span class="label">Attribute 1</span>
           <span class="value">{{ weaponSlot1Label }}</span>
         </div>
         <div class="setting-controls">
@@ -536,7 +536,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">通用词条 2</span>
+          <span class="label">Attribute 2</span>
           <span class="value">{{ weaponSlot2Label }}</span>
         </div>
         <div class="setting-controls">
@@ -549,7 +549,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">{{ activeWeapon.buffName || '专属 BUFF' }}</span>
+          <span class="label">{{ activeWeapon.buffName || 'BUFF' }}</span>
           <span class="value">{{ weaponBuffKeysLabel }}</span>
         </div>
         <div class="setting-controls">
@@ -560,11 +560,11 @@ function onNativeDragEnd() {
     </div>
 
     <div v-if="activeTrack && activeCharacter && activeLibraryTab === 'set'" class="gauge-settings-panel">
-      <div class="panel-tag">装备精锻</div>
+      <div class="panel-tag">Equipment</div>
 
       <div v-if="equipArmor" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">护甲</span>
+          <span class="label">Armor</span>
           <span class="value">{{ formatEquipValue(equipArmor) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipArmor.level) === 70">
@@ -579,7 +579,7 @@ function onNativeDragEnd() {
       <div v-if="equipArmor && equipGloves" class="group-divider"></div>
       <div v-if="equipGloves" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">护手</span>
+          <span class="label">Gloves</span>
           <span class="value">{{ formatEquipValue(equipGloves) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipGloves.level) === 70">
@@ -594,7 +594,7 @@ function onNativeDragEnd() {
       <div v-if="(equipArmor || equipGloves) && equipAccessory1" class="group-divider"></div>
       <div v-if="equipAccessory1" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">配件 1</span>
+          <span class="label">Accessory 1</span>
           <span class="value">{{ formatEquipValue(equipAccessory1) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipAccessory1.level) === 70">
@@ -609,7 +609,7 @@ function onNativeDragEnd() {
       <div v-if="(equipArmor || equipGloves || equipAccessory1) && equipAccessory2" class="group-divider"></div>
       <div v-if="equipAccessory2" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">配件 2</span>
+          <span class="label">Accessory 2</span>
           <span class="value">{{ formatEquipValue(equipAccessory2) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipAccessory2.level) === 70">
@@ -627,10 +627,10 @@ function onNativeDragEnd() {
         <span class="section-title">
           {{
             activeLibraryTab === 'weapon'
-              ? '武器BUFF库'
+              ? 'Weapon bonus'
               : activeLibraryTab === 'set'
-                ? '套装BUFF库'
-                : '干员技能库'
+                ? 'Set bonus'
+                : 'Operator Skills'
           }}
         </span>
         <span class="section-hint">
@@ -639,7 +639,7 @@ function onNativeDragEnd() {
               ? '拖拽武器BUFF到轨道，拖拽位置即为开始时间'
               : activeLibraryTab === 'set'
                 ? '拖拽BUFF到轨道，拖拽位置即为开始时间'
-                : '点击编辑基础数值 / 拖拽排轴'
+                : 'Click to edit / drag to axis'
           }}
         </span>
       </div>

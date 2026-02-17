@@ -53,28 +53,28 @@ function handleDeleteCurrent() {
 
 function handleDeleteScenario(id) {
   ElMessageBox.confirm(
-      '确定要删除该方案吗？此操作无法撤销。',
-      '删除方案',
-      { confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning' }
+      'Are you sure you want to delete this plan? This action cannot be undone.',
+      'Delete scheme',
+      { confirmButtonText: 'Delete', cancelButtonText: 'Cancel', type: 'warning' }
   ).then(() => {
     store.deleteScenario(id)
-    ElMessage.success('方案已删除')
+    ElMessage.success('The plan has been deleted.')
   }).catch(() => {})
 }
 
 function handleDuplicateCurrent() {
   if (!currentScenario.value) return
   if (store.scenarioList.length >= store.MAX_SCENARIOS) {
-    ElMessage.warning(`方案数量已达上限 (${store.MAX_SCENARIOS})`)
+    ElMessage.warning(`The number of plans has reached its limit (${store.MAX_SCENARIOS})`)
     return
   }
   store.duplicateScenario(currentScenario.value.id)
-  ElMessage.success('方案已复制')
+  ElMessage.success('The plans has been copied.')
 }
 
 function handleAddScenario() {
   if (store.scenarioList.length >= store.MAX_SCENARIOS) {
-    ElMessage.warning(`方案数量已达上限 (${store.MAX_SCENARIOS})`)
+    ElMessage.warning(`The number of plans has reached its limit (${store.MAX_SCENARIOS})`)
     return
   }
   store.addScenario()
@@ -155,20 +155,20 @@ async function processFile(file) {
         if (metadata) {
              const success = store.importShareString(metadata);
              if (success) {
-                 ElMessage.success('从图片加载项目成功！');
+                 ElMessage.success('Project loaded from image successfully!');
                  return true;
              }
         }
-        ElMessage.warning('该图片未包含有效的 Endaxis 项目数据');
+        ElMessage.warning('This image does not contain valid Endaxis project data.');
     } else {
         const success = await store.importProject(file)
         if (success) {
-          ElMessage.success('项目加载成功！')
+          ElMessage.success('Project loaded successfully!')
           return true
         }
     }
   } catch (e) {
-    ElMessage.error('加载失败：' + e.message)
+    ElMessage.error('Loading failed:' + e.message)
   }
   return false
 }
@@ -277,7 +277,7 @@ async function processExport() {
 
   const loading = ElLoading.service({
     lock: true,
-    text: `正在渲染前 ${durationSeconds} 秒的长图...`,
+    text: `Rendering image for ${durationSeconds} seconds...`,
     background: 'rgba(0, 0, 0, 0.9)'
   })
 
@@ -375,11 +375,11 @@ async function processExport() {
     link.click();
     URL.revokeObjectURL(link.href);
 
-    ElMessage.success(`长图已导出：${userFilename}`)
+    ElMessage.success(`Image has been exported: ${userFilename}`)
 
   } catch (error) {
     console.error(error)
-    ElMessage.error('导出失败：' + error.message)
+    ElMessage.error('Export failed: ' + error.message)
   } finally {
     document.body.classList.remove('capture-mode')
     store.setIsCapturing(false)
@@ -395,16 +395,16 @@ async function processExport() {
 // === 重置与快捷键 ===
 function handleReset() {
   ElMessageBox.confirm(
-      '确定要清空当前所有进度吗？这将清空所有方案数据。',
-      '警告',
+      'Are you sure you want to clear all current progress? This will clear all plan data.',
+      'Reset',
       {
-        confirmButtonText: '确定清空',
-        cancelButtonText: '取消',
+        confirmButtonText: 'Reset',
+        cancelButtonText: 'Cancel',
         type: 'warning',
       }
   ).then(() => {
     store.resetProject()
-    ElMessage.success('项目已重置')
+    ElMessage.success('The project has been reset.')
   }).catch(() => {})
 }
 
@@ -428,14 +428,14 @@ function handleImportShare() {
 function handleGlobalKeydown(e) {
   const target = e.target
   if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT' || target.isContentEditable)) return
-  if (e.ctrlKey && !e.shiftKey && (e.key === 'z' || e.key === 'Z')) { e.preventDefault(); store.undo(); ElMessage.info({ message: '已撤销', duration: 800 }); return }
-  if ((e.ctrlKey && (e.key === 'y' || e.key === 'Y')) || (e.ctrlKey && e.shiftKey && (e.key === 'z' || e.key === 'Z'))) { e.preventDefault(); store.redo(); ElMessage.info({message: '已重做', duration: 800}); return }
-  if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) { e.preventDefault(); store.copySelection(); ElMessage.success({message: '已复制', duration: 800}); return }
-  if (e.ctrlKey && (e.key === 'v' || e.key === 'V')) { e.preventDefault(); store.pasteSelection(); ElMessage.success({message: '已粘贴', duration: 800}); return }
-  if (e.ctrlKey && (e.key === 'g' || e.key === 'G')) { e.preventDefault(); store.toggleCursorGuide(); ElMessage.info({ message: store.showCursorGuide ? '辅助线：开启' : '辅助线：隐藏', duration: 1500 }); return }
-  if (e.ctrlKey && (e.key === 'b' || e.key === 'B')) { e.preventDefault(); store.toggleBoxSelectMode(); ElMessage.info({ message: store.isBoxSelectMode ? '框选模式：开启' : '框选模式：关闭', duration: 1500 }); return }
-  if (e.altKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); store.toggleSnapStep(); const mode = store.snapStep < 0.05 ? '1帧 (1/60s)' : '0.1s';ElMessage.info({message: `吸附精度：${mode}`, duration: 1000}); return }
-  if (e.altKey && (e.key === 'l' || e.key === 'L')) { e.preventDefault(); store.toggleConnectionTool(); ElMessage.info({ message: `连接工具：${store.enableConnectionTool ? '开启' : '关闭'}`,  duration: 1000 }); return }
+  if (e.ctrlKey && !e.shiftKey && (e.key === 'z' || e.key === 'Z')) { e.preventDefault(); store.undo(); ElMessage.info({ message: 'Undo', duration: 800 }); return }
+  if ((e.ctrlKey && (e.key === 'y' || e.key === 'Y')) || (e.ctrlKey && e.shiftKey && (e.key === 'z' || e.key === 'Z'))) { e.preventDefault(); store.redo(); ElMessage.info({message: 'Redo', duration: 800}); return }
+  if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) { e.preventDefault(); store.copySelection(); ElMessage.success({message: 'Copy', duration: 800}); return }
+  if (e.ctrlKey && (e.key === 'v' || e.key === 'V')) { e.preventDefault(); store.pasteSelection(); ElMessage.success({message: 'Paste', duration: 800}); return }
+  if (e.ctrlKey && (e.key === 'g' || e.key === 'G')) { e.preventDefault(); store.toggleCursorGuide(); ElMessage.info({ message: store.showCursorGuide ? 'Cursor: On' : 'Cursor: Off', duration: 1500 }); return }
+  if (e.ctrlKey && (e.key === 'b' || e.key === 'B')) { e.preventDefault(); store.toggleBoxSelectMode(); ElMessage.info({ message: store.isBoxSelectMode ? 'Selection: Box' : 'Selection: One', duration: 1500 }); return }
+  if (e.altKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); store.toggleSnapStep(); const mode = store.snapStep < 0.05 ? '1f (1/60s)' : '0.1s';ElMessage.info({message: `Step: ${mode}`, duration: 1000}); return }
+  if (e.altKey && (e.key === 'l' || e.key === 'L')) { e.preventDefault(); store.toggleConnectionTool(); ElMessage.info({ message: `Connections: ${store.enableConnectionTool ? 'On' : 'Off'}`,  duration: 1000 }); return }
 }
 
 onMounted(() => {
@@ -467,7 +467,7 @@ onUnmounted(() => {
   <div v-if="store.isLoading" class="loading-screen">
     <div class="loading-content">
       <div class="spinner"></div>
-      <p>正在加载资源...</p>
+      <p>Loading...</p>
     </div>
   </div>
 
@@ -481,11 +481,11 @@ onUnmounted(() => {
 
           <div class="ts-header-group">
 
-            <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--ghost ea-btn--no-shrink" @click="startRenameCurrent" title="重命名当前方案">
+            <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--ghost ea-btn--no-shrink" @click="startRenameCurrent" title="Rename the current scheme">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
             </button>
 
-            <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--ghost ea-btn--no-shrink" @click="handleDuplicateCurrent" title="复制当前方案">
+            <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--ghost ea-btn--no-shrink" @click="handleDuplicateCurrent" title="Copy the current scheme">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             </button>
 
@@ -493,7 +493,7 @@ onUnmounted(() => {
                 v-if="store.scenarioList.length > 1"
                 class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--ghost ea-btn--hover-danger ea-btn--no-shrink"
                 @click="handleDeleteCurrent"
-                title="删除当前方案"
+                title="Delete the current scheme"
             >
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             </button>
@@ -509,7 +509,7 @@ onUnmounted(() => {
                   class="ts-title-input"
               />
               <span v-else class="ts-title-text" @dblclick="startRenameCurrent">
-                {{ currentScenario?.name || '未命名方案' }}
+                {{ currentScenario?.name || 'Unnamed scheme' }}
               </span>
               <div class="ts-deco-bracket">]</div>
             </div>
@@ -545,49 +545,49 @@ onUnmounted(() => {
         <div class="header-controls">
           <input type="file" ref="fileInputRef" style="display: none" accept=".json,.png" @change="onFileSelected" />
 
-          <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-info" @click="aboutDialogVisible = true" title="查看教程与项目信息">
+          <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-info" @click="aboutDialogVisible = true" title="View tutorials">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
-            关于
+            Help
           </button>
 
           <div class="divider-vertical"></div>
 
-          <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-danger-dark" @click="handleReset" title="清空所有内容">
+          <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-danger-dark" @click="handleReset" title="Clear all">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
             </svg>
-            重置
+            Reset
           </button>
 
           <div class="divider-vertical"></div>
 
-          <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-orange" @click="openExportDialog" title="导出">
+          <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-orange" @click="openExportDialog" title="Export">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 3h7v7"></path>
               <path d="M10 14L21 3"></path>
               <path d="M21 14v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h7"></path>
             </svg>
-            导出
+            Export
           </button>
 
           <div class="project-btn-group">
-            <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-blue group-item" @click="triggerImport" title="导入 .json 项目文件或 .png 图片">
+            <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-blue group-item" @click="triggerImport" title="Import .json / .png">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
-              加载
+              Import
             </button>
 
-            <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-blue group-item" @click="openImportShareDialog" title="粘贴数据码导入项目">
+            <button class="ea-btn ea-btn--sm ea-btn--lift ea-btn--hover-blue group-item" @click="openImportShareDialog" title="Paste data code to import">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 11 12 14 22 4"></polyline>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
               </svg>
-              接收
+              Share
             </button>
           </div>
         </div>
@@ -606,34 +606,34 @@ onUnmounted(() => {
 
     <aside class="properties-sidebar"><PropertiesPanel/></aside>
 
-    <el-dialog v-model="exportDialogVisible" title="导出设置" width="460px" align-center class="custom-dialog">
+    <el-dialog v-model="exportDialogVisible" title="Export settings" width="460px" align-center class="custom-dialog">
       <div class="export-form">
-        <div class="form-item"><label>文件名称</label><el-input v-model="exportForm.filename" placeholder="请输入文件名" size="large"/></div>
-        <div class="form-item"><label>导出时长 (秒)</label><el-input-number v-model="exportForm.duration" :min="10" :max="store.TOTAL_DURATION" :step="10" size="large" style="width: 100%;"/><div class="hint">最大支持 {{ store.TOTAL_DURATION }}s</div></div>
+        <div class="form-item"><label>File Name</label><el-input v-model="exportForm.filename" placeholder="Please enter a file name." size="large"/></div>
+        <div class="form-item"><label>Export duration (s)</label><el-input-number v-model="exportForm.duration" :min="10" :max="store.TOTAL_DURATION" :step="10" size="large" style="width: 100%;"/><div class="hint">Maximum support {{ store.TOTAL_DURATION }}s</div></div>
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--outline-muted" @click="exportDialogVisible = false">取消</button>
-          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-success" @click="handleExportJson">导出 JSON</button>
-          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-success" @click="copyShareCode">复制数据码</button>
-          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-gold" @click="processExport">导出图片</button>
+          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--outline-muted" @click="exportDialogVisible = false">Cancel</button>
+          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-success" @click="handleExportJson">Export JSON</button>
+          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-success" @click="copyShareCode">Copy data code</button>
+          <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-gold" @click="processExport">Export</button>
         </span>
       </template>
     </el-dialog>
 
     <el-dialog
         v-model="importShareDialogVisible"
-        title="导入项目"
+        title="Import Project"
         width="500px"
         align-center
         class="custom-dialog"
         :append-to-body="true"
     >
       <div class="share-import-container">
-        <p class="dialog-hint">请粘贴数据码：</p>
+        <p class="dialog-hint">Please paste the data code:</p>
 
         <el-alert
-            title="警告：导入将覆盖当前所有工程数据，建议先保存。"
+            title="Warning: Importing will overwrite all current project data. It is recommended to save first."
             type="warning"
             show-icon
             :closable="false"
@@ -644,14 +644,14 @@ onUnmounted(() => {
             v-model="shareCodeInput"
             type="textarea"
             :rows="6"
-            placeholder="在此粘贴长字符串..."
+            placeholder="Paste code here..."
             resize="none"
         />
       </div>
       <template #footer>
       <span class="dialog-footer">
-        <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--outline-muted" @click="importShareDialogVisible = false">取消</button>
-        <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-gold" @click="handleImportShare">确认覆盖并导入</button>
+        <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--outline-muted" @click="importShareDialogVisible = false">Cancel</button>
+        <button type="button" class="ea-btn ea-btn--sm ea-btn--lift ea-btn--fill-gold" @click="handleImportShare">Confirm overwrite and import</button>
       </span>
       </template>
     </el-dialog>
@@ -664,28 +664,28 @@ onUnmounted(() => {
     >
       <template #header>
         <div class="module-deco header-type">
-          <span class="module-code">欢迎使用 ENDAXIS</span>
-          <span class="module-label">终末地排轴工具 v1.0.0</span>
+          <span class="module-code">Welcome! ENDAXIS</span>
+          <span class="module-label">Terminal rotation alignment tool v1.0.0</span>
         </div>
       </template>
 
       <div class="about-content">
         <div class="section-container tech-style no-margin">
-          <div class="panel-tag-mini">系统信息</div>
+          <div class="panel-tag-mini">System Information</div>
           <div class="section-content-tech">
-            <p class="tech-p">本工具为《明日方舟：终末地》玩家自制作品，旨在提供可视化的排轴规划环境。</p>
-            <p class="tech-p" style="margin-top: 5px;">目前大部分干员数据已填充完成。如发现问题，欢迎联系我们指正。</p>
+            <p class="tech-p">This tool is a fan-made creation for Arknights: Endfield, designed to provide a visual environment for planner layouts.</p>
+            <p class="tech-p" style="margin-top: 5px;">Most operator data has now been populated. If you find any issues, please contact us to point them out.</p>
           </div>
         </div>
         <div class="section-container tech-style border-blue no-margin">
-          <div class="panel-tag-mini blue">相关资源</div>
+          <div class="panel-tag-mini blue">Related Resources</div>
           <div class="link-grid">
             <a href="https://www.bilibili.com/video/BV1gSSvB6E69/" target="_blank" class="tech-link-card">
               <div class="link-svg-icon">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="14" rx="2" ry="2"></rect><path d="M7 2l3 6M17 2l-3 6"></path></svg>
               </div>
               <div class="link-info">
-                <span class="link-title">视频教程</span>
+                <span class="link-title">Video tutorial</span>
                 <span class="link-desc">VIDEO GUIDE</span>
               </div>
             </a>
@@ -694,7 +694,7 @@ onUnmounted(() => {
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
               </div>
               <div class="link-info">
-                <span class="link-title">文本教程</span>
+                <span class="link-title">Text Tutorial</span>
                 <span class="link-desc">DOCUMENTATION</span>
               </div>
             </a>
@@ -703,7 +703,7 @@ onUnmounted(() => {
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               </div>
               <div class="link-info">
-                <span class="link-title">项目仓库</span>
+                <span class="link-title">Project Warehouse</span>
                 <span class="link-desc">REPOSITORY</span>
               </div>
             </a>
@@ -711,10 +711,10 @@ onUnmounted(() => {
         </div>
 
         <div class="section-container tech-style border-gold">
-          <div class="panel-tag-mini gold">友情链接</div>
+          <div class="panel-tag-mini gold">Friendly Links</div>
           <div class="friend-links">
-            <a href="https://www.zmdmap.com/" target="_blank" class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-gold ea-btn--glass-cut-fill-hover">终末地互动地图</a>
-            <a href="https://ef.yituliu.cn/" target="_blank" class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-gold ea-btn--glass-cut-fill-hover">终末地一图流</a>
+            <a href="https://www.zmdmap.com/" target="_blank" class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-gold ea-btn--glass-cut-fill-hover">Interactive Map</a>
+            <a href="https://ef.yituliu.cn/" target="_blank" class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-gold ea-btn--glass-cut-fill-hover">Tools</a>
           </div>
         </div>
       </div>
@@ -722,7 +722,7 @@ onUnmounted(() => {
       <template #footer>
         <div class="about-footer">
           <button type="button" class="ea-btn ea-btn--md ea-btn--lift ea-btn--fill-gold tech-confirm-btn" @click="aboutDialogVisible = false">
-            开始使用
+            Start using
           </button>
         </div>
       </template>
@@ -735,7 +735,7 @@ onUnmounted(() => {
           <polyline points="17 8 12 3 7 8"></polyline>
           <line x1="12" y1="3" x2="12" y2="15"></line>
         </svg>
-        <p>释放文件以导入</p>
+        <p>Extract files to import</p>
       </div>
     </div>
 

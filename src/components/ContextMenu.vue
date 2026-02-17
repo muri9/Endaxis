@@ -39,13 +39,13 @@ function handleCopy() {
     store.selectAction(store.contextMenu.targetId)
   }
   store.copySelection()
-  ElMessage.success({ message: '已复制', duration: 800 })
+  ElMessage.success({ message: 'Copied', duration: 800 })
   close()
 }
 
 function handlePaste() {
   store.pasteSelection(store.contextMenu.time)
-  ElMessage.success({ message: '已粘贴', duration: 800 })
+  ElMessage.success({ message: 'Pasted', duration: 800 })
   close()
 }
 
@@ -55,7 +55,7 @@ function handleDelete() {
   }
   const result = store.removeCurrentSelection()
   if (result && result.total > 0) {
-    ElMessage.success({ message: '已删除', duration: 800 })
+    ElMessage.success({ message: 'Removed', duration: 800 })
   }
   close()
 }
@@ -262,13 +262,13 @@ function handleAddCycleBoundary() {
     </template>
 
     <template v-else>
-      <div class="menu-header">全局操作</div>
+      <div class="menu-header">Global operations</div>
 
       <div class="menu-item" @click="handlePaste" :class="{ disabled: !store.clipboard }">
         <span class="icon">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
         </span>
-        <span class="label">粘贴</span>
+        <span class="label">Paste</span>
         <span class="shortcut-hint">Ctrl+V</span>
       </div>
 
@@ -282,14 +282,14 @@ function handleAddCycleBoundary() {
             <polyline points="14 10 12 8 14 6"></polyline>
           </svg>
         </span>
-        <span class="label">添加循环分界线</span>
+        <span class="label">Add a loop boundary line</span>
       </div>
 
       <div class="menu-item has-submenu">
         <span class="icon">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M8 21H3v-5M21 3l-7 7M3 21l7-7" /></svg>
         </span>
-        <span class="label">在此处切人...</span>
+        <span class="label">Swich to OP</span>
         <span class="arrow">▶</span>
 
         <div class="submenu-list">

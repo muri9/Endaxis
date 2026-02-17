@@ -1647,19 +1647,19 @@
     },
     {
       "id": "GILBERTA",
-      "name": "洁尔佩塔",
+      "name": "Gilberta",
       "rarity": 6,
       "element": "nature",
       "avatar": "/avatars/GILBERTA/GILBERTA.webp",
       "exclusive_buffs": [
         {
           "key": "affix_slow",
-          "name": "缓速",
+          "name": "Slowdown",
           "path": "/icons/icon_battle_affix_slow.webp"
         },
         {
           "key": "spell_vulnerable",
-          "name": "法术脆弱",
+          "name": "Arts Susceptibility",
           "path": "/icons/icon_battle_affix_spell_vulnerable.webp"
         }
       ],
@@ -3107,7 +3107,7 @@
         },
         {
           "id": "v_1770210431243",
-          "name": "强化战技",
+          "name": "ES",
           "type": "skill",
           "duration": 3.9,
           "icon": "/avatars/LAEVATAIN/icon_skill_laevat_01_line.webp",
@@ -4737,14 +4737,14 @@
     },
     {
       "id": "ARCLIGHT",
-      "name": "弧光",
+      "name": "Arclight",
       "rarity": 5,
       "element": "emag",
       "avatar": "/avatars/ARCLIGHT/ARCLIGHT.webp",
       "exclusive_buffs": [
         {
           "key": "ikut_talent",
-          "name": "荒野游人",
+          "name": "Wildland Trekker",
           "path": "/avatars/ARCLIGHT/icon_battle_ikut_talent_1.webp"
         }
       ],
@@ -4866,7 +4866,7 @@
       "variants": [
         {
           "id": "v_1767273184428",
-          "name": "强化战技",
+          "name": "ES",
           "type": "skill",
           "duration": 1.6,
           "icon": "/avatars/ARCLIGHT/icon_skill_ikut_01.webp",
@@ -5073,19 +5073,19 @@
     },
     {
       "id": "AVYWENNA",
-      "name": "艾维文娜",
+      "name": "Avywenna",
       "rarity": 5,
       "element": "emag",
       "avatar": "/avatars/AVYWENNA/AVYWENNA.webp",
       "exclusive_buffs": [
         {
           "key": "Thunderlances",
-          "name": "雷枪",
+          "name": "Thunderlances",
           "path": "/avatars/AVYWENNA/icon_combo_skill_avywen_01.webp"
         },
         {
           "key": "Thunderlances EX",
-          "name": "强雷枪",
+          "name": "Thunderlances EX",
           "path": "/avatars/AVYWENNA/icon_ultimate_skill_avywen_01.webp"
         }
       ],
@@ -5149,9 +5149,19 @@
         }
       ],
       "ultimate_allowed_types": [
-        "Thunderlances EX"
+        "Thunderlances EX",
+        "emag_burst"
       ],
       "ultimate_anomalies": [
+        [
+          {
+            "type": "emag_burst",
+            "stacks": 1,
+            "duration": 10,
+            "offset": 0,
+            "_id": "0e8kj95"
+          }
+        ],
         [
           {
             "type": "Thunderlances EX",
@@ -5194,7 +5204,7 @@
       "variants": [
         {
           "id": "v_1767273720814",
-          "name": "战技-回收雷枪",
+          "name": "ES",
           "type": "skill",
           "duration": 1.13,
           "icon": "/avatars/AVYWENNA/icon_skill_avywen_01.webp",
@@ -5883,7 +5893,7 @@
       "variants": [
         {
           "id": "v_1765344273644",
-          "name": "强化战技",
+          "name": "ES",
           "type": "skill",
           "duration": 2.07,
           "allowedTypes": [],
@@ -6113,7 +6123,7 @@
     },
     {
       "id": "PERLICA",
-      "name": "佩丽卡",
+      "name": "Perlica",
       "rarity": 5,
       "element": "emag",
       "avatar": "/avatars/PERLICA/PERLICA.webp",
@@ -6846,7 +6856,7 @@
       "variants": [
         {
           "id": "v_1767274880488",
-          "name": "强化战技一",
+          "name": "ES一",
           "type": "skill",
           "duration": 1.67,
           "icon": "/avatars/ALESH/icon_skill_deepfin_01.webp",
@@ -6882,7 +6892,7 @@
         },
         {
           "id": "v_1770207286109",
-          "name": "强化战技二",
+          "name": "ES二",
           "type": "skill",
           "duration": 1.67,
           "icon": "/avatars/ALESH/icon_skill_deepfin_01.webp",
@@ -6916,7 +6926,7 @@
         },
         {
           "id": "v_1770207294718",
-          "name": "强化战技三",
+          "name": "ES三",
           "type": "skill",
           "duration": 1.67,
           "icon": "/avatars/ALESH/icon_skill_deepfin_01.webp",
@@ -6950,7 +6960,7 @@
         },
         {
           "id": "v_1770207303546",
-          "name": "强化战技四",
+          "name": "ES四",
           "type": "skill",
           "duration": 1.67,
           "icon": "/avatars/ALESH/icon_skill_deepfin_01.webp",
@@ -8732,20 +8742,20 @@
       "staggerNodeDuration": 2,
       "staggerBreakDuration": 11,
       "executionRecovery": 100,
-      "category": "天使",
-      "tier": "boss"
+      "category": "Boss",
+      "tier": "Boss"
     },
     {
       "id": "eny_0051_rodin",
-      "name": "“碾骨之拳”罗丹",
+      "name": "Rhodagn the Bonekrushing Fist",
       "avatar": "/Icon_Enemy/eny_0051_rodin.webp",
       "maxStagger": 280,
       "staggerNodeCount": 1,
       "staggerNodeDuration": 2,
       "staggerBreakDuration": 10,
       "executionRecovery": 100,
-      "category": "裂地者",
-      "tier": "boss"
+      "category": "Earthshaker",
+      "tier": "Boss"
     },
     {
       "id": "eny_0053_hsmob",
@@ -8756,7 +8766,7 @@
       "staggerNodeDuration": 0,
       "staggerBreakDuration": 6,
       "executionRecovery": 25,
-      "category": "沧贼",
+      "category": "Regular",
       "tier": "normal"
     },
     {
@@ -8768,7 +8778,7 @@
       "staggerNodeDuration": 0,
       "staggerBreakDuration": 7,
       "executionRecovery": 35,
-      "category": "野外生物",
+      "category": "Elite",
       "tier": "elite"
     },
     {
@@ -8780,7 +8790,7 @@
       "staggerNodeDuration": 2,
       "staggerBreakDuration": 9,
       "executionRecovery": 50,
-      "category": "天使",
+      "category": "Boss",
       "tier": "champion"
     },
     {
@@ -8792,7 +8802,7 @@
       "staggerNodeDuration": 2,
       "staggerBreakDuration": 7,
       "executionRecovery": 35,
-      "category": "野外生物",
+      "category": "Elite",
       "tier": "elite"
     },
     {
@@ -8804,15 +8814,15 @@
       "staggerNodeDuration": 2,
       "staggerBreakDuration": 9,
       "executionRecovery": 50,
-      "category": "裂地者",
+      "category": "Earthshaker",
       "tier": "champion"
     }
   ],
   "enemyCategories": [
-    "天使",
-    "裂地者",
-    "沧贼",
-    "野外生物"
+    "Boss",
+    "Earthshaker",
+    "Regular",
+    "Elite"
   ],
   "weaponDatabase": [
     {
@@ -9476,7 +9486,7 @@
     {
       "id": "wpn_lance_0011",
       "name": "J.E.T.",
-      "buffName": "太空物理学",
+      "buffName": "Astrophysics",
       "type": "lance",
       "rarity": 6,
       "duration": 15,
@@ -14647,82 +14657,82 @@
       },
       {
         "id": "agility",
-        "label": "敏捷提升",
+        "label": "Dex",
         "unit": "flat"
       },
       {
         "id": "intellect",
-        "label": "智识提升",
+        "label": "Int",
         "unit": "flat"
       },
       {
         "id": "will",
-        "label": "意志提升",
+        "label": "Will",
         "unit": "flat"
       },
       {
         "id": "attack",
-        "label": "攻击提升",
+        "label": "Attack",
         "unit": "percent"
       },
       {
         "id": "hp",
-        "label": "生命提升",
+        "label": "HP",
         "unit": "percent"
       },
       {
         "id": "crit_rate",
-        "label": "暴击率提升",
+        "label": "CR",
         "unit": "percent"
       },
       {
         "id": "blaze_dmg",
-        "label": "灼热伤害提升",
+        "label": "Fire dmg",
         "unit": "percent"
       },
       {
         "id": "emag_dmg",
-        "label": "电磁伤害提升",
+        "label": "Lightning dmg",
         "unit": "percent"
       },
       {
         "id": "cold_dmg",
-        "label": "寒冷伤害提升",
+        "label": "Cold dmg",
         "unit": "percent"
       },
       {
         "id": "nature_dmg",
-        "label": "自然伤害提升",
+        "label": "Nature dmg",
         "unit": "percent"
       },
       {
         "id": "healing_effect",
-        "label": "治疗效果提升",
+        "label": "Healing",
         "unit": "percent"
       },
       {
         "id": "physical_dmg",
-        "label": "物理伤害提升",
+        "label": "Physical dmg",
         "unit": "percent"
       },
       {
         "id": "arts_dmg",
-        "label": "法术伤害提升",
+        "label": "Arts dmg",
         "unit": "percent"
       },
       {
         "id": "originium_arts_power",
-        "label": "源石技艺强度提升",
+        "label": "Originium Arts",
         "unit": "flat"
       },
       {
         "id": "ult_charge_eff",
-        "label": "终结技充能效率提升",
+        "label": "Ult charge eff",
         "unit": "percent"
       },
       {
         "id": "link_cd_reduction",
-        "label": "连携冷却缩减提升",
+        "label": "Link CD reduction",
         "unit": "percent"
       }
     ],

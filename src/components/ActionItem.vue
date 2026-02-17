@@ -12,7 +12,7 @@ const props = defineProps({
 const store = useTimelineStore()
 const connectionHandler = useDragConnection()
 const TYPE_SHORTHAND = {
-  'attack': 'A', 'dodge': 'D', 'execution': 'X', 'skill': 'C', 'link': 'E', 'ultimate': 'U'
+  'attack': 'A', 'dodge': 'D', 'execution': 'F', 'skill': 'S', 'link': 'C', 'ultimate': 'U'
 }
 
 const isVariant = computed(() => {
@@ -523,7 +523,7 @@ function handleEffectDrop(effectId) {
       <div v-for="(tick, idx) in renderableTicks" :key="idx"
            class="damage-tick-wrapper"
            :style="tick.style"
-           :title="`时间: ${store.formatTimeLabel(tick.data.offset)}\n失衡值: ${tick.data.stagger || 0}\n技力回复: ${tick.data.sp || 0}`">
+           :title="`time: ${store.formatTimeLabel(tick.data.offset)}\nstagger: ${tick.data.stagger || 0}\nsp: ${tick.data.sp || 0}`">
         <div class="tick-marker"></div>
       </div>
     </div>

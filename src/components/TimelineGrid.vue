@@ -341,11 +341,11 @@ const equipmentSlotType = computed(() => {
 })
 
 const equipmentSlotLabel = computed(() => {
-  if (equipmentSlotKey.value === 'armor') return '护甲'
-  if (equipmentSlotKey.value === 'gloves') return '护手'
-  if (equipmentSlotKey.value === 'accessory1') return '配件 1'
-  if (equipmentSlotKey.value === 'accessory2') return '配件 2'
-  return '装备'
+  if (equipmentSlotKey.value === 'armor') return 'Armor'
+  if (equipmentSlotKey.value === 'gloves') return 'Gloves'
+  if (equipmentSlotKey.value === 'accessory1') return 'Accessory 1'
+  if (equipmentSlotKey.value === 'accessory2') return 'Accessory 2'
+  return 'Item'
 })
 
 const equipmentCandidates = computed(() => {
@@ -951,7 +951,7 @@ function onBoxMouseUp() {
       if (startPixel < selection.right && endPixel > selection.left) foundIds.push(action.instanceId)
     })
   })
-  if (foundIds.length > 0) { store.setMultiSelection(foundIds); ElMessage.success(`选中了 ${foundIds.length} 个动作`) }
+  if (foundIds.length > 0) { store.setMultiSelection(foundIds); ElMessage.success(`Selected ${foundIds.length} items`) }
   else { store.clearSelection() }
   boxRect.value = { left: 0, top: 0, width: 0, height: 0 }
 }
@@ -1517,7 +1517,7 @@ function handleKeyDown(event) {
     event.preventDefault();
     const result = store.removeCurrentSelection();
     if (result && result.total > 0) {
-      ElMessage.success({ message: '已删除', duration: 800 })
+      ElMessage.success({ message: 'Removed', duration: 800 })
     }
   }
   if (store.selectedActionId || store.multiSelectedIds.size > 0) {
@@ -1641,15 +1641,15 @@ onUnmounted(() => {
     <div class="corner-placeholder">
       <div class="corner-controls">
         <div class="corner-button-row">
-          <button class="mini-tool-btn" :class="{ 'is-active': store.showCursorGuide }" @click="store.toggleCursorGuide" title="辅助线 (Ctrl+G)">
+          <button class="mini-tool-btn" :class="{ 'is-active': store.showCursorGuide }" @click="store.toggleCursorGuide" title="Show cursor (Ctrl+G)">
             <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="6" x2="12" y2="18"></line><line x1="6" y1="12" x2="18" y2="12"></line></svg>
           </button>
           
-          <button class="mini-tool-btn" :class="{ 'is-active': store.isBoxSelectMode }" @click="store.toggleBoxSelectMode" title="框选 (Ctrl+B)">
+          <button class="mini-tool-btn" :class="{ 'is-active': store.isBoxSelectMode }" @click="store.toggleBoxSelectMode" title="Toggle selection mode (Ctrl+B)">
             <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 4"/><path d="M8 12h8" stroke-width="1.5"/><path d="M12 8v8" stroke-width="1.5"/></svg>
           </button>
           
-          <button class="mini-tool-btn" :class="{ 'is-active': store.snapStep < 0.1 }" @click="store.toggleSnapStep" title="吸附精度 (Alt+S)">
+          <button class="mini-tool-btn" :class="{ 'is-active': store.snapStep < 0.1 }" @click="store.toggleSnapStep" title="Toggle step (Alt+S)">
             <span class="btn-text">{{ store.snapStep < 0.05 ? '1f' : '0.1s' }}</span>
           </button>
           
@@ -1657,8 +1657,8 @@ onUnmounted(() => {
             <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 4h14c3 0 3 8 0 8h-14c-3 0-3 8 0 8h14" /><circle cx="5" cy="4" r="2" fill="currentColor"/><circle cx="19" cy="20" r="2" fill="currentColor"/></svg>
           </button>
 
-          <button class="mini-tool-btn" :class="{ 'is-active': store.useNewCompiler }" @click="store.toggleNewCompiler" title="新编译器 (Ctrl+G)">
-            <span class="btn-text">{{ store.useNewCompiler ? '新' : '旧' }}</span>
+          <button class="mini-tool-btn" :class="{ 'is-active': store.useNewCompiler }" @click="store.toggleNewCompiler" title="New compiler (Ctrl+G)">
+            <span class="btn-text">{{ store.useNewCompiler ? 'new' : 'old' }}</span>
           </button>
         </div>
         
@@ -1694,7 +1694,7 @@ onUnmounted(() => {
          class="prep-ruler-controls"
          :style="{ left: `${prepZoneWidthPxRounded}px` }"
        >
-         <button type="button" class="prep-mini-btn" title="设置战前准备时长" @click.stop="openPrepDurationEditor">
+         <button type="button" class="prep-mini-btn" title="Set preparation time" @click.stop="openPrepDurationEditor">
            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
              <circle cx="12" cy="12" r="9"></circle>
              <path d="M12 7v6l4 2"></path>
@@ -1702,7 +1702,7 @@ onUnmounted(() => {
          </button>
        </div>
        <div v-if="store.prepDuration > 0 && !store.prepExpanded" class="prep-zone-controls" :style="{ width: `${prepZoneWidthPxRounded}px`, bottom: showGameTime ? '40px' : '20px' }">
-         <button type="button" class="prep-mini-btn" title="设置战前准备时长" @click.stop="openPrepDurationEditor">
+         <button type="button" class="prep-mini-btn" title="Set preparation time" @click.stop="openPrepDurationEditor">
            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
              <circle cx="12" cy="12" r="9"></circle>
              <path d="M12 7v6l4 2"></path>
@@ -1727,7 +1727,7 @@ onUnmounted(() => {
 
       <div v-if="store.prepDuration > 0" class="prep-rtgt-wrapper" :style="{ width: `${prepZoneWidthPxRounded}px` }">
         <div v-if="showGameTime" class="prep-rtgt-row prep-rtgt-row--game">
-          <button type="button" class="timeline-label interactable" title="游戏时间（点击折叠）" @click.stop="isGameTimeCollapsed = true">
+          <button type="button" class="timeline-label interactable" title="Game Time（click to collapse）" @click.stop="isGameTimeCollapsed = true">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
               <text x="12" y="20" font-size="20" fill="currentColor" text-anchor="middle" font-weight="bold" font-family="sans-serif">G</text>
             </svg>
@@ -1738,14 +1738,14 @@ onUnmounted(() => {
         </div>
         <div class="prep-rtgt-row prep-rtgt-row--real">
           <template v-if="showGameTime">
-            <div class="timeline-label" title="现实时间">
+            <div class="timeline-label" title="Real time">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
                 <text x="12" y="20" font-size="20" fill="currentColor" text-anchor="middle" font-weight="bold" font-family="sans-serif">R</text>
               </svg>
             </div>
           </template>
           <template v-else>
-            <button type="button" class="timeline-label interactable expand-btn" title="展开游戏时间轴" @click.stop="isGameTimeCollapsed = false">
+            <button type="button" class="timeline-label interactable expand-btn" title="Expand the game timeline" @click.stop="isGameTimeCollapsed = false">
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="18 15 12 9 6 15"></polyline>
               </svg>
@@ -1802,7 +1802,7 @@ onUnmounted(() => {
            @dragend="onReorderDragEnd">
 
         <div class="track-controls">
-           <div class="reorder-btn arrow-btn up-btn" @click.stop="moveTrackUp(index)" :class="{ disabled: index === 0 }" title="上移">
+           <div class="reorder-btn arrow-btn up-btn" @click.stop="moveTrackUp(index)" :class="{ disabled: index === 0 }" title="Move up">
               <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="3" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
            </div>
            
@@ -1810,14 +1810,14 @@ onUnmounted(() => {
               <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><circle cx="8" cy="4" r="2"></circle><circle cx="8" cy="12" r="2"></circle><circle cx="8" cy="20" r="2"></circle><circle cx="16" cy="4" r="2"></circle><circle cx="16" cy="12" r="2"></circle><circle cx="16" cy="20" r="2"></circle></svg>
            </div>
 
-           <div class="reorder-btn arrow-btn down-btn" @click.stop="moveTrackDown(index)" :class="{ disabled: index === store.tracks.length - 1 }" title="下移">
+           <div class="reorder-btn arrow-btn down-btn" @click.stop="moveTrackDown(index)" :class="{ disabled: index === store.tracks.length - 1 }" title="Move down">
               <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="3" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
            </div>
         </div>
 
         <div class="char-select-trigger">
           <div class="operator-row">
-            <div class="trigger-avatar-box" @click.stop="openCharacterSelector(index)" title="点击更换干员">
+            <div class="trigger-avatar-box" @click.stop="openCharacterSelector(index)" title="Click to change operator">
               <img v-if="track.id" :src="track.avatar" class="avatar-image" :alt="track.name"/>
               <div v-else class="avatar-placeholder"></div>
               <div class="avatar-change-hint" v-if="track.id">
@@ -1830,13 +1830,13 @@ onUnmounted(() => {
               </div>
             </div>
             <div class="trigger-info" @click="!track.id && openCharacterSelector(index)">
-              <span class="trigger-name">{{ track.name || '请选择干员' }}</span>
+              <span class="trigger-name">{{ track.name || 'Please select an operator' }}</span>
             </div>
           </div>
 
           <div v-if="track.id" class="gear-panel">
             <div class="gear-row">
-              <div class="weapon-slot-compact" @click.stop="openWeaponSelector(index)" title="选择武器">
+              <div class="weapon-slot-compact" @click.stop="openWeaponSelector(index)" title="Choose a weapon">
                 <div class="weapon-box" :class="getWeaponForTrack(track) ? '' : 'weapon-empty'">
                   <img v-if="getWeaponForTrack(track)?.icon" :src="getWeaponForTrack(track).icon" @error="e=>e.target.style.display='none'" />
                   <div v-else class="weapon-placeholder"></div>
@@ -1844,19 +1844,19 @@ onUnmounted(() => {
               </div>
               <div class="equip-slots-compact">
                 <div class="equip-grid">
-                  <div class="equip-box" :class="getEquipmentForTrack(track, 'armor') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'armor')" title="护甲">
+                  <div class="equip-box" :class="getEquipmentForTrack(track, 'armor') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'armor')" title="Armor">
                     <img v-if="getEquipmentForTrack(track, 'armor')?.icon" :src="getEquipmentForTrack(track, 'armor').icon" @error="e=>e.target.style.display='none'" />
                     <div v-else class="equip-placeholder"></div>
                   </div>
-                  <div class="equip-box" :class="getEquipmentForTrack(track, 'gloves') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'gloves')" title="护手">
+                  <div class="equip-box" :class="getEquipmentForTrack(track, 'gloves') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'gloves')" title="Gloves">
                     <img v-if="getEquipmentForTrack(track, 'gloves')?.icon" :src="getEquipmentForTrack(track, 'gloves').icon" @error="e=>e.target.style.display='none'" />
                     <div v-else class="equip-placeholder"></div>
                   </div>
-                  <div class="equip-box" :class="getEquipmentForTrack(track, 'accessory1') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'accessory1')" title="配件 1">
+                  <div class="equip-box" :class="getEquipmentForTrack(track, 'accessory1') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'accessory1')" title="Accessory 1">
                     <img v-if="getEquipmentForTrack(track, 'accessory1')?.icon" :src="getEquipmentForTrack(track, 'accessory1').icon" @error="e=>e.target.style.display='none'" />
                     <div v-else class="equip-placeholder"></div>
                   </div>
-                  <div class="equip-box" :class="getEquipmentForTrack(track, 'accessory2') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'accessory2')" title="配件 2">
+                  <div class="equip-box" :class="getEquipmentForTrack(track, 'accessory2') ? '' : 'equip-empty'" @click.stop="openEquipmentSelector(index, 'accessory2')" title="Accessory 2">
                     <img v-if="getEquipmentForTrack(track, 'accessory2')?.icon" :src="getEquipmentForTrack(track, 'accessory2').icon" @error="e=>e.target.style.display='none'" />
                     <div v-else class="equip-placeholder"></div>
                   </div>
@@ -1866,7 +1866,7 @@ onUnmounted(() => {
 
             <div class="gear-hint-row">
               <div class="set-bonus-hint" :class="{ 'is-hidden': !store.getActiveSetBonusCategories(track.id)?.length }">
-                已激活套装效果
+                Set bonus
               </div>
             </div>
           </div>
@@ -1887,8 +1887,8 @@ onUnmounted(() => {
             {{ store.formatAxisTimeLabel(store.cursorCurrentTime) }}
           </div>
 
-          <div class="guide-sp-label">技力: {{ currentSpValue }}</div>
-          <div class="guide-stagger-label">失衡: {{ currentStaggerValue }}</div>
+          <div class="guide-sp-label">SP: {{ currentSpValue }}</div>
+          <div class="guide-stagger-label">Stagger: {{ currentStaggerValue }}</div>
         </div>
 
         <div v-for="boundary in store.cycleBoundaries"
@@ -1899,7 +1899,7 @@ onUnmounted(() => {
              @mousedown="onCycleLineMouseDown($event, boundary.id)">
 
           <div class="cycle-label-time">{{ store.formatAxisTimeLabel(boundary.time) }}</div>
-          <div class="cycle-label-text">循环分界线</div>
+          <div class="cycle-label-text">Cycle boundary line</div>
           <div class="cycle-hit-area"></div>
         </div>
 
@@ -1952,13 +1952,13 @@ onUnmounted(() => {
             class="prep-collapsed-entry"
             :style="{ width: `${prepZoneWidthPxRounded}px` }"
           >
-            <div class="prep-collapsed-text">战前准备</div>
-            <button type="button" class="prep-collapsed-toggle" @click.stop="store.togglePrepExpanded" title="点击展开">
+            <div class="prep-collapsed-text">Preparations</div>
+            <button type="button" class="prep-collapsed-toggle" @click.stop="store.togglePrepExpanded" title="Click to expand">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="8 6 16 12 8 18"></polyline>
               </svg>
             </button>
-            <div class="prep-collapsed-text">点击展开</div>
+            <div class="prep-collapsed-text">click to expand</div>
           </div>
 
           <div
@@ -1966,7 +1966,7 @@ onUnmounted(() => {
             class="prep-expanded-collapse"
             :style="{ left: `${Math.max(0, prepZoneWidthPxRounded - 18)}px` }"
           >
-            <button type="button" class="prep-mini-btn" title="收起战前准备区" @click.stop="store.togglePrepExpanded">
+            <button type="button" class="prep-mini-btn" title="Close preparations" @click.stop="store.togglePrepExpanded">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="16 6 8 12 16 18"></polyline>
               </svg>
@@ -2064,15 +2064,15 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <el-dialog v-model="isSelectorVisible" title="更换干员" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
+    <el-dialog v-model="isSelectorVisible" title="Operator" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
       <div class="selector-header">
         <div class="header-left-group">
-          <el-input v-model="searchQuery" placeholder="搜索干员名称..." :prefix-icon="Search" clearable style="width: 180px" />
-          <button class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-danger ea-btn--cut-left ea-btn--lift" @click="removeOperator" title="清空当前轨道">
+          <el-input v-model="searchQuery" placeholder="Search by name..." :prefix-icon="Search" clearable style="width: 180px" />
+          <button class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-danger ea-btn--cut-left ea-btn--lift" @click="removeOperator" title="Clear current track">
             <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
               <path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
             </svg>
-            卸下
+            Remove
           </button>
         </div>
         <div class="element-filters">
@@ -2093,23 +2093,23 @@ onUnmounted(() => {
                 <img :src="char.avatar" loading="lazy" /><div class="element-badge" :style="{ background: store.getColor(char.element) }"></div>
               </div>
               <div class="card-name">{{ char.name }}</div>
-              <div v-if="store.tracks.some(t => t.id === char.id)" class="in-team-tag">已上场</div>
+              <div v-if="store.tracks.some(t => t.id === char.id)" class="in-team-tag"></div>
             </div>
           </div>
         </template>
-        <div v-if="rosterByRarity.length === 0" class="empty-roster">没有找到匹配的干员</div>
+        <div v-if="rosterByRarity.length === 0" class="empty-roster">No OP</div>
       </div>
     </el-dialog>
 
-    <el-dialog v-model="isWeaponSelectorVisible" title="选择武器" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
+    <el-dialog v-model="isWeaponSelectorVisible" title="Choose a weapon" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
       <div class="selector-header">
         <div class="header-left-group">
-          <el-input v-model="weaponSearchQuery" placeholder="搜索武器名称..." :prefix-icon="Search" clearable style="width: 180px" />
+          <el-input v-model="weaponSearchQuery" placeholder="Search..." :prefix-icon="Search" clearable style="width: 180px" />
           <button class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-danger ea-btn--cut-left ea-btn--lift" :disabled="!currentWeaponForDialog" @click="removeWeapon" title="卸下当前武器">
             <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
               <path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
             </svg>
-            卸下
+            Remove
           </button>
         </div>
       </div>
@@ -2125,23 +2125,23 @@ onUnmounted(() => {
               <img :src="weapon.icon || '/weapons/default.webp'" loading="lazy" />
             </div>
             <div class="card-name">{{ weapon.name }}</div>
-            <div v-if="isWeaponEquipped(weapon.id)" class="in-team-tag weapon-equipped">已装备</div>
+            <div v-if="isWeaponEquipped(weapon.id)" class="in-team-tag weapon-equipped"></div>
           </div>
         </div>
       </template>
-      <div v-if="weaponRosterByRarity.length === 0" class="empty-roster">没有找到匹配的武器</div>
+      <div v-if="weaponRosterByRarity.length === 0" class="empty-roster">No matching weapon found</div>
     </div>
     </el-dialog>
 
-    <el-dialog v-model="isEquipmentSelectorVisible" :title="`选择装备 - ${equipmentSlotLabel}`" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
+    <el-dialog v-model="isEquipmentSelectorVisible" :title="`Select Equipment - ${equipmentSlotLabel}`" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
       <div class="selector-header">
         <div class="header-left-group">
-          <el-input v-model="equipmentSearchQuery" placeholder="搜索装备名称/ID..." :prefix-icon="Search" clearable style="width: 180px" />
+          <el-input v-model="equipmentSearchQuery" placeholder="Search by name/ID..." :prefix-icon="Search" clearable style="width: 180px" />
           <button class="ea-btn ea-btn--glass-cut ea-btn--glass-cut-danger ea-btn--cut-left ea-btn--lift" :disabled="!currentEquipmentForDialog" @click="removeEquipment" title="卸下当前装备">
             <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
               <path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
             </svg>
-            卸下
+            Remove
           </button>
           <div v-if="currentEquipmentForDialog?.level === 70" class="equipment-tier-picker">
             <span class="tier-label">精锻</span>
@@ -3470,7 +3470,7 @@ body.capture-mode .davinci-range {
 }
 
 .in-team-tag::before {
-  content: 'FIELDED';
+  content: 'SELECTED';
   margin-bottom: 2px;
 }
 

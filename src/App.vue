@@ -12,7 +12,7 @@ onMounted(async () => {
   // 2. 尝试读取浏览器缓存
   const hasAutoSave = store.loadFromBrowser()
   if (hasAutoSave) {
-    ElMessage.success('已恢复上次的进度')
+    ElMessage.success('Progress has been restored.')
   }
 
   // 3. 无论是否读取成功，都开启监听以进行后续的自动保存

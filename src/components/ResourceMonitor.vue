@@ -208,46 +208,46 @@ const transformStyle = computed(() => {
         </div>
         <div class="enemy-info-col">
           <div class="enemy-name">{{ activeEnemyInfo.name }}</div>
-          <div class="click-hint">点击更换敌人</div>
+          <div class="click-hint">Change</div>
         </div>
       </div>
 
       <div class="settings-scroll-area">
         <div class="section-container tech-style border-red">
-          <div class="panel-tag-mini red">敌人属性</div>
+          <div class="panel-tag-mini red">Enemy</div>
           <div class="attribute-grid-mini">
             <div class="control-row-mini">
-              <label>失衡上限</label>
+              <label>Stagger</label>
               <CustomNumberInput v-model="store.systemConstants.maxStagger" :min="1" active-color="#ff7875" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>失衡节点</label>
+              <label>Stagger nodes</label>
               <CustomNumberInput v-model="store.systemConstants.staggerNodeCount" :min="0" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>踉跄时长</label>
+              <label>Stagger node duration</label>
               <CustomNumberInput v-model="store.systemConstants.staggerNodeDuration" :step="0.1" active-color="#ff7875" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>失衡时长</label>
+              <label>Stagger break duration</label>
               <CustomNumberInput v-model="store.systemConstants.staggerBreakDuration" :step="0.5" active-color="#ff7875" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>处决回复</label>
+              <label>Finisher recovery</label>
               <CustomNumberInput v-model="store.systemConstants.executionRecovery" :min="0" class="standard-input" />
             </div>
           </div>
         </div>
 
         <div class="section-container tech-style border-gold">
-          <div class="panel-tag-mini gold">队伍属性</div>
+          <div class="panel-tag-mini gold">Team</div>
           <div class="attribute-grid-mini">
             <div class="control-row-mini">
-              <label>初始技力</label>
+              <label>Initial SP</label>
               <CustomNumberInput v-model="store.systemConstants.initialSp" :min="0" :max="300" active-color="#ffd700" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>回复 / 秒</label>
+              <label>SP regen</label>
               <CustomNumberInput v-model="store.systemConstants.spRegenRate" :step="0.5" :min="0" active-color="#ffd700" class="standard-input" />
             </div>
           </div>
@@ -341,9 +341,9 @@ const transformStyle = computed(() => {
       </div>
     </div>
 
-    <el-dialog v-model="isEnemySelectorVisible" title="选择敌人" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
+    <el-dialog v-model="isEnemySelectorVisible" title="Select enemy" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
       <div class="selector-header">
-        <el-input v-model="enemySearchQuery" placeholder="搜索敌人..." :prefix-icon="Search" clearable style="width: 100%" />
+        <el-input v-model="enemySearchQuery" placeholder="Search..." :prefix-icon="Search" clearable style="width: 100%" />
       </div>
 
       <div class="category-tabs">
@@ -369,7 +369,7 @@ const transformStyle = computed(() => {
 
         <div v-if="activeCategoryTab === 'ALL' && !enemySearchQuery" class="enemy-group-section">
           <div class="group-header">
-            特殊 <span class="count">(1)</span>
+            Special <span class="count">(1)</span>
           </div>
           <div class="group-items">
             <div class="enemy-card"
@@ -381,8 +381,8 @@ const transformStyle = computed(() => {
             </div>
 
               <div class="enemy-info">
-                <div class="name">自定义敌人</div>
-                <div class="desc">手动调整属性数值</div>
+                <div class="name">Custom enemy</div>
+                <div class="desc">Manually adjust</div>
               </div>
             </div>
           </div>
