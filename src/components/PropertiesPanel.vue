@@ -11,7 +11,7 @@ import { buildEffectBindingOptions } from '@/utils/effectBindingOptions.js'
 const store = useTimelineStore()
 const connectionHandler = useDragConnection()
 // ===================================================================================
-// 1. 常量与配置
+// 1. Constants & configuration
 // ===================================================================================
 const HIGHLIGHT_COLORS = {
   default: '#ffd700',
@@ -20,53 +20,53 @@ const HIGHLIGHT_COLORS = {
 }
 
 const EFFECT_NAMES = {
-  "break": "破防", "armor_break": "碎甲", "stagger": "猛击", "knockdown": "倒地", "knockup": "击飞",
-  "blaze_attach": "灼热附着", "emag_attach": "电磁附着", "cold_attach": "寒冷附着", "nature_attach": "自然附着",
-  "blaze_burst": "灼热爆发", "emag_burst": "电磁爆发", "cold_burst": "寒冷爆发", "nature_burst": "自然爆发",
-  "burning": "燃烧", "conductive": "导电", "frozen": "冻结", "ice_shatter": "碎冰", "corrosion": "腐蚀",
-  "default": "默认图标"
+  "break": "Vulnerable", "armor_break": "Crush", "stagger": "Breach", "knockdown": "Knockdown", "knockup": "Lifts",
+  "blaze_attach": "Fire Infliction", "emag_attach": "Electric Infliction", "cold_attach": "Cryo Infliction", "nature_attach": "Nature Infliction",
+  "blaze_burst": "Fire Burst", "emag_burst": "Electric Susceptibility", "cold_burst": "Cryo Burst", "nature_burst": "Nature Burst",
+  "burning": "Burning", "conductive": "Electrification", "frozen": "Frozen", "ice_shatter": "Solidification", "corrosion": "Corrosion",
+  "default": "default"
 }
 
 const GROUP_DEFINITIONS = [
-  { label: ' 物理异常 ', keys: ['break', 'armor_break', 'stagger', 'knockdown', 'knockup', 'ice_shatter'] },
-  { label: ' 元素附着', matcher: (key) => key.endsWith('_attach') },
-  { label: ' 元素爆发', matcher: (key) => key.endsWith('_burst') },
-  { label: ' 异常状态 ', keys: ['burning', 'conductive', 'frozen', 'corrosion'] },
-  { label: ' 其他', keys: ['default'] }
+  { label: ' Physical anomaly ', keys: ['break', 'armor_break', 'stagger', 'knockdown', 'knockup', 'ice_shatter'] },
+  { label: ' Element attachment', matcher: (key) => key.endsWith('_attach') },
+  { label: ' Elemental Burst', matcher: (key) => key.endsWith('_burst') },
+  { label: ' Abnormal state ', keys: ['burning', 'conductive', 'frozen', 'corrosion'] },
+  { label: ' other', keys: ['default'] }
 ]
 
 const PORT_OPTIONS = [
-  { label: '右', value: 'right' },
-  { label: '左', value: 'left' },
-  { label: '上', value: 'top' },
-  { label: '下', value: 'bottom' },
-  { label: '右上', value: 'top-right' },
-  { label: '右下', value: 'bottom-right' },
-  { label: '左上', value: 'top-left' },
-  { label: '左下', value: 'bottom-left' }
+  { label: 'R', value: 'right' },
+  { label: 'L', value: 'left' },
+  { label: 'T', value: 'top' },
+  { label: 'B', value: 'bottom' },
+  { label: 'TR', value: 'top-right' },
+  { label: 'BR', value: 'bottom-right' },
+  { label: 'TL', value: 'top-left' },
+  { label: 'BL', value: 'bottom-left' }
 ]
 
 const getFullTypeName = (type) => {
   const map = {
-    'attack': '重击',
-    'dodge': '闪避',
-    'skill': '战技',
-    'link': '连携',
-    'ultimate': '终结技',
-    'execution': '处决',
-    'weapon': '武器',
-    'set': '套装'
+    'attack': 'attack',
+    'dodge': 'dodge',
+    'skill': 'skill',
+    'link': 'link',
+    'ultimate': 'ultimate',
+    'execution': 'finisher',
+    'weapon': 'weapon',
+    'set': 'set'
   }
-  return map[type] || '技能'
+  return map[type] || '404'
 }
 
 // ===================================================================================
-// 2. 核心状态计算
+// 2. Core state calculations
 // ===================================================================================
 
 const isTicksExpanded = ref(false)
 const isBarsExpanded = ref(false)
-const localSelectedAnomalyId = ref(null) // 用于库模式下的本地选中状态
+const localSelectedAnomalyId = ref(null) // local selection state for library mode
 const selectedWeaponStatus = computed(() => {
   if (!store.selectedWeaponStatusId) return null
   return store.weaponStatuses.find(s => s.id === store.selectedWeaponStatusId) || null
@@ -80,21 +80,21 @@ const activeLibraryList = computed(() => {
 })
 const isWeaponLibraryMode = computed(() => store.selectedLibrarySource === 'weapon')
 
-// 监听选中切换，重置本地状态
+// Watch selection change, reset local state
 watch(() => store.selectedLibrarySkillId, () => {
   localSelectedAnomalyId.value = null
 })
 
 const targetData = computed(() => {
   if (store.selectedActionId) {
-    // 寻找实例
+    // Find instance
     for (const track of store.tracks) {
       const found = track.actions.find(a => a.instanceId === store.selectedActionId)
       if (found) return found
     }
   }
   if (store.selectedLibrarySkillId) {
-    // 寻找库模板
+    // Find library template
     return activeLibraryList.value.find(s => s.id === store.selectedLibrarySkillId)
   }
   if (selectedWeaponStatus.value) {
@@ -123,11 +123,11 @@ const currentCharacter = computed(() => {
 })
 
 const currentSkillType = computed(() => {
-  if (isWeaponStatusMode.value) return 'weapon'
+  //if (isWeaponStatusMode.value) return 'weapon'
   return targetData.value?.type || 'unknown'
 })
 
-// === 统一更新函数 ===
+// === Unified update function ===
 function commitUpdate(payload) {
   if (!targetData.value) return
 
@@ -148,15 +148,15 @@ function commitUpdate(payload) {
       return
     }
 
-    // 更新库技能 (Character/Weapon Overrides)
+    // Update library skill (Character/Weapon Overrides)
     store.updateLibrarySkill(targetData.value.id, payload)
   } else {
-    // 更新时间轴实例
+    // Update timeline instance
     store.updateAction(store.selectedActionId, payload)
   }
 }
 
-// === 异常状态相关 ===
+// === Anomaly related ===
 
 const anomalyRows = computed({
   get: () => targetData.value?.physicalAnomaly || [],
@@ -201,7 +201,7 @@ function isEditing(r, c) {
 }
 
 // ===================================================================================
-// 3. 技能与更新逻辑
+// 3. Skill & update logic
 // ===================================================================================
 
 function toggleEditEffect(r, c) {
@@ -212,10 +212,10 @@ function toggleEditEffect(r, c) {
   const targetId = effect._id
 
   if (isLibraryMode.value) {
-    // 库模式：使用本地状态
+    // Library mode: use local state
     localSelectedAnomalyId.value = (localSelectedAnomalyId.value === targetId) ? null : targetId
   } else {
-    // 实例模式：使用 Store 状态
+    // Instance mode: use Store state
     if (store.selectedAnomalyId === targetId) {
       store.setSelectedAnomalyId(null)
     } else {
@@ -359,7 +359,7 @@ function updateCustomBarItem(index, key, value) {
 }
 
 // ===================================================================================
-// 4. 资源与连线查询
+// 4. Resources & connection queries
 // ===================================================================================
 
 const iconOptions = computed(() => {
@@ -375,7 +375,7 @@ const iconOptions = computed(() => {
       label: `★ ${buff.name}`, value: buff.key, path: buff.path
     }))
     if (allowed && allowed.length > 0) exclusiveOpts = exclusiveOpts.filter(opt => allowed.includes(opt.value))
-    if (exclusiveOpts.length > 0) groups.push({ label: ' 专属效果 ', options: exclusiveOpts })
+    if (exclusiveOpts.length > 0) groups.push({ label: ' Exclusive effects ', options: exclusiveOpts })
   }
 
   const processedKeys = new Set()
@@ -400,7 +400,7 @@ const iconOptions = computed(() => {
   const remainingKeys = availableKeys.filter(k => !processedKeys.has(k))
   if (remainingKeys.length > 0) {
     groups.push({
-      label: '其他',
+      label: 'Other',
       options: remainingKeys.map(key => ({
         label: EFFECT_NAMES[key] || key, value: key, path: store.iconDatabase[key]
       }))
@@ -435,7 +435,7 @@ const relevantConnections = computed(() => {
         const otherActionWrap = store.getActionById(otherActionId)
         const otherAction = otherActionWrap?.node
         const otherCharId = otherActionWrap?.trackId
-        const otherActionName = otherAction?.name || '未知技能'
+        const otherActionName = otherAction?.name || 'Unknown'
 
         let myIconPath = null
         if (targetData.value) {
@@ -457,7 +457,7 @@ const relevantConnections = computed(() => {
 
         return {
           id: conn.id,
-          direction: isOutgoing ? '连向' : '来自',
+          direction: isOutgoing ? 'Out' : 'In',
           isOutgoing,
           rawConnection: conn,
           otherActionName,
@@ -505,9 +505,9 @@ function handleStartConnection(id, type) {
         <div class="left-group">
           <div class="header-icon-bar"></div>
           <h3 class="char-name">
-            {{ targetData ? targetData.name : '未选中技能' }}
+            {{ targetData ? targetData.name : 'No action' }}
           </h3>
-          <span v-if="targetData && isLibraryMode" class="mode-badge">全局模式</span>
+          <span v-if="targetData && isLibraryMode" class="mode-badge">Global mode</span>
         </div>
 
         <div class="right-group">
@@ -521,55 +521,55 @@ function handleStartConnection(id, type) {
 
     <div v-if="targetData" class="scrollable-content">
       <div class="section-container tech-style">
-        <div class="panel-tag-mini">基础属性</div>
+        <div class="panel-tag-mini">Basic attributes</div>
         <div class="attribute-grid">
           <div class="form-group compact">
-            <label>持续时间(s)</label>
+            <label>Duration(s)</label>
             <CustomNumberInput :model-value="targetData.duration" @update:model-value="val => updateActionProp('duration', val)" :step="0.1" :min="0" :activeColor="HIGHLIGHT_COLORS.default" text-align="center"/>
           </div>
           <div class="form-group compact" v-if="currentSkillType === 'link'">
-            <label>冷却时间(s)</label>
+            <label>CD(s)</label>
             <CustomNumberInput :model-value="targetData.cooldown" @update:model-value="val => updateActionProp('cooldown', val)" :min="0" :activeColor="HIGHLIGHT_COLORS.default" text-align="center"/>
           </div>
 
           <div class="form-group compact" v-if="currentSkillType === 'link' && !isLibraryMode">
-            <label>触发窗口(s)</label>
+            <label>Trigger window(s)</label>
             <CustomNumberInput :model-value="targetData.triggerWindow || 0" @update:model-value="val => updateActionProp('triggerWindow', val)" :step="0.1" :border-color="HIGHLIGHT_COLORS.default" text-align="center"/>
           </div>
 
           <div class="form-group compact" v-if="currentSkillType === 'skill'">
-            <label>技力消耗</label>
+            <label>SP cost</label>
             <CustomNumberInput :model-value="targetData.spCost" @update:model-value="val => updateActionProp('spCost', val)" :min="0" :border-color="HIGHLIGHT_COLORS.default" text-align="center"/>
           </div>
 
           <div class="form-group compact" v-if="currentSkillType === 'ultimate'">
-            <label>充能消耗</label>
+            <label>Gauge cost</label>
             <CustomNumberInput :model-value="targetData.gaugeCost" @update:model-value="val => updateActionProp('gaugeCost', val)" :min="0" :border-color="HIGHLIGHT_COLORS.blue" text-align="center"/>
           </div>
 
           <div class="form-group compact" v-if="!['execution','dodge','weapon','set'].includes(currentSkillType)">
-            <label>自身充能</label>
+            <label>Gauge</label>
             <CustomNumberInput :model-value="targetData.gaugeGain" @update:model-value="val => updateActionProp('gaugeGain', val)" :min="0" :border-color="HIGHLIGHT_COLORS.blue" text-align="center"/>
           </div>
 
           <div class="form-group compact" v-if="currentSkillType === 'skill'">
-            <label>队友充能</label>
+            <label>Team gauge</label>
             <CustomNumberInput :model-value="targetData.teamGaugeGain" @update:model-value="val => updateActionProp('teamGaugeGain', val)" :min="0" :border-color="HIGHLIGHT_COLORS.blue" text-align="center"/>
           </div>
 
           <div class="form-group compact" v-if="currentSkillType === 'ultimate'">
-            <label>强化时间(s)</label>
+            <label>Time(s)</label>
             <CustomNumberInput :model-value="targetData.enhancementTime || 0" @update:model-value="val => updateActionProp('enhancementTime', val)" :step="0.5" :min="0" activeColor="#b37feb" border-color="#b37feb" text-align="center"/></div>
         </div>
       </div>
 
       <div v-if="!isWeaponLibraryMode && !isWeaponStatusMode && !isSetLibraryMode && currentSkillType !== 'dodge'" class="section-container tech-style border-red" @click="isTicksExpanded = !isTicksExpanded" style="cursor: pointer;">
-        <div class="panel-tag-mini red">伤害判定点 ({{ (targetData.damageTicks || []).length }})</div>
+        <div class="panel-tag-mini red">Damage ({{ (targetData.damageTicks || []).length }})</div>
 
         <div class="section-header-tech">
           <div class="module-deco">
-            <span class="module-code">判定系统</span>
-            <span class="module-label">失衡: {{ totalStagger }} | 技力: {{ totalSpGain }}</span>
+            <span class="module-code">Stagger</span>
+            <span class="module-label">stagger: {{ totalStagger }} | SP: {{ totalSpGain }}</span>
           </div>
           <div class="spacer"></div>
           <button class="ea-btn ea-btn--icon ea-btn--icon-22 ea-btn--icon-plus ea-btn--icon-plus-red" @click.stop="addDamageTick">
@@ -579,7 +579,7 @@ function handleStartConnection(id, type) {
         </div>
 
         <div v-if="isTicksExpanded" class="section-content-tech" @click.stop>
-          <div v-if="!targetData.damageTicks || targetData.damageTicks.length === 0" class="empty-hint">暂无判定点</div>
+          <div v-if="!targetData.damageTicks || targetData.damageTicks.length === 0" class="empty-hint"></div>
             <div v-for="(tick, index) in (targetData.damageTicks || [])" :key="index" class="tick-item red-theme">
               <div class="tick-header">
                 <span class="tick-idx">HIT {{ index + 1 }}</span>
@@ -587,21 +587,21 @@ function handleStartConnection(id, type) {
               </div>
               <div class="tick-row">
                 <div class="tick-col">
-                  <label>触发时间</label>
+                  <label>offset</label>
                   <CustomNumberInput :model-value="tick.offset" @update:model-value="val => updateDamageTick(index, 'offset', val)" :step="0.1" :min="0" border-color="#ff7875" />
                 </div>
                 <div class="tick-col">
-                  <label>失衡值</label>
+                  <label>stagger</label>
                   <CustomNumberInput :model-value="tick.stagger" @update:model-value="val => updateDamageTick(index, 'stagger', val)" :step="1" :min="0" border-color="#ff7875" text-align="center"/>
                 </div>
                 <div class="tick-col">
-                  <label>技力回复</label>
+                  <label>sp</label>
                   <CustomNumberInput :model-value="tick.sp || 0" @update:model-value="val => updateDamageTick(index, 'sp', val)" :step="1" :min="0" border-color="#ffd700" text-align="center"/>
                 </div>
               </div>
               <div class="tick-row binding-row">
                 <div class="tick-col full-width">
-                  <label>绑定状态图标</label>
+                  <label>Status icon</label>
                   <el-select
                       :model-value="tick.boundEffects || []"
                       @update:model-value="val => updateDamageTick(index, 'boundEffects', val)"
@@ -609,7 +609,7 @@ function handleStartConnection(id, type) {
                       collapse-tags
                       collapse-tags-tooltip
                       popper-class="ea-tick-binding-popper"
-                      placeholder="选择要绑定的状态"
+                      placeholder="Select to bind"
                       size="small"
                       class="tick-select"
                       :disabled="availableEffectOptions.length === 0"
@@ -634,12 +634,12 @@ function handleStartConnection(id, type) {
       </div>
 
       <div v-if="!isWeaponLibraryMode && !isWeaponStatusMode && !isSetLibraryMode" class="section-container tech-style border-blue" @click="isBarsExpanded = !isBarsExpanded" style="cursor: pointer;">
-        <div class="panel-tag-mini blue">自定义时间条 ({{ customBarsList.length }})</div>
+        <div class="panel-tag-mini blue">Custom Bar ({{ customBarsList.length }})</div>
 
         <div class="section-header-tech">
           <div class="module-deco">
-            <span class="module-code">时序系统</span>
-            <span class="module-label">活跃条目: {{ customBarsList.length }}</span>
+            <span class="module-code">Timing System</span>
+            <span class="module-label">Active entries: {{ customBarsList.length }}</span>
           </div>
           <div class="spacer"></div>
           <button class="ea-btn ea-btn--icon ea-btn--icon-22 ea-btn--icon-plus ea-btn--icon-plus-cyan" @click.stop="addCustomBar">
@@ -649,19 +649,19 @@ function handleStartConnection(id, type) {
         </div>
 
         <div v-if="isBarsExpanded" class="section-content-tech" @click.stop>
-          <div v-if="customBarsList.length === 0" class="empty-hint">暂无时间条</div>
+          <div v-if="customBarsList.length === 0" class="empty-hint">None</div>
             <div v-for="(bar, index) in customBarsList" :key="index" class="tick-item blue-theme">
               <div class="tick-header">
-                <input type="text" :value="bar.text" @input="e => updateCustomBarItem(index, 'text', e.target.value)" placeholder="条目名称" class="simple-input">
+                <input type="text" :value="bar.text" @input="e => updateCustomBarItem(index, 'text', e.target.value)" placeholder="Entry Name" class="simple-input">
                 <button type="button" class="ea-btn ea-btn--icon ea-btn--icon-18 ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="removeCustomBar(index)">×</button>
               </div>
               <div class="tick-row">
                 <div class="tick-col">
-                  <label>触发时间(s)</label>
+                  <label>Trigger time(s)</label>
                   <CustomNumberInput :model-value="bar.offset" @update:model-value="val => updateCustomBarItem(index, 'offset', val)" :step="0.1" :min="0" border-color="#00e5ff" />
                 </div>
                 <div class="tick-col">
-                  <label>持续时间(s)</label>
+                  <label>Duration(s)</label>
                   <CustomNumberInput :model-value="bar.duration" @update:model-value="val => updateCustomBarItem(index, 'duration', val)" :step="0.5" :min="0" border-color="#00e5ff" />
                 </div>
             </div>
@@ -670,7 +670,7 @@ function handleStartConnection(id, type) {
       </div>
 
       <div v-if="!isWeaponLibraryMode && !isWeaponStatusMode && !isSetLibraryMode && currentSkillType !== 'dodge'" class="section-container tech-style">
-        <div class="panel-tag-mini">状态效果与排布</div>
+        <div class="panel-tag-mini">Status effects</div>
         <div class="anomalies-editor-container" style="background: transparent; border-color: rgba(255,255,255,0.1); margin-top: 10px;">
           <draggable v-model="anomalyRows" item-key="rowIndex" class="rows-container" handle=".row-handle" :animation="200">
             <template #item="{ element: row, index: rowIndex }">
@@ -686,7 +686,7 @@ function handleStartConnection(id, type) {
                     </div>
                   </template>
                 </draggable>
-                <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--icon-plus" @click="addEffectToRow(rowIndex)" title="追加">
+                <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--icon-plus" @click="addEffectToRow(rowIndex)" title="Append">
                   <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -700,22 +700,22 @@ function handleStartConnection(id, type) {
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            <span>添加新状态行</span>
+            <span>Add</span>
           </button>
         </div>
 
         <div v-if="editingEffectData && currentSelectedCoords" class="effect-detail-editor-embedded">
           <div class="editor-arrow"></div>
           <div class="editor-header-mini">
-            <div class="header-tag"></div> <span>编辑 [ 行{{ currentSelectedCoords.rowIndex + 1 }} : 列{{ currentSelectedCoords.colIndex + 1 }} ]</span>
+            <div class="header-tag"></div> <span>Edit [{{ currentSelectedCoords.rowIndex + 1 }}:{{ currentSelectedCoords.colIndex + 1 }}]</span>
             <div class="spacer"></div>
-            <button class="close-btn" @click="isLibraryMode ? (localSelectedAnomalyId = null) : store.setSelectedAnomalyId(null)">关闭</button>
+            <button class="close-btn" @click="isLibraryMode ? (localSelectedAnomalyId = null) : store.setSelectedAnomalyId(null)">Close</button>
           </div>
 
           <div class="editor-grid">
             <div class="full-width-col">
-              <label>类型</label>
-              <el-select :model-value="editingEffectData.type" @update:model-value="(val) => updateEffectProp('type', val)" placeholder="选择状态" filterable size="small" class="effect-select-dark">
+              <label>Type</label>
+              <el-select :model-value="editingEffectData.type" @update:model-value="(val) => updateEffectProp('type', val)" placeholder="Select status" filterable size="small" class="effect-select-dark">
                 <el-option-group v-for="group in iconOptions" :key="group.label" :label="group.label">
                   <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value">
                     <div class="opt-row">
@@ -727,15 +727,15 @@ function handleStartConnection(id, type) {
             </div>
 
             <div>
-              <label>触发时间</label>
+              <label>Trigger time</label>
               <CustomNumberInput :model-value="editingEffectData.offset || 0" @update:model-value="val => updateEffectProp('offset', val)" :step="0.1" :min="0" :activeColor="HIGHLIGHT_COLORS.default"/>
             </div>
             <div>
-              <label>层数</label>
+              <label>Stacks</label>
               <CustomNumberInput :model-value="editingEffectData.stacks" @update:model-value="val => updateEffectProp('stacks', val)" :min="1" :activeColor="HIGHLIGHT_COLORS.default"/>
             </div>
             <div>
-              <label>持续时间</label>
+              <label>Duration</label>
               <CustomNumberInput :model-value="editingEffectData.duration" @update:model-value="val => updateEffectProp('duration', val)" :min="0" :step="0.5" :activeColor="HIGHLIGHT_COLORS.default"/>
             </div>
           </div>
@@ -743,22 +743,22 @@ function handleStartConnection(id, type) {
           <div class="editor-actions">
             <button v-if="!isLibraryMode" class="ea-btn ea-btn--sm ea-btn--glass-rect ea-btn--accent-gold ea-btn--glass-rect-accent" @click.stop="handleStartConnection(activeAnomalyId, 'effect')"
                     :class="{ 'is-linking': connectionHandler.isDragging.value && connectionHandler.state.value.sourceId === activeAnomalyId }">
-              连线
+              ADD
             </button>
-            <button class="ea-btn ea-btn--sm ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="removeEffect(currentSelectedCoords.rowIndex, currentSelectedCoords.colIndex)">删除</button>
+            <button class="ea-btn ea-btn--sm ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="removeEffect(currentSelectedCoords.rowIndex, currentSelectedCoords.colIndex)">DEL</button>
           </div>
         </div>
       </div>
 
       <div v-if="!isLibraryMode && !isWeaponLibraryMode && !isWeaponStatusMode" class="section-container tech-style">
-        <div class="panel-tag-mini">技能连线关系</div>
+        <div class="panel-tag-mini">Skill Link Relations</div>
 
         <div class="connection-header-group">
           <div class="link-ctrl-deco">
             <div class="ctrl-bar"></div>
             <div class="ctrl-info">
-              <span class="ctrl-label">连线控制系统</span>
-              <span class="ctrl-count">当前连线: {{ relevantConnections.length }}</span>
+              <span class="ctrl-label">Link</span>
+              <span class="ctrl-count">Connections: {{ relevantConnections.length }}</span>
             </div>
           </div>
 
@@ -766,11 +766,11 @@ function handleStartConnection(id, type) {
 
           <button class="ea-btn ea-btn--sm ea-btn--glass-rect ea-btn--accent-gold ea-btn--glass-rect-accent" @click.stop="handleStartConnection(store.selectedActionId, 'action')" :class="{ 'is-linking': connectionHandler.isDragging.value && connectionHandler.state.value.sourceId === store.selectedActionId }">
             <span class="plus-icon"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
-            {{ (connectionHandler.isDragging.value) ? '选择目标' : '新建连线' }}
+            {{ (connectionHandler.isDragging.value) ? 'Pick' : 'New' }}
           </button>
         </div>
 
-        <div v-if="relevantConnections.length === 0" class="empty-hint">无连线</div>
+        <div v-if="relevantConnections.length === 0" class="empty-hint">None</div>
 
         <div class="connections-list">
           <div v-for="conn in relevantConnections" :key="conn.id" class="connection-card"
@@ -779,13 +779,13 @@ function handleStartConnection(id, type) {
             <div class="conn-vis">
               <div class="node">
                 <img v-if="conn.isOutgoing ? conn.myIconPath : conn.otherIconPath" :src="conn.isOutgoing ? conn.myIconPath : conn.otherIconPath" class="icon-s"/>
-                <span class="text-s">{{ conn.isOutgoing ? (targetData.name || '本技能') : conn.otherActionName }}</span>
+                <span class="text-s">{{ conn.isOutgoing ? (targetData.name || 'This skill') : conn.otherActionName }}</span>
               </div>
               <div class="direction-tag" :class="conn.isOutgoing ? 'to' : 'from'">
                 {{ conn.direction }}
               </div>
               <div class="node right">
-                <span class="text-s">{{ conn.isOutgoing ? conn.otherActionName : (targetData.name || '本技能') }}</span>
+                <span class="text-s">{{ conn.isOutgoing ? conn.otherActionName : (targetData.name || 'self') }}</span>
                 <img v-if="conn.isOutgoing ? conn.otherIconPath : conn.myIconPath" :src="conn.isOutgoing ? conn.otherIconPath : conn.myIconPath" class="icon-s"/>
               </div>
             </div>
@@ -793,14 +793,14 @@ function handleStartConnection(id, type) {
             <div class="conn-row-ports">
               <div class="port-config">
                 <div class="port-select-wrapper">
-                  <span class="port-label">出</span>
+                  <span class="port-label">Out</span>
                   <select class="mini-select" :value="conn.rawConnection.sourcePort || 'right'" @change="(e) => updateConnPort(conn.id, 'source', e)">
                     <option v-for="opt in PORT_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                   </select>
                 </div>
                 <span class="port-arrow">>></span>
                 <div class="port-select-wrapper">
-                  <span class="port-label">入</span>
+                  <span class="port-label">In</span>
                   <select class="mini-select" :value="conn.rawConnection.targetPort || 'left'" @change="(e) => updateConnPort(conn.id, 'target', e)">
                     <option v-for="opt in PORT_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                   </select>
@@ -813,11 +813,11 @@ function handleStartConnection(id, type) {
                 <div class="ea-btn ea-btn--glass-rect ea-btn--glass-rect-tag ea-btn--accent-gold ea-btn--glass-rect-hover-accent"
                      :class="{ 'active': conn.rawConnection.isConsumption }"
                      @click="store.updateConnection(conn.id, { isConsumption: !conn.rawConnection.isConsumption })">
-                  {{ conn.rawConnection.isConsumption ? '被消耗' : '消耗' }}
+                  {{ conn.rawConnection.isConsumption ? 'Consumed' : 'Consume' }}
                 </div>
 
                 <div v-if="conn.rawConnection.isConsumption" class="offset-mini">
-                  <span style="color: #666; font-size: 10px; margin-right: 2px; white-space: nowrap;">提前</span>
+                  <span style="color: #666; font-size: 10px; margin-right: 2px; white-space: nowrap;">Advance</span>
                   <CustomNumberInput
                       :model-value="conn.rawConnection.consumptionOffset || 0"
                       @update:model-value="val => store.updateConnection(conn.id, { consumptionOffset: val })"

@@ -12,44 +12,58 @@ import draggable from 'vuedraggable'
 const store = useTimelineStore()
 const { characterRoster, iconDatabase, enemyDatabase, enemyCategories, weaponDatabase, equipmentDatabase, equipmentCategories, equipmentCategoryConfigs, misc } = storeToRefs(store)
 
-// === 常量定义 ===
+// === Константы ===
 
 const ELEMENTS = [
-  { label: '灼热', value: 'blaze' },
-  { label: '寒冷', value: 'cold' },
-  { label: '电磁', value: 'emag' },
-  { label: '自然', value: 'nature' },
-  { label: '物理', value: 'physical' }
+  { label: 'Огонь', value: 'blaze' },
+  { label: 'Холод', value: 'cold' },
+  { label: 'Электромагнитный', value: 'emag' },
+  { label: 'Природа', value: 'nature' },
+  { label: 'Физический', value: 'physical' }
 ]
 
 const VARIANT_TYPES = [
-  { label: '重击', value: 'attack' },
-  { label: '战技', value: 'skill' },
-  { label: '连携', value: 'link' },
-  { label: '终结技', value: 'ultimate' },
-  { label: '处决', value: 'execution' }
+  { label: 'Атака', value: 'attack' },
+  { label: 'Навык', value: 'skill' },
+  { label: 'Связка', value: 'link' },
+  { label: 'Ультимейт', value: 'ultimate' },
+  { label: 'Казнь', value: 'execution' }
 ]
 
 const EFFECT_NAMES = {
-  "break": "破防", "armor_break": "碎甲", "stagger": "猛击", "knockdown": "倒地", "knockup": "击飞",
-  "blaze_attach": "灼热附着", "emag_attach": "电磁附着", "cold_attach": "寒冷附着", "nature_attach": "自然附着",
-  "blaze_burst": "灼热爆发", "emag_burst": "电磁爆发", "cold_burst": "寒冷爆发", "nature_burst": "自然爆发",
-  "burning": "燃烧", "conductive": "导电", "frozen": "冻结", "ice_shatter": "碎冰", "corrosion": "腐蚀",
-  "default": "默认图标"
+  "break": "Прорыв защиты",
+  "armor_break": "Разрушение брони",
+  "stagger": "Оглушение",
+  "knockdown": "Опрокидывание",
+  "knockup": "Подбрасывание",
+  "blaze_attach": "Наложение огня",
+  "emag_attach": "Наложение электромагнетизма",
+  "cold_attach": "Наложение холода",
+  "nature_attach": "Наложение природы",
+  "blaze_burst": "Взрыв огня",
+  "emag_burst": "Взрыв электромагнетизма",
+  "cold_burst": "Взрыв холода",
+  "nature_burst": "Взрыв природы",
+  "burning": "Горение",
+  "conductive": "Проводимость",
+  "frozen": "Заморозка",
+  "ice_shatter": "Дробление льда",
+  "corrosion": "Коррозия",
+  "default": "Иконка по умолчанию"
 }
 
 const WEAPON_TYPES = [
-  { label: '单手剑', value: 'sword' },
-  { label: '双手剑', value: 'claym' },
-  { label: '长柄武器', value: 'lance' },
-  { label: '手铳', value: 'pistol' },
-  { label: '施术单元', value: 'funnel' }
+  { label: 'Одноручный меч', value: 'sword' },
+  { label: 'Двуручный меч', value: 'claym' },
+  { label: 'Древковое оружие', value: 'lance' },
+  { label: 'Пистолет', value: 'pistol' },
+  { label: 'Модуль управления', value: 'funnel' }
 ]
 
 const EQUIPMENT_SLOTS = [
-  { label: '护甲', value: 'armor' },
-  { label: '护手', value: 'gloves' },
-  { label: '配件', value: 'accessory' }
+  { label: 'Броня', value: 'armor' },
+  { label: 'Перчатки', value: 'gloves' },
+  { label: 'Аксессуар', value: 'accessory' }
 ]
 
 const EQUIPMENT_LEVELS = [70, 50, 36, 20, 10]
@@ -71,7 +85,7 @@ const TIER_WEIGHTS = { 'boss': 4, 'champion': 3, 'elite': 2, 'normal': 1 }
 const HIDDEN_CHECKBOX_KEYS = ['default']
 const effectKeys = Object.keys(EFFECT_NAMES).filter(key => !HIDDEN_CHECKBOX_KEYS.includes(key))
 
-// === 状态与计算属性 ===
+// === Состояния и вычисляемые свойства ===
 
 const editingMode = ref('character') // 'character' | 'enemy' | 'weapon' | 'equipment' | 'misc'
 const searchQuery = ref('')
@@ -335,14 +349,14 @@ const groupedEnemies = computed(() => {
   enemyCategories.value.forEach(cat => {
     groups[cat] = []
   })
-  groups['未分类'] = []
+  groups['Несортированные'] = []
 
   list.forEach(enemy => {
     const cat = enemy.category
     if (cat && groups[cat]) {
       groups[cat].push(enemy)
     } else {
-      groups['未分类'].push(enemy)
+      groups['Несортированные'].push(enemy)
     }
   })
 
@@ -355,9 +369,9 @@ const groupedEnemies = computed(() => {
     }
   })
 
-  if (groups['未分类'].length > 0) {
-    groups['未分类'].sort((a, b) => (TIER_WEIGHTS[b.tier] || 0) - (TIER_WEIGHTS[a.tier] || 0))
-    result.push({ name: '未分类', list: groups['未分类'] })
+  if (groups['Несортированные'].length > 0) {
+    groups['Несортированные'].sort((a, b) => (TIER_WEIGHTS[b.tier] || 0) - (TIER_WEIGHTS[a.tier] || 0))
+    result.push({ name: 'Несортированные', list: groups['Несортированные'] })
   }
 
   return result
@@ -399,19 +413,19 @@ const filteredEquipment = computed(() => {
 const groupedEquipment = computed(() => {
   const groups = {}
   ;(equipmentCategories.value || []).forEach(cat => { groups[cat] = [] })
-  groups['未分类'] = []
+  groups['Несортированные'] = []
 
   filteredEquipment.value.forEach(eq => {
     const cat = eq.category
     if (cat && groups[cat]) groups[cat].push(eq)
-    else groups['未分类'].push(eq)
+    else groups['Несортированные'].push(eq)
   })
 
   const result = []
   ;(equipmentCategories.value || []).forEach(cat => {
     if (groups[cat].length > 0) result.push({ name: cat, list: groups[cat] })
   })
-  if (groups['未分类'].length > 0) result.push({ name: '未分类', list: groups['未分类'] })
+  if (groups['Несортированные'].length > 0) result.push({ name: 'Несортированные', list: groups['Несортированные'] })
 
   return result
 })
@@ -466,7 +480,7 @@ function applyAttackSegmentToAll({ includeDuration = false } = {}) {
     if (source.icon !== undefined) target.icon = source.icon
   }
 
-  ElMessage.success(includeDuration ? '已覆盖到所有段（包含持续时间）' : '已覆盖到所有段（不含持续时间）')
+  ElMessage.success(includeDuration ? 'Скопировано на все сегменты (с длительностью)' : 'Скопировано на все сегменты (без длительности)')
 }
 
 const selectedEnemy = computed(() => {
@@ -495,12 +509,12 @@ const equipmentAffixColumns = computed(() => {
   const is70 = Number(eq?.level) === 70
   return is70
     ? [
-        { label: '初始', index: 0 },
-        { label: '精锻1', index: 1 },
-        { label: '精锻2', index: 2 },
-        { label: '精锻3', index: 3 },
+        { label: 'Начальный', index: 0 },
+        { label: 'Улучшение 1', index: 1 },
+        { label: 'Улучшение 2', index: 2 },
+        { label: 'Улучшение 3', index: 3 },
       ]
-    : [{ label: '初始', index: 0 }]
+    : [{ label: 'Начальный', index: 0 }]
 })
 
 const modifierDefs = computed(() => misc.value?.modifierDefs || [])
@@ -537,7 +551,7 @@ const collapsedEnemyGroups = ref(new Set())
 const collapsedWeaponGroups = ref(new Set())
 const collapsedEquipmentGroups = ref(new Set())
 
-// === 生命周期 ===
+// === Жизненный цикл ===
 
 function scheduleEquipmentAffixEditorMount() {
   if (equipmentAffixEditorMounted.value) return
@@ -634,12 +648,12 @@ watch(() => selectedEquipment.value?.category, (newCat) => {
   ensureEquipmentCategoryConfig(newCat)
 }, { immediate: true })
 
-// === 操作方法 ===
+// === Методы ===
 
 function setMode(mode) {
   editingMode.value = mode
   searchQuery.value = ''
-  // 切换模式时自动选中第一个
+  // При смене режима автоматически выбираем первый элемент
   if (mode === 'enemy' && enemyDatabase.value && enemyDatabase.value.length > 0 && !selectedEnemyId.value) {
     selectedEnemyId.value = enemyDatabase.value[0].id
   } else if (mode === 'character' && characterRoster.value && characterRoster.value.length > 0 && !selectedCharId.value) {
@@ -804,9 +818,9 @@ async function applyEquipmentTemplate(eq) {
     const currentHasNonZero = currentValues.some(v => (Number(v) || 0) !== 0)
     if (currentHasNonZero) {
       try {
-        await ElMessageBox.confirm('模板数值全为 0，会清空当前数值，是否继续？', '提示', {
-          confirmButtonText: '继续',
-          cancelButtonText: '取消',
+        await ElMessageBox.confirm('Все значения шаблона равны 0. Это очистит текущие значения. Продолжить?', 'Подтверждение', {
+          confirmButtonText: 'Продолжить',
+          cancelButtonText: 'Отмена',
           type: 'warning',
         })
       } catch {
@@ -899,10 +913,10 @@ function addNewCharacter() {
   const allGlobalEffects = [...effectKeys]
 
   const newChar = {
-    id: newId, name: "新干员", rarity: 5, element: "physical", weapon: "sword", avatar: "/avatars/default.webp", exclusive_buffs: [],
+    id: newId, name: "Новый оператор", rarity: 5, element: "physical", weapon: "sword", avatar: "/avatars/default.webp", exclusive_buffs: [],
     accept_team_gauge: true,
 
-    // 初始化各类动作属性
+    // Инициализация различных действий
     attack_segments: Array.from({ length: ATTACK_SEGMENT_COUNT }, (_, idx) => ({
       duration: idx === 0 ? 2.5 : 0,
       gaugeGain: 0,
@@ -921,14 +935,14 @@ function addNewCharacter() {
 
   characterRoster.value.unshift(newChar)
   selectedCharId.value = newId
-  ElMessage.success('已添加新干员')
+  ElMessage.success('Новый оператор добавлен')
 }
 
 function addNewEnemy() {
   const newId = `enemy_${Date.now()}`
   const newEnemy = {
     id: newId,
-    name: '新敌人',
+    name: 'Новый враг',
     avatar: '/Icon_Enemy/default_enemy.webp',
     maxStagger: 100,
     staggerNodeCount: 0,
@@ -941,14 +955,14 @@ function addNewEnemy() {
   if (!enemyDatabase.value) enemyDatabase.value = []
   enemyDatabase.value.push(newEnemy)
   selectedEnemyId.value = newId
-  ElMessage.success('已添加新敌人')
+  ElMessage.success('Новый враг добавлен')
 }
 
 function addNewWeapon() {
   const newId = `wp_${Date.now()}`
   const newWeapon = {
     id: newId,
-    name: '新武器',
+    name: 'Новое оружие',
     buffName: '',
     type: 'sword',
     rarity: 3,
@@ -963,7 +977,7 @@ function addNewWeapon() {
   if (!weaponDatabase.value) weaponDatabase.value = []
   weaponDatabase.value.push(newWeapon)
   selectedWeaponId.value = newId
-  ElMessage.success('已添加新武器')
+  ElMessage.success('Новое оружие добавлено')
 }
 
 function addNewEquipment() {
@@ -971,7 +985,7 @@ function addNewEquipment() {
   const category = equipmentCategories.value?.[0] || ''
   const newEquipment = {
     id: newId,
-    name: '新装备',
+    name: 'Новое снаряжение',
     category,
     slot: 'armor',
     level: 70,
@@ -985,7 +999,7 @@ function addNewEquipment() {
     equipmentCategoryConfigs.value[category] = { setBonus: { duration: 0 } }
   }
 
-  ElMessage.success('已添加新装备')
+  ElMessage.success('Новое снаряжение добавлено')
 }
 
 function addCoreModifierDef(statId) {
@@ -993,7 +1007,7 @@ function addCoreModifierDef(statId) {
   ensureMiscRoot()
   if (modifierDefs.value.some(d => d.id === statId)) return
   const core = CORE_STATS.find(s => s.id === statId)
-  const newDef = { id: statId, label: core ? `${core.label}提升` : '新属性', unit: core?.unit || 'flat' }
+  const newDef = { id: statId, label: core ? `${core.label} повышение` : 'Новый атрибут', unit: core?.unit || 'flat' }
   misc.value.modifierDefs.push(newDef)
   ensureWeaponCommonEntry(statId)
   if (miscSection.value === 'weapon_table') {
@@ -1003,9 +1017,9 @@ function addCoreModifierDef(statId) {
 
 function removeModifierDef(id) {
   if (!id) return
-  ElMessageBox.confirm('确定要移除此属性吗？已配置到武器的引用会被清空。', '提示', {
-    confirmButtonText: '移除',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm('Вы уверены, что хотите удалить этот атрибут? Ссылки на него в оружии будут очищены.', 'Подтверждение', {
+    confirmButtonText: 'Удалить',
+    cancelButtonText: 'Отмена',
     type: 'warning'
   }).then(() => {
     const idx = misc.value.modifierDefs.findIndex(d => d.id === id)
@@ -1030,11 +1044,11 @@ function removeModifierDef(id) {
 function addEquipmentCategory() {
   const name = (newEquipmentCategoryName.value || '').trim()
   if (!name) {
-    ElMessage.warning('分类名称不能为空')
+    ElMessage.warning('Название категории не может быть пустым')
     return
   }
   if (equipmentCategories.value.includes(name)) {
-    ElMessage.warning('该分类已存在')
+    ElMessage.warning('Такая категория уже существует')
     return
   }
   equipmentCategories.value.push(name)
@@ -1042,14 +1056,14 @@ function addEquipmentCategory() {
     equipmentCategoryConfigs.value[name] = { setBonus: { duration: 0 } }
   }
   newEquipmentCategoryName.value = ''
-  ElMessage.success(`已添加分类：${name}`)
+  ElMessage.success(`Категория "${name}" добавлена`)
 }
 
 function deleteEquipmentCategory(name) {
   if (!name) return
-  ElMessageBox.confirm(`确定要删除装备分类 "${name}" 吗？该分类下的装备会变为未分类。`, '警告', {
-    confirmButtonText: '删除',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm(`Вы уверены, что хотите удалить категорию снаряжения "${name}"? Снаряжение в этой категории станет несортированным.`, 'Предупреждение', {
+    confirmButtonText: 'Удалить',
+    cancelButtonText: 'Отмена',
     type: 'warning'
   }).then(() => {
     for (const eq of equipmentDatabase.value || []) {
@@ -1064,23 +1078,23 @@ function deleteEquipmentCategory(name) {
 function addEnemyCategory() {
   const name = (newEnemyCategoryName.value || '').trim()
   if (!name) {
-    ElMessage.warning('分类名称不能为空')
+    ElMessage.warning('Название категории не может быть пустым')
     return
   }
   if (enemyCategories.value.includes(name)) {
-    ElMessage.warning('该分类已存在')
+    ElMessage.warning('Такая категория уже существует')
     return
   }
   enemyCategories.value.push(name)
   newEnemyCategoryName.value = ''
-  ElMessage.success(`已添加分类：${name}`)
+  ElMessage.success(`Категория "${name}" добавлена`)
 }
 
 function deleteEnemyCategory(name) {
   if (!name) return
-  ElMessageBox.confirm(`确定要删除敌人分类 "${name}" 吗？该分类下的敌人会变为未分类。`, '警告', {
-    confirmButtonText: '删除',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm(`Вы уверены, что хотите удалить категорию врагов "${name}"? Враги в этой категории станут несортированными.`, 'Предупреждение', {
+    confirmButtonText: 'Удалить',
+    cancelButtonText: 'Отмена',
     type: 'warning'
   }).then(() => {
     for (const enemy of enemyDatabase.value || []) {
@@ -1108,57 +1122,57 @@ function removeWeaponBuffBonusRow(index) {
 
 function deleteCurrentCharacter() {
   if (!selectedChar.value) return
-  ElMessageBox.confirm(`确定要删除干员 "${selectedChar.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+  ElMessageBox.confirm(`Вы уверены, что хотите удалить оператора "${selectedChar.value.name}"?`, 'Предупреждение', {
+    confirmButtonText: 'Удалить', cancelButtonText: 'Отмена', type: 'warning'
   }).then(() => {
     const idx = characterRoster.value.findIndex(c => c.id === selectedCharId.value)
     if (idx !== -1) {
       characterRoster.value.splice(idx, 1)
       if (characterRoster.value.length > 0) selectedCharId.value = characterRoster.value[0].id
       else selectedCharId.value = null
-      ElMessage.success('删除成功')
+      ElMessage.success('Удалено')
     }
   }).catch(() => {})
 }
 
 function deleteCurrentEnemy() {
   if (!selectedEnemy.value) return
-  ElMessageBox.confirm(`确定要删除敌人 "${selectedEnemy.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+  ElMessageBox.confirm(`Вы уверены, что хотите удалить врага "${selectedEnemy.value.name}"?`, 'Предупреждение', {
+    confirmButtonText: 'Удалить', cancelButtonText: 'Отмена', type: 'warning'
   }).then(() => {
     const idx = enemyDatabase.value.findIndex(e => e.id === selectedEnemyId.value)
     if (idx !== -1) {
       enemyDatabase.value.splice(idx, 1)
       selectedEnemyId.value = enemyDatabase.value.length > 0 ? enemyDatabase.value[0].id : null
-      ElMessage.success('删除成功')
+      ElMessage.success('Удалено')
     }
   }).catch(() => {})
 }
 
 function deleteCurrentWeapon() {
   if (!selectedWeapon.value) return
-  ElMessageBox.confirm(`确定要删除武器 "${selectedWeapon.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+  ElMessageBox.confirm(`Вы уверены, что хотите удалить оружие "${selectedWeapon.value.name}"?`, 'Предупреждение', {
+    confirmButtonText: 'Удалить', cancelButtonText: 'Отмена', type: 'warning'
   }).then(() => {
     const idx = weaponDatabase.value.findIndex(w => w.id === selectedWeaponId.value)
     if (idx !== -1) {
       weaponDatabase.value.splice(idx, 1)
       selectedWeaponId.value = weaponDatabase.value.length > 0 ? weaponDatabase.value[0].id : null
-      ElMessage.success('删除成功')
+      ElMessage.success('Удалено')
     }
   }).catch(() => {})
 }
 
 function deleteCurrentEquipment() {
   if (!selectedEquipment.value) return
-  ElMessageBox.confirm(`确定要删除装备 "${selectedEquipment.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+  ElMessageBox.confirm(`Вы уверены, что хотите удалить снаряжение "${selectedEquipment.value.name}"?`, 'Предупреждение', {
+    confirmButtonText: 'Удалить', cancelButtonText: 'Отмена', type: 'warning'
   }).then(() => {
     const idx = equipmentDatabase.value.findIndex(e => e.id === selectedEquipmentId.value)
     if (idx !== -1) {
       equipmentDatabase.value.splice(idx, 1)
       selectedEquipmentId.value = equipmentDatabase.value.length > 0 ? equipmentDatabase.value[0].id : null
-      ElMessage.success('删除成功')
+      ElMessage.success('Удалено')
     }
   }).catch(() => {})
 }
@@ -1219,7 +1233,7 @@ function setCategorySetBonusDuration(category, value) {
   equipmentCategoryConfigs.value[category].setBonus.duration = Number.isFinite(num) ? Math.max(0, num) : 0
 }
 
-// === 判定点逻辑 (Damage Ticks) ===
+// === Логика точек урона (Damage Ticks) ===
 function getDamageTicks(char, type) {
   if (!char) return []
 
@@ -1248,7 +1262,7 @@ function addDamageTick(char, type) {
   }
 
   const list = getDamageTicks(char, type)
-  // 默认判定点：0秒时，造成0失衡，回复0技力
+  // Точка по умолчанию: 0 сек, урон 0, восполнение энергии 0
   list.push({ offset: 0, stagger: 0, sp: 0, boundEffects: [] })
 }
 
@@ -1274,7 +1288,7 @@ function normalizeDamageTicks(list = []) {
 }
 
 
-// === 变体动作核心逻辑 ===
+// === Основная логика вариантов действий ===
 
 function getSnapshotFromBase(char, type) {
   if (type === 'attack') {
@@ -1283,7 +1297,7 @@ function getSnapshotFromBase(char, type) {
     return { duration: totalDuration, attackSegments }
   }
 
-  // 基础数值
+  // Базовые значения
   const snapshot = {
     duration: char[`${type}_duration`] || 1,
     element: char[`${type}_element`] || undefined,
@@ -1319,7 +1333,7 @@ function addVariant() {
 
   selectedChar.value.variants.push({
     id: `v_${Date.now()}`,
-    name: '强化重击',
+    name: 'Усиленная атака',
     type: defaultType,
     ...baseStats
   })
@@ -1348,16 +1362,16 @@ function onVariantTypeChange(variant, variantIdx) {
     delete variant.attackSegments
   }
 
-  if (variant.name === '新强化技能' || variant.name.startsWith('强化')) {
+  if (variant.name === 'Новый усиленный навык' || variant.name.startsWith('Усиленный')) {
     const typeObj = VARIANT_TYPES.find(t => t.value === variant.type)
     if (typeObj) {
       const labelName = typeObj.label
-      variant.name = `强化${labelName}`
+      variant.name = `Усиленный ${labelName.toLowerCase()}`
     }
   }
 }
 
-// === 变体Checkbox逻辑 ===
+// === Логика чекбоксов для вариантов ===
 
 function onVariantCheckChange(variant, variantIdx, key) {
   const list = getVariantAllowedTypesRef(variant, variantIdx)
@@ -1495,7 +1509,7 @@ function getVariantBindingOptions(variant, variantIdx) {
   return buildBindingOptionsFromAnomalies(raw)
 }
 
-// === 二维数组通用处理逻辑 ===
+// === Общая логика для двумерных массивов ===
 
 function getAnomalyRows(char, skillType) {
   if (!char) return []
@@ -1575,7 +1589,7 @@ function removeAnomaly(char, skillType, rowIndex, colIndex) {
   }
 }
 
-// 变体里的矩阵操作
+// Операции с матрицей для вариантов
 function addVariantRow(variant, variantIdx) {
   const anomalies = getVariantPhysicalAnomalyRef(variant, variantIdx)
   const allowedTypes = getVariantAllowedTypesRef(variant, variantIdx)
@@ -1606,7 +1620,7 @@ function getVariantTicks(variant, variantIdx) {
   return getVariantDamageTicksRef(variant, variantIdx)
 }
 
-// 变体里的判定点操作
+// Операции с точками урона для вариантов
 function addVariantDamageTick(variant, variantIdx) {
   const ticks = getVariantTicks(variant, variantIdx)
   ticks.push({ offset: 0, stagger: 0, sp: 0, boundEffects: [] })
@@ -1648,7 +1662,7 @@ function normalizeCharacterForSave(char) {
     if (!Array.isArray(seg.allowed_types)) seg.allowed_types = []
   }
 
-  // Legacy attack fields are no longer persisted.
+  // Устаревшие поля атаки больше не сохраняются
   delete char.attack_duration
   delete char.attack_gaugeGain
   delete char.attack_allowed_types
@@ -1678,7 +1692,7 @@ function normalizeCharacterForSave(char) {
 function saveData() {
   characterRoster.value.sort((a, b) => (b.rarity || 0) - (a.rarity || 0));
 
-  // Normalize optional fields so we don't persist placeholder sentinel values.
+  // Нормализуем опциональные поля, чтобы не сохранять значения-заглушки
   for (const char of characterRoster.value || []) {
     normalizeCharacterForSave(char)
     for (const key of Object.keys(char)) {
@@ -1688,7 +1702,7 @@ function saveData() {
     }
   }
 
-  // Normalize weapon optional fields
+  // Нормализуем опциональные поля оружия
   for (const weapon of weaponDatabase.value || []) {
     if (!Array.isArray(weapon.commonSlots)) {
       weapon.commonSlots = [
@@ -1713,7 +1727,7 @@ function saveData() {
     })).filter(b => b.modifierId)
   }
 
-  // Normalize misc fields
+  // Нормализуем misc поля
   ensureMiscRoot()
   misc.value.modifierDefs = normalizeModifierDefs(misc.value.modifierDefs)
   const normalizedCommon = {}
@@ -1775,45 +1789,45 @@ function saveData() {
           :class="{ 'is-active': editingMode === 'character' }"
           :style="{ '--ea-btn-accent': 'var(--ea-gold)' }"
           @click="setMode('character')"
-        >干员</button>
+        >Персонаж</button>
         <button
             class="ea-btn ea-btn--glass-cut"
             :class="{ 'is-active': editingMode === 'weapon' }"
             :style="{ '--ea-btn-accent': 'var(--ea-blue)' }"
             @click="setMode('weapon')"
-        >武器</button>
+        >Оружие</button>
         <button
             class="ea-btn ea-btn--glass-cut"
             :class="{ 'is-active': editingMode === 'equipment' }"
             :style="{ '--ea-btn-accent': 'var(--ea-success)' }"
             @click="setMode('equipment')"
-        >装备</button>
+        >Снаряжение</button>
         <button
           class="ea-btn ea-btn--glass-cut"
           :class="{ 'is-active': editingMode === 'enemy' }"
           :style="{ '--ea-btn-accent': 'var(--ea-danger-soft)' }"
           @click="setMode('enemy')"
-        >敌人</button>
+        >Враг</button>
         <button
           class="ea-btn ea-btn--glass-cut"
           :class="{ 'is-active': editingMode === 'misc' }"
           :style="{ '--ea-btn-accent': 'var(--ea-purple)' }"
           @click="setMode('misc')"
-        >杂项</button>
+        >Прочее</button>
       </div>
 
       <div class="sidebar-header">
         <h2>
           {{
             editingMode === 'character'
-              ? '干员数据'
+              ? 'Данные персонажа'
               : editingMode === 'enemy'
-                ? '敌人数据'
+                ? 'Данные врага'
                 : editingMode === 'weapon'
-                  ? '武器数据'
+                  ? 'Данные оружия'
                   : editingMode === 'equipment'
-                    ? '装备数据'
-                    : '杂项'
+                    ? 'Данные снаряжения'
+                    : 'Прочее'
           }}
         </h2>
         <button
@@ -1823,7 +1837,7 @@ function saveData() {
         >＋</button>
       </div>
       <div v-if="editingMode !== 'misc'" class="search-box">
-        <input v-model="searchQuery" placeholder="搜索 ID 或名称..." />
+        <input v-model="searchQuery" placeholder="Поиск по ID или имени..." />
       </div>
 
       <div v-if="editingMode === 'character'" class="char-list">
@@ -1877,7 +1891,7 @@ function saveData() {
         </div>
 
         <div v-if="groupedEnemies.length === 0" class="empty-hint">
-          暂无匹配的敌人
+          Нет подходящих врагов
         </div>
 
       </div>
@@ -1909,7 +1923,7 @@ function saveData() {
               <div class="char-info">
                 <span class="char-name">{{ weapon.name }}</span>
                 <span class="char-meta" :class="`rarity-${Math.max(3, weapon.rarity || 3)}`">
-                  {{ Math.max(3, weapon.rarity || 3) }}★ {{ (WEAPON_TYPES.find(w=>w.value===weapon.type)?.label || weapon.type || '未知') }}
+                  {{ Math.max(3, weapon.rarity || 3) }}★ {{ (WEAPON_TYPES.find(w=>w.value===weapon.type)?.label || weapon.type || 'Неизвестно') }}
                 </span>
               </div>
             </div>
@@ -1917,7 +1931,7 @@ function saveData() {
         </div>
 
         <div v-if="filteredWeapons.length === 0" class="empty-hint">
-          暂无武器，点击上方添加
+          Нет оружия, добавьте через кнопку выше
         </div>
       </div>
 
@@ -1948,7 +1962,7 @@ function saveData() {
               <div class="char-info">
                 <span class="char-name">{{ eq.name }}</span>
                 <span class="char-meta" :style="{ color: getEquipmentLevelColor(eq.level) }">
-                  {{ (EQUIPMENT_SLOTS.find(s=>s.value===eq.slot)?.label || eq.slot || '未知') }} · Lv{{ eq.level || 0 }}
+                  {{ (EQUIPMENT_SLOTS.find(s=>s.value===eq.slot)?.label || eq.slot || 'Неизвестно') }} · Ур.{{ eq.level || 0 }}
                 </span>
               </div>
             </div>
@@ -1956,39 +1970,39 @@ function saveData() {
         </div>
 
         <div v-if="filteredEquipment.length === 0" class="empty-hint">
-          暂无装备，点击上方添加
+          Нет снаряжения, добавьте через кнопку выше
         </div>
       </div>
 
       <div v-else-if="editingMode === 'misc'" class="char-list">
         <div class="char-item" :class="{ active: miscSection === 'stats' }" @click="miscSection = 'stats'">
           <div class="char-info">
-            <span class="char-name">所有属性</span>
-            <span class="char-meta" style="color:#aaa">排序 / 快速添加</span>
+            <span class="char-name">Все атрибуты</span>
+            <span class="char-meta" style="color:#aaa">Сортировка / быстрое добавление</span>
           </div>
         </div>
         <div class="char-item" :class="{ active: miscSection === 'weapon_table' }" @click="miscSection = 'weapon_table'">
           <div class="char-info">
-            <span class="char-name">武器词条数值</span>
-            <span class="char-meta" style="color:#aaa">1–9 级 / 大中小</span>
+            <span class="char-name">Значения модификаторов оружия</span>
+            <span class="char-meta" style="color:#aaa">1–9 ур. / большой/средний/малый</span>
           </div>
         </div>
         <div class="char-item" :class="{ active: miscSection === 'equipment_table' }" @click="miscSection = 'equipment_table'">
           <div class="char-info">
-            <span class="char-name">装备词条模板</span>
-            <span class="char-meta" style="color:#aaa">护甲/护手/配件</span>
+            <span class="char-name">Шаблоны аффиксов снаряжения</span>
+            <span class="char-meta" style="color:#aaa">Броня/Перчатки/Аксессуар</span>
           </div>
         </div>
         <div class="char-item" :class="{ active: miscSection === 'equipment_categories' }" @click="miscSection = 'equipment_categories'">
           <div class="char-info">
-            <span class="char-name">装备分类</span>
-            <span class="char-meta" style="color:#aaa">增删 / 排序</span>
+            <span class="char-name">Категории снаряжения</span>
+            <span class="char-meta" style="color:#aaa">Добавление / удаление / сортировка</span>
           </div>
         </div>
         <div class="char-item" :class="{ active: miscSection === 'enemy_categories' }" @click="miscSection = 'enemy_categories'">
           <div class="char-info">
-            <span class="char-name">敌人分类</span>
-            <span class="char-meta" style="color:#aaa">增删 / 排序</span>
+            <span class="char-name">Категории врагов</span>
+            <span class="char-meta" style="color:#aaa">Добавление / удаление / сортировка</span>
           </div>
         </div>
       </div>
@@ -2000,9 +2014,9 @@ function saveData() {
             <polyline points="17 21 17 13 7 13 7 21"></polyline>
             <polyline points="7 3 7 8 15 8"></polyline>
           </svg>
-          保存数据
+          Сохранить данные
         </button>
-        <router-link to="/" class="ea-btn ea-btn--block ea-btn--outline-muted">↩ 返回排轴器</router-link>
+        <router-link to="/" class="ea-btn ea-btn--block ea-btn--outline-muted">↩ Вернуться к таймлайну</router-link>
       </div>
     </aside>
 
@@ -2019,7 +2033,7 @@ function saveData() {
               <span class="id-tag">{{ selectedChar.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentCharacter">删除此干员</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentCharacter">Удалить персонажа</button>
         </header>
 
         <div class="cms-tabs">
@@ -2028,7 +2042,7 @@ function saveData() {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            基础信息
+            Основное
           </button>
 
           <button :class="{ active: activeTab === 'attack' }" @click="activeTab = 'attack'">
@@ -2038,14 +2052,14 @@ function saveData() {
               <path d="M16 16l4 4"></path>
               <path d="M19 21l2-2"></path>
             </svg>
-            重击
+            Атака
           </button>
 
           <button :class="{ active: activeTab === 'skill' }" @click="activeTab = 'skill'">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
-            战技
+            Навык
           </button>
 
           <button :class="{ active: activeTab === 'link' }" @click="activeTab = 'link'">
@@ -2053,14 +2067,14 @@ function saveData() {
               <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
               <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
             </svg>
-            连携
+            Связка
           </button>
 
           <button :class="{ active: activeTab === 'ultimate' }" @click="activeTab = 'ultimate'">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
             </svg>
-            终结技
+            Ультимейт
           </button>
 
           <button :class="{ active: activeTab === 'execution' }" @click="activeTab = 'execution'">
@@ -2071,7 +2085,7 @@ function saveData() {
               <line x1="12" y1="6" x2="12" y2="2"></line>
               <line x1="12" y1="22" x2="12" y2="18"></line>
             </svg>
-            处决
+            Казнь
           </button>
 
           <button :class="{ active: activeTab === 'dodge' }" @click="activeTab = 'dodge'">
@@ -2079,7 +2093,7 @@ function saveData() {
               <path d="M3 12c3-6 6-6 9 0s6 6 9 0"></path>
               <path d="M3 12c3 6 6 6 9 0s6-6 9 0"></path>
             </svg>
-            闪避
+            Уклонение
           </button>
 
           <button :class="{ active: activeTab === 'variants' }" @click="activeTab = 'variants'">
@@ -2088,18 +2102,18 @@ function saveData() {
               <polyline points="2 17 12 22 22 17"></polyline>
               <polyline points="2 12 12 17 22 12"></polyline>
             </svg>
-            变体
+            Варианты
           </button>
         </div>
 
         <div class="tab-content">
 
           <div v-show="activeTab === 'basic'" class="form-section">
-            <h3 class="section-title">基本属性</h3>
+            <h3 class="section-title">Основные атрибуты</h3>
             <div class="form-grid">
-              <div class="form-group"><label>名称</label><input v-model="selectedChar.name" type="text" /></div>
-              <div class="form-group"><label>ID (Unique)</label><input :value="selectedChar.id" @input="updateCharId" type="text" /></div>
-              <div class="form-group"><label>星级</label>
+              <div class="form-group"><label>Имя</label><input v-model="selectedChar.name" type="text" /></div>
+              <div class="form-group"><label>ID (уникальный)</label><input :value="selectedChar.id" @input="updateCharId" type="text" /></div>
+              <div class="form-group"><label>Редкость</label>
                 <el-select v-model="selectedChar.rarity" size="large" style="width: 100%">
                   <el-option :value="6" label="6 ★" />
                   <el-option :value="5" label="5 ★" />
@@ -2107,24 +2121,24 @@ function saveData() {
                 </el-select>
               </div>
               <div class="form-group">
-                <label>元素属性</label>
+                <label>Стихия</label>
                 <el-select v-model="selectedChar.element" size="large" style="width: 100%">
                   <el-option v-for="elm in ELEMENTS" :key="elm.value" :label="elm.label" :value="elm.value" />
                 </el-select>
               </div>
               <div class="form-group">
-                <label>武器类型</label>
+                <label>Тип оружия</label>
                 <el-select v-model="selectedChar.weapon" size="large" style="width: 100%">
                   <el-option v-for="wpn in WEAPON_TYPES" :key="wpn.value" :label="wpn.label" :value="wpn.value" />
                 </el-select>
               </div>
-              <div class="form-group full-width"><label>图标路径</label><input v-model="selectedChar.avatar" type="text" /></div>
+              <div class="form-group full-width"><label>Путь к иконке</label><input v-model="selectedChar.avatar" type="text" /></div>
             </div>
 
-            <h3 class="section-title">特殊机制</h3>
+            <h3 class="section-title">Особые механики</h3>
             <div class="form-grid">
               <div class="form-group">
-                <label>充能判定</label>
+                <label>Пополнение энергии</label>
                 <div class="checkbox-wrapper" :class="{ 'is-checked': selectedChar.accept_team_gauge !== false }">
                   <input
                       type="checkbox"
@@ -2132,27 +2146,27 @@ function saveData() {
                       :checked="selectedChar.accept_team_gauge !== false"
                       @change="e => selectedChar.accept_team_gauge = e.target.checked"
                   >
-                  <label for="cb_accept_gauge">接受队友充能</label>
+                  <label for="cb_accept_gauge">Получать энергию от команды</label>
                 </div>
               </div>
             </div>
 
-            <h3 class="section-title">专属效果</h3>
+            <h3 class="section-title">Эксклюзивные эффекты</h3>
             <div class="exclusive-list">
               <div v-for="(buff, idx) in selectedChar.exclusive_buffs" :key="idx" class="exclusive-row">
-                <input v-model="buff.key" placeholder="Key" />
-                <input v-model="buff.name" placeholder="显示名称" />
-                <input v-model="buff.path" placeholder="图标路径" class="flex-grow" />
+                <input v-model="buff.key" placeholder="Ключ" />
+                <input v-model="buff.name" placeholder="Отображаемое имя" />
+                <input v-model="buff.path" placeholder="Путь к иконке" class="flex-grow" />
                 <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="selectedChar.exclusive_buffs.splice(idx, 1)">×</button>
               </div>
-              <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="selectedChar.exclusive_buffs.push({key:'',name:'',path:''})">+ 添加专属效果</button>
+              <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="selectedChar.exclusive_buffs.push({key:'',name:'',path:''})">+ Добавить эксклюзивный эффект</button>
             </div>
           </div>
 
           <div v-show="activeTab === 'variants'" class="form-section">
             <div class="info-banner">
-              此处添加的动作将拥有<strong>独立的数值</strong>（从创建时刻的基础数值深拷贝而来）。<br>
-              修改此处数值不会影响基础技能，反之亦然。
+              Добавленные здесь действия имеют <strong>независимые значения</strong> (глубокая копия базовых значений на момент создания).<br>
+              Изменение здесь не влияет на базовые навыки, и наоборот.
             </div>
 
             <div v-for="(variant, idx) in (selectedChar.variants || [])" :key="idx" class="variant-card">
@@ -2163,69 +2177,69 @@ function saveData() {
 
               <div class="form-grid three-col">
                 <div class="form-group">
-                  <label>显示名称</label>
-                  <input v-model="variant.name" placeholder="例如：强化战技" />
+                  <label>Отображаемое имя</label>
+                  <input v-model="variant.name" placeholder="Например: Усиленный навык" />
                 </div>
                 <div class="form-group">
-                  <label>动作类型 (切换重置)</label>
+                  <label>Тип действия (сброс при смене)</label>
                   <el-select v-model="variant.type" size="large" style="width: 100%" @change="onVariantTypeChange(variant, idx)">
                     <el-option v-for="t in VARIANT_TYPES" :key="t.value" :label="t.label" :value="t.value" />
                   </el-select>
                 </div>
                 <div class="form-group">
-                  <label>唯一标识 (ID后缀)</label>
-                  <input v-model="variant.id" placeholder="英文key, 如 s1_enhanced" />
+                  <label>Уникальный ID (суффикс)</label>
+                  <input v-model="variant.id" placeholder="англ. ключ, например s1_enhanced" />
                 </div>
                 <div class="form-group" v-if="['skill', 'link', 'ultimate'].includes(variant.type)">
-                  <label>变体专属图标路径</label>
+                  <label>Путь к иконке варианта</label>
                   <input v-model="variant.icon" type="text"/>
                 </div>
 
-                <div class="form-group" v-if="variant.type !== 'attack'"><label>持续时间</label><input type="number" step="0.1" v-model.number="variant.duration"></div>
+                <div class="form-group" v-if="variant.type !== 'attack'"><label>Длительность</label><input type="number" step="0.1" v-model.number="variant.duration"></div>
 
                 <template v-if="variant.type === 'attack'">
                   <div class="form-group">
-                    <label>重击分段</label>
+                    <label>Сегмент атаки</label>
                     <el-select v-model="variantAttackSegmentIndexList[idx]" size="large" style="width: 100%">
-                      <el-option v-for="i in ATTACK_SEGMENT_COUNT" :key="`vseg_${idx}_${i}`" :label="`第${i}段`" :value="i - 1" />
+                      <el-option v-for="i in ATTACK_SEGMENT_COUNT" :key="`vseg_${idx}_${i}`" :label="`Сегмент ${i}`" :value="i - 1" />
                     </el-select>
                   </div>
-                  <div class="form-group"><label>总时长 (s)</label><input type="number" :value="getVariantAttackTotalDuration(variant)" disabled></div>
-                  <div class="form-group"><label>本段时长 (s)</label><input type="number" step="0.1" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].duration"></div>
-                  <div class="form-group"><label>本段自身充能</label><input type="number" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].gaugeGain"></div>
+                  <div class="form-group"><label>Общая длительность (с)</label><input type="number" :value="getVariantAttackTotalDuration(variant)" disabled></div>
+                  <div class="form-group"><label>Длительность сегмента (с)</label><input type="number" step="0.1" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].duration"></div>
+                  <div class="form-group"><label>Пополнение энергии (свой)</label><input type="number" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].gaugeGain"></div>
                   <div class="form-group full-width">
-                    <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="ensureVariantAttackSegments(variant, selectedChar, { force: true })">从基础重击重新深拷贝 5 段</button>
+                    <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="ensureVariantAttackSegments(variant, selectedChar, { force: true })">Перекопировать 5 сегментов из базовой атаки</button>
                   </div>
                 </template>
 
-                <div class="form-group" v-if="variant.type === 'skill'"><label>技力消耗</label><input type="number" v-model.number="variant.spCost"></div>
-                <div class="form-group" v-if="variant.type === 'skill'"><label>自身充能</label><input type="number" v-model.number="variant.gaugeGain"></div>
-                <div class="form-group" v-if="variant.type === 'skill'"><label>队友充能</label><input type="number" v-model.number="variant.teamGaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'skill'"><label>Стоимость энергии</label><input type="number" v-model.number="variant.spCost"></div>
+                <div class="form-group" v-if="variant.type === 'skill'"><label>Пополнение энергии (своё)</label><input type="number" v-model.number="variant.gaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'skill'"><label>Пополнение энергии (команда)</label><input type="number" v-model.number="variant.teamGaugeGain"></div>
 
-                <div class="form-group" v-if="variant.type === 'link'"><label>冷却时间 (CD)</label><input type="number" v-model.number="variant.cooldown"></div>
-                <div class="form-group" v-if="variant.type === 'link'"><label>自身充能</label><input type="number" v-model.number="variant.gaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'link'"><label>Время восстановления (CD)</label><input type="number" v-model.number="variant.cooldown"></div>
+                <div class="form-group" v-if="variant.type === 'link'"><label>Пополнение энергии (своё)</label><input type="number" v-model.number="variant.gaugeGain"></div>
 
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>充能消耗</label><input type="number" v-model.number="variant.gaugeCost"></div>
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>充能返还</label><input type="number" v-model.number="variant.gaugeGain"></div>
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>强化时间 (s)</label><input type="number" step="0.5" v-model.number="variant.enhancementTime"></div>
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>动画时间 (s)</label><input type="number" step="0.1" v-model.number="variant.animationTime"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Стоимость энергии</label><input type="number" v-model.number="variant.gaugeCost"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Возврат энергии</label><input type="number" v-model.number="variant.gaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Время усиления (с)</label><input type="number" step="0.5" v-model.number="variant.enhancementTime"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Время анимации (с)</label><input type="number" step="0.1" v-model.number="variant.animationTime"></div>
               </div>
 
               <div class="ticks-editor-area" style="margin-top: 10px;">
-                <label style="font-size: 12px; color: #aaa; font-weight: bold; display: block; margin-bottom: 5px;">伤害判定点</label>
-                <div v-if="getVariantTicks(variant, idx).length === 0" class="empty-ticks-hint">暂无判定点</div>
+                <label style="font-size: 12px; color: #aaa; font-weight: bold; display: block; margin-bottom: 5px;">Точки урона</label>
+                <div v-if="getVariantTicks(variant, idx).length === 0" class="empty-ticks-hint">Нет точек урона</div>
                 <div v-for="(tick, tIdx) in getVariantTicks(variant, idx)" :key="tIdx" class="tick-row">
                   <div class="tick-top">
                     <div class="tick-idx">HIT {{ tIdx + 1 }}</div>
                     <div class="tick-inputs">
-                      <div class="t-group"><label>时间(s)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ff7875">失衡值</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ffd700">回复技力</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
+                      <div class="t-group"><label>Время (с)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ff7875">Опрокидывание</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ffd700">Восполнение энергии</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="removeVariantDamageTick(variant, idx, tIdx)">×</button>
                   </div>
                   <div class="tick-binding">
-                    <label>绑定状态</label>
+                    <label>Привязанные эффекты</label>
                     <el-select
                         v-model="tick.boundEffects"
                         multiple
@@ -2234,7 +2248,7 @@ function saveData() {
                         popper-class="ea-tick-binding-popper"
                         size="small"
                         class="tick-select"
-                        placeholder="选择要绑定的状态"
+                        placeholder="Выберите эффекты для привязки"
                         :disabled="getVariantBindingOptions(variant, idx).length === 0"
                     >
                       <el-option v-for="opt in getVariantBindingOptions(variant, idx)" :key="opt.value" :label="opt.label" :value="opt.value">
@@ -2247,7 +2261,7 @@ function saveData() {
                     </el-select>
                   </div>
                 </div>
-                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 5px;" @click="addVariantDamageTick(variant, idx)">+ 添加判定点</button>
+                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 5px;" @click="addVariantDamageTick(variant, idx)">+ Добавить точку урона</button>
               </div>
 
               <div class="checkbox-grid" style="margin-top: 15px;">
@@ -2274,7 +2288,7 @@ function saveData() {
               </div>
 
               <div class="matrix-editor-area" style="margin-top: 15px; border-top: 1px dashed #444; padding-top: 15px;">
-                <label style="font-size: 12px; color: #aaa; margin-bottom: 8px; display: block; font-weight: bold;">附加异常状态</label>
+                <label style="font-size: 12px; color: #aaa; margin-bottom: 8px; display: block; font-weight: bold;">Дополнительные аномалии</label>
                 <div class="anomalies-grid-editor">
                   <div v-for="(row, rIndex) in (variant.type === 'attack' ? (variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].physicalAnomaly || []) : (variant.physicalAnomaly || []))" :key="rIndex" class="editor-row">
                     <div v-for="(item, cIndex) in row" :key="cIndex" class="editor-card">
@@ -2288,24 +2302,24 @@ function saveData() {
 
                       <div class="card-props-grid">
                         <div class="prop-item full-span">
-                          <label>层数 (Stacks)</label>
+                          <label>Слои (Stacks)</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.stacks" placeholder="1" class="mini-input">
-                            <span class="unit">层</span>
+                            <span class="unit">сл.</span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>触发 (Start)</label>
+                          <label>Смещение</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.offset" placeholder="0" step="0.1" class="mini-input">
-                            <span class="unit">s</span>
+                            <span class="unit">с</span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>持续 (Dur)</label>
+                          <label>Длит.</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.duration" placeholder="0" step="0.5" class="mini-input">
-                            <span class="unit">s</span>
+                            <span class="unit">с</span>
                           </div>
                         </div>
                       </div>
@@ -2313,17 +2327,17 @@ function saveData() {
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-40 ea-btn--icon-plus" @click="addVariantEffect(variant, idx, rIndex)">+</button>
                   </div>
-                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariantRow(variant, idx)" :disabled="getVariantAvailableOptions(variant, idx).length === 0">+ 新增效果行</button>
+                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariantRow(variant, idx)" :disabled="getVariantAvailableOptions(variant, idx).length === 0">+ Добавить строку эффектов</button>
                 </div>
               </div>
             </div>
 
-            <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariant" style="margin-top: 20px;">+ 添加新变体动作</button>
+            <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariant" style="margin-top: 20px;">+ Добавить новый вариант действия</button>
           </div>
 
           <template v-for="type in ['attack', 'skill', 'link', 'ultimate', 'execution', 'dodge']" :key="type">
             <div v-show="activeTab === type" class="form-section">
-              <h3 class="section-title">数值配置</h3>
+              <h3 class="section-title">Настройки значений</h3>
 
               <div v-if="type === 'attack'" class="attack-seg-toolbar">
                 <div class="attack-seg-buttons">
@@ -2333,67 +2347,67 @@ function saveData() {
                       class="ea-btn ea-btn--glass-cut ea-btn--sm"
                       :class="{ active: attackSegmentIndex === (i - 1) }"
                       @click="attackSegmentIndex = i - 1"
-                  >第{{ i }}段</button>
+                  >Сегмент {{ i }}</button>
                 </div>
                 <div class="attack-seg-meta">
-                  <span class="meta-item">总时长：{{ attackTotalDuration }}s</span>
-                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: false })">批量覆盖（不含时长）</button>
-                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: true })">批量覆盖（含时长）</button>
+                  <span class="meta-item">Общая длительность: {{ attackTotalDuration }}с</span>
+                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: false })">Копировать на все (без длительности)</button>
+                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: true })">Копировать на все (с длительностью)</button>
                 </div>
               </div>
 
               <div v-if="type === 'attack' && currentAttackSegment" class="form-grid three-col">
-                <div class="form-group"><label>本段持续时间 (s)</label><input type="number" step="0.1" v-model.number="currentAttackSegment.duration"></div>
-                <div class="form-group"><label>本段自身充能</label><input type="number" v-model.number="currentAttackSegment.gaugeGain"></div>
+                <div class="form-group"><label>Длительность сегмента (с)</label><input type="number" step="0.1" v-model.number="currentAttackSegment.duration"></div>
+                <div class="form-group"><label>Пополнение энергии (своё)</label><input type="number" v-model.number="currentAttackSegment.gaugeGain"></div>
               </div>
 
               <div v-else class="form-grid three-col">
                 <div class="form-group" v-if="type === 'skill' || type === 'ultimate'">
-                  <label>技能属性</label>
-                  <el-select v-model="selectedChar[`${type}_element`]" size="large" placeholder="默认 (跟随干员)" style="width: 100%">
-                    <el-option value="" label="默认 (跟随干员)" />
+                  <label>Стихия навыка</label>
+                  <el-select v-model="selectedChar[`${type}_element`]" size="large" placeholder="По умолчанию (стихия персонажа)" style="width: 100%">
+                    <el-option value="" label="По умолчанию (стихия персонажа)" />
                     <el-option v-for="elm in ELEMENTS" :key="elm.value" :label="elm.label" :value="elm.value" />
                   </el-select>
                 </div>
 
-                <div class="form-group" v-if="['skill', 'link', 'ultimate'].includes(type)"><label>自定义图标路径</label><input v-model="selectedChar[`${type}_icon`]" type="text"/></div>
+                <div class="form-group" v-if="['skill', 'link', 'ultimate'].includes(type)"><label>Путь к иконке</label><input v-model="selectedChar[`${type}_icon`]" type="text"/></div>
 
-                <div class="form-group"><label>持续时间 (s)</label><input type="number" step="0.1" v-model.number="selectedChar[`${type}_duration`]"></div>
+                <div class="form-group"><label>Длительность (с)</label><input type="number" step="0.1" v-model.number="selectedChar[`${type}_duration`]"></div>
 
-                <div class="form-group" v-if="type === 'skill'"><label>技力消耗</label><input type="number" v-model.number="selectedChar[`${type}_spCost`]"></div>
-                <div class="form-group" v-if="type === 'skill'"><label>自身充能</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]" @input="onSkillGaugeInput"></div>
-                <div class="form-group" v-if="type === 'skill'"><label>队友充能</label><input type="number" v-model.number="selectedChar[`${type}_teamGaugeGain`]"></div>
+                <div class="form-group" v-if="type === 'skill'"><label>Стоимость энергии</label><input type="number" v-model.number="selectedChar[`${type}_spCost`]"></div>
+                <div class="form-group" v-if="type === 'skill'"><label>Пополнение энергии (своё)</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]" @input="onSkillGaugeInput"></div>
+                <div class="form-group" v-if="type === 'skill'"><label>Пополнение энергии (команда)</label><input type="number" v-model.number="selectedChar[`${type}_teamGaugeGain`]"></div>
 
-                <div class="form-group" v-if="type === 'link'"><label>冷却时间 (s)</label><input type="number" v-model.number="selectedChar[`${type}_cooldown`]"></div>
-                <div class="form-group" v-if="type === 'link'"><label>自身充能</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]"></div>
+                <div class="form-group" v-if="type === 'link'"><label>Время восстановления (с)</label><input type="number" v-model.number="selectedChar[`${type}_cooldown`]"></div>
+                <div class="form-group" v-if="type === 'link'"><label>Пополнение энергии (своё)</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]"></div>
 
-                <div class="form-group" v-if="type === 'ultimate'"><label>充能消耗</label><input type="number" v-model.number="selectedChar[`${type}_gaugeMax`]"></div>
-                <div class="form-group" v-if="type === 'ultimate'"><label>自身充能</label><input type="number" v-model.number="selectedChar[`${type}_gaugeReply`]"></div>
-                <div class="form-group" v-if="type === 'ultimate'"><label>强化时间 (s)</label><input type="number" step="0.5" v-model.number="selectedChar[`${type}_enhancementTime`]"></div>
+                <div class="form-group" v-if="type === 'ultimate'"><label>Стоимость энергии</label><input type="number" v-model.number="selectedChar[`${type}_gaugeMax`]"></div>
+                <div class="form-group" v-if="type === 'ultimate'"><label>Пополнение энергии (своё)</label><input type="number" v-model.number="selectedChar[`${type}_gaugeReply`]"></div>
+                <div class="form-group" v-if="type === 'ultimate'"><label>Время усиления (с)</label><input type="number" step="0.5" v-model.number="selectedChar[`${type}_enhancementTime`]"></div>
                 <div class="form-group" v-if="type === 'ultimate'">
-                  <label>动画时间 (s)</label>
+                  <label>Время анимации (с)</label>
                   <input type="number" step="0.1" v-model.number="selectedChar[`${type}_animationTime`]">
                 </div>
               </div>
 
               <template v-if="type !== 'dodge'">
-                <h3 class="section-title">伤害判定点</h3>
+                <h3 class="section-title">Точки урона</h3>
               <div class="ticks-editor-area">
                 <div v-if="getDamageTicks(selectedChar, type).length === 0" class="empty-ticks-hint">
-                  暂无判定点，请点击下方按钮添加
+                  Нет точек урона, нажмите кнопку ниже, чтобы добавить
                 </div>
                 <div v-for="(tick, tIdx) in getDamageTicks(selectedChar, type)" :key="tIdx" class="tick-row">
                   <div class="tick-top">
                     <div class="tick-idx">HIT {{ tIdx + 1 }}</div>
                     <div class="tick-inputs">
-                      <div class="t-group"><label>时间(s)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ff7875">失衡值</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ffd700">回复技力</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
+                      <div class="t-group"><label>Время (с)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ff7875">Опрокидывание</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ffd700">Восполнение энергии</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="removeDamageTick(selectedChar, type, tIdx)">×</button>
                   </div>
                   <div class="tick-binding">
-                    <label>绑定状态</label>
+                    <label>Привязанные эффекты</label>
                     <el-select
                         v-model="tick.boundEffects"
                         multiple
@@ -2402,7 +2416,7 @@ function saveData() {
                         popper-class="ea-tick-binding-popper"
                         size="small"
                         class="tick-select"
-                        placeholder="选择要绑定的状态"
+                        placeholder="Выберите эффекты для привязки"
                         :disabled="getBindingOptions(type).length === 0"
                     >
                       <el-option v-for="opt in getBindingOptions(type)" :key="opt.value" :label="opt.label" :value="opt.value">
@@ -2415,10 +2429,10 @@ function saveData() {
                     </el-select>
                   </div>
                 </div>
-                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 10px;" @click="addDamageTick(selectedChar, type)">+ 添加判定点</button>
+                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 10px;" @click="addDamageTick(selectedChar, type)">+ Добавить точку урона</button>
               </div>
 
-              <h3 class="section-title">效果池配置</h3>
+              <h3 class="section-title">Пул эффектов</h3>
               <div v-if="type === 'attack' && currentAttackSegment" class="checkbox-grid">
                 <label v-for="key in effectKeys" :key="`${type}_${attackSegmentIndex}_${key}`" class="cb-item">
                   <input type="checkbox" :value="key" v-model="currentAttackSegment.allowed_types" @change="onCheckChange(selectedChar, type, key)">
@@ -2441,7 +2455,7 @@ function saveData() {
               </div>
 
               <div class="matrix-editor-area">
-                <h3 class="section-title">默认附带状态 (二维矩阵)</h3>
+                <h3 class="section-title">Прикреплённые эффекты (двумерная матрица)</h3>
                 <div class="anomalies-grid-editor">
                   <div v-for="(row, rIndex) in getAnomalyRows(selectedChar, type)" :key="rIndex" class="editor-row">
 
@@ -2456,24 +2470,24 @@ function saveData() {
 
                       <div class="card-props-grid">
                         <div class="prop-item full-span">
-                          <label>层数</label>
+                          <label>Слои</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.stacks" placeholder="1" class="mini-input">
-                            <span class="unit">层</span>
+                            <span class="unit">сл.</span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>触发</label>
+                          <label>Смещение</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.offset" placeholder="0" step="0.1" class="mini-input">
-                            <span class="unit">s</span>
+                            <span class="unit">с</span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>持续</label>
+                          <label>Длит.</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.duration" placeholder="0" step="0.5" class="mini-input">
-                            <span class="unit">s</span>
+                            <span class="unit">с</span>
                           </div>
                         </div>
                       </div>
@@ -2481,7 +2495,7 @@ function saveData() {
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-40 ea-btn--icon-plus" @click="addAnomalyToRow(selectedChar, type, rIndex)">+</button>
                   </div>
-                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addAnomalyRow(selectedChar, type)" :disabled="getAvailableAnomalyOptions(type).length === 0">+ 新增效果行</button>
+                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addAnomalyRow(selectedChar, type)" :disabled="getAvailableAnomalyOptions(type).length === 0">+ Добавить строку эффектов</button>
                 </div>
               </div>
               </template>
@@ -2502,16 +2516,16 @@ function saveData() {
               <span class="id-tag">{{ selectedEnemy.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEnemy">删除此敌人</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEnemy">Удалить врага</button>
         </header>
 
         <div class="form-section">
-          <h3 class="section-title">基本信息</h3>
+          <h3 class="section-title">Основная информация</h3>
           <div class="form-grid">
-            <div class="form-group"><label>名称</label><input v-model="selectedEnemy.name" /></div>
+            <div class="form-group"><label>Имя</label><input v-model="selectedEnemy.name" /></div>
             <div class="form-group"><label>ID</label><input :value="selectedEnemy.id" @change="updateEnemyId" /></div>
             <div class="form-group">
-              <label>等阶</label>
+              <label>Ранг</label>
               <el-select
                 v-model="selectedEnemy.tier"
                 size="large"
@@ -2525,23 +2539,23 @@ function saveData() {
 
             <div class="form-group">
               <div style="display:flex; align-items:center; justify-content:space-between;">
-                <label>分类</label>
+                <label>Категория</label>
               </div>
               <el-select v-model="selectedEnemy.category" size="large" style="width: 100%">
-                <el-option :value="''" label="未分类" />
+                <el-option :value="''" label="Несортированные" />
                 <el-option v-for="cat in enemyCategories" :key="cat" :label="cat" :value="cat" />
               </el-select>
             </div>
-            <div class="form-group full-width"><label>图标路径</label><input v-model="selectedEnemy.avatar" /></div>
+            <div class="form-group full-width"><label>Путь к иконке</label><input v-model="selectedEnemy.avatar" /></div>
           </div>
 
-          <h3 class="section-title">数值属性</h3>
+          <h3 class="section-title">Характеристики</h3>
           <div class="form-grid three-col">
-            <div class="form-group"><label style="color:#ff7875">失衡上限</label><input type="number" v-model.number="selectedEnemy.maxStagger"></div>
-            <div class="form-group"><label style="color:#ff7875">失衡节点数</label><input type="number" v-model.number="selectedEnemy.staggerNodeCount"></div>
-            <div class="form-group"><label style="color:#ff7875">踉跄时长 (s)</label><input type="number" step="0.1" v-model.number="selectedEnemy.staggerNodeDuration"></div>
-            <div class="form-group"><label style="color:#ff7875">失衡时长 (s)</label><input type="number" step="0.5" v-model.number="selectedEnemy.staggerBreakDuration"></div>
-            <div class="form-group"><label style="color:#ffd700">处决回复技力</label><input type="number" v-model.number="selectedEnemy.executionRecovery"></div>
+            <div class="form-group"><label style="color:#ff7875">Макс. опрокидывание</label><input type="number" v-model.number="selectedEnemy.maxStagger"></div>
+            <div class="form-group"><label style="color:#ff7875">Кол-во узлов опрокидывания</label><input type="number" v-model.number="selectedEnemy.staggerNodeCount"></div>
+            <div class="form-group"><label style="color:#ff7875">Длительность пошатывания (с)</label><input type="number" step="0.1" v-model.number="selectedEnemy.staggerNodeDuration"></div>
+            <div class="form-group"><label style="color:#ff7875">Длительность опрокидывания (с)</label><input type="number" step="0.5" v-model.number="selectedEnemy.staggerBreakDuration"></div>
+            <div class="form-group"><label style="color:#ffd700">Восполнение энергии при казни</label><input type="number" v-model.number="selectedEnemy.executionRecovery"></div>
           </div>
         </div>
       </div>
@@ -2561,48 +2575,48 @@ function saveData() {
               <span class="id-tag">{{ selectedEquipment.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEquipment">删除此装备</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEquipment">Удалить снаряжение</button>
         </header>
 
         <div class="form-section">
-          <h3 class="section-title">基础信息</h3>
+          <h3 class="section-title">Основная информация</h3>
           <div class="form-grid three-col">
-            <div class="form-group"><label>名称</label><input v-model="selectedEquipment.name" type="text" /></div>
-            <div class="form-group"><label>ID (Unique)</label><input :value="selectedEquipment.id" @input="updateEquipmentId" type="text" /></div>
+            <div class="form-group"><label>Имя</label><input v-model="selectedEquipment.name" type="text" /></div>
+            <div class="form-group"><label>ID (уникальный)</label><input :value="selectedEquipment.id" @input="updateEquipmentId" type="text" /></div>
             <div class="form-group">
-              <label>部位</label>
+              <label>Слот</label>
               <el-select v-model="selectedEquipment.slot" size="large" style="width: 100%">
                 <el-option v-for="s in EQUIPMENT_SLOTS" :key="s.value" :label="s.label" :value="s.value" />
               </el-select>
             </div>
             <div class="form-group">
-              <label>等级</label>
+              <label>Уровень</label>
               <el-select v-model="selectedEquipment.level" size="large" style="width: 100%">
-                <el-option v-for="lv in EQUIPMENT_LEVELS" :key="lv" :label="`Lv${lv}`" :value="lv" />
+                <el-option v-for="lv in EQUIPMENT_LEVELS" :key="lv" :label="`Ур.${lv}`" :value="lv" />
               </el-select>
             </div>
             <div class="form-group">
               <div style="display:flex; align-items:center; justify-content:space-between;">
-                <label>分类</label>
+                <label>Категория</label>
               </div>
               <el-select v-model="selectedEquipment.category" size="large" style="width: 100%">
-                <el-option :value="''" label="未分类" />
+                <el-option :value="''" label="Несортированные" />
                 <el-option v-for="cat in equipmentCategories" :key="cat" :label="cat" :value="cat" />
               </el-select>
             </div>
-            <div class="form-group full-width"><label>图标路径</label><input v-model="selectedEquipment.icon" type="text" /></div>
+            <div class="form-group full-width"><label>Путь к иконке</label><input v-model="selectedEquipment.icon" type="text" /></div>
           </div>
         </div>
 
         <div class="form-section">
-          <h3 class="section-title">三件套（套装 BUFF）</h3>
+          <h3 class="section-title">Сетовый бонус (3 предмета)</h3>
           <div class="form-grid three-col">
             <div class="form-group">
-              <label>BUFF 名称（固定等于分类名）</label>
+              <label>Название баффа (равно категории)</label>
               <input :value="selectedEquipment.category || ''" disabled />
             </div>
             <div class="form-group">
-              <label>持续时间 (s)</label>
+              <label>Длительность (с)</label>
               <input
                   type="number"
                   min="0"
@@ -2615,27 +2629,27 @@ function saveData() {
         </div>
 
         <div class="form-section">
-          <h3 class="section-title">装备词条数值</h3>
+          <h3 class="section-title">Значения аффиксов</h3>
           <div class="info-banner">
-            Lv70 装备支持“初始 / 精锻1 / 精锻2 / 精锻3”四档；非 Lv70 仅支持“初始数值”。副词条可为空；适配词条可多选（用于寒冷+电磁等组合）。
+            Снаряжение Ур.70 поддерживает «Начальный / Улучшение 1 / Улучшение 2 / Улучшение 3»; ниже Ур.70 только «Начальное значение». Вторичный аффикс может быть пустым; адаптер может содержать несколько модификаторов (например, для комбинаций Холод+Электромагнитный).
           </div>
 
           <div v-if="Number(selectedEquipment.level) === 70" class="attack-seg-toolbar" style="margin-bottom: 12px;">
             <div class="attack-seg-meta" style="justify-content: space-between;">
-              <span class="meta-item">可精锻属性：4 档</span>
-              <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyEquipmentTemplate(selectedEquipment)">套用部位模板（仅数值）</button>
+              <span class="meta-item">Улучшаемые аффиксы: 4 ступени</span>
+              <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyEquipmentTemplate(selectedEquipment)">Применить шаблон слота (только значения)</button>
             </div>
           </div>
 
           <div v-if="selectedEquipmentAffixes" class="matrix-grid" :style="{ gridTemplateColumns: `140px 200px repeat(${equipmentAffixColumns.length}, 1fr)` }">
-            <div class="matrix-cell header-corner">词条</div>
-            <div class="matrix-cell header-level">属性</div>
+            <div class="matrix-cell header-corner">Аффикс</div>
+            <div class="matrix-cell header-level">Модификатор</div>
             <div v-for="col in equipmentAffixColumns" :key="`eq_col_${col.index}`" class="matrix-cell header-level">{{ col.label }}</div>
 
-            <div class="matrix-cell row-label large">主词条</div>
+            <div class="matrix-cell row-label large">Основной</div>
             <div class="matrix-cell">
-              <el-select v-model="selectedEquipmentAffixes.primary1.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="请选择">
-                <el-option :value="null" label="（无）" />
+              <el-select v-model="selectedEquipmentAffixes.primary1.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="Выберите">
+                <el-option :value="null" label="(нет)" />
                 <el-option v-for="opt in primaryStatOptions" :key="`p1_${opt.value}`" :label="opt.label" :value="opt.value" />
               </el-select>
             </div>
@@ -2643,10 +2657,10 @@ function saveData() {
               <input type="number" step="0.1" v-model.number="selectedEquipmentAffixes.primary1.values[col.index]" class="matrix-input" />
             </div>
 
-            <div class="matrix-cell row-label medium">副词条</div>
+            <div class="matrix-cell row-label medium">Вторичный</div>
             <div class="matrix-cell">
-              <el-select v-model="selectedEquipmentAffixes.primary2.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="请选择">
-                <el-option :value="null" label="（无）" />
+              <el-select v-model="selectedEquipmentAffixes.primary2.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="Выберите">
+                <el-option :value="null" label="(нет)" />
                 <el-option v-for="opt in primaryStatOptions" :key="`p2_${opt.value}`" :label="opt.label" :value="opt.value" />
               </el-select>
             </div>
@@ -2654,7 +2668,7 @@ function saveData() {
               <input type="number" step="0.1" v-model.number="selectedEquipmentAffixes.primary2.values[col.index]" class="matrix-input" />
             </div>
 
-            <div class="matrix-cell row-label small">属性加成</div>
+            <div class="matrix-cell row-label small">Адаптер</div>
             <div class="matrix-cell" style="overflow: visible;">
               <el-select-v2
                   v-model="selectedEquipmentAffixes.adapter.modifierIds"
@@ -2666,7 +2680,7 @@ function saveData() {
                   style="width: 100%"
                   :teleported="true"
                   :options="equipmentModifierOptionsV2"
-                  placeholder="请选择"
+                  placeholder="Выберите"
               />
             </div>
             <div v-for="col in equipmentAffixColumns" :key="`adv_${col.index}`" class="matrix-cell">
@@ -2683,28 +2697,28 @@ function saveData() {
               <h1 class="edit-title">
                 {{
                   miscSection === 'stats'
-                    ? '所有属性'
+                    ? 'Все атрибуты'
                     : miscSection === 'weapon_table'
-                      ? '武器词条数值'
+                      ? 'Значения модификаторов оружия'
                       : miscSection === 'equipment_table'
-                        ? '装备词条模板'
+                        ? 'Шаблоны аффиксов снаряжения'
                       : miscSection === 'equipment_categories'
-                        ? '装备分类'
-                        : '敌人分类'
+                        ? 'Категории снаряжения'
+                        : 'Категории врагов'
                 }}
               </h1>
-              <span class="id-tag">杂项</span>
+              <span class="id-tag">Прочее</span>
             </div>
           </div>
         </header>
 
         <div v-if="miscSection === 'stats'" class="form-section">
           <div class="info-banner">
-            这里只维护“已适配”的属性；武器/装备数值只有配置到这些属性上才会生效。
+            Здесь перечислены только «поддерживаемые» атрибуты; значения оружия/снаряжения будут работать только для атрибутов из этого списка.
           </div>
 
           <div v-if="availableCoreStatsToAdd.length > 0" style="margin-top: 18px;">
-            <h3 class="section-title">快速添加（已适配属性）</h3>
+            <h3 class="section-title">Быстрое добавление (поддерживаемые атрибуты)</h3>
             <div style="display:flex; flex-wrap: wrap; gap: 10px;">
               <button
                   v-for="s in availableCoreStatsToAdd"
@@ -2712,14 +2726,14 @@ function saveData() {
                   class="ea-btn ea-btn--glass-cut"
                   :style="{ '--ea-btn-accent': s.unit === 'percent' ? 'var(--ea-gold)' : 'var(--ea-purple)' }"
                   @click="addCoreModifierDef(s.id)"
-              >{{ s.label }}提升</button>
+              >{{ s.label }} повышение</button>
             </div>
           </div>
 
-          <h3 class="section-title" style="margin-top: 18px;">属性列表（可拖拽排序）</h3>
+          <h3 class="section-title" style="margin-top: 18px;">Список атрибутов (можно сортировать перетаскиванием)</h3>
 
           <div v-if="misc.modifierDefs.length === 0" class="empty-hint">
-            暂无属性，请使用上方“快速添加”
+            Нет атрибутов, используйте «Быстрое добавление» выше
           </div>
 
           <draggable v-model="misc.modifierDefs" :item-key="(item) => item.id" handle=".drag-handle" :animation="150">
@@ -2729,18 +2743,18 @@ function saveData() {
                 <div class="flex-grow">
                   <div class="form-grid" style="grid-template-columns: 1fr 160px 110px; gap: 12px; align-items:end;">
                     <div class="form-group">
-                      <label>名称</label>
+                      <label>Название</label>
                       <input v-model="element.label" type="text" />
                     </div>
                     <div class="form-group">
-                      <label>单位</label>
+                      <label>Единицы</label>
                       <div class="unit-badge" :class="element.unit">
-                        {{ element.unit === 'percent' ? '百分比 (%)' : '固定数值' }}
+                        {{ element.unit === 'percent' ? 'Процент (%)' : 'Фиксированное число' }}
                       </div>
                     </div>
                     <div class="form-group">
-                      <label>操作</label>
-                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeModifierDef(element.id)">移除</button>
+                      <label>Действие</label>
+                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeModifierDef(element.id)">Удалить</button>
                     </div>
                   </div>
                 </div>
@@ -2750,13 +2764,13 @@ function saveData() {
         </div>
 
         <div v-else-if="miscSection === 'weapon_table'" class="form-section">
-          <h3 class="section-title">武器词条数值表</h3>
+          <h3 class="section-title">Таблица значений модификаторов оружия</h3>
           <div class="info-banner">
-            此处配置属性在不同等级（1-9级）和不同幅度（大/中/小）下的具体数值。<br>
+            Здесь настраиваются значения для разных уровней (1-9) и размеров (большой/средний/малый).
           </div>
 
           <div v-if="modifierDefs.length === 0" class="empty-hint">
-            暂无属性，请先在“所有属性”中添加。
+            Нет атрибутов, сначала добавьте их в разделе «Все атрибуты».
           </div>
 
           <div class="weapon-table-list">
@@ -2765,7 +2779,7 @@ function saveData() {
                 <div class="stat-title-group">
                   <span class="stat-name">{{ def.label }}</span>
                   <span class="stat-unit-badge" :class="def.unit">
-            {{ def.unit === 'percent' ? '百分比 (%)' : '固定数值' }}
+            {{ def.unit === 'percent' ? 'Процент (%)' : 'Фиксированное число' }}
           </span>
                 </div>
                 <div class="stat-id">ID: {{ def.id }}</div>
@@ -2773,10 +2787,10 @@ function saveData() {
 
               <div class="stat-body" v-if="ensureWeaponCommonEntry(def.id)">
                 <div class="matrix-grid">
-                  <div class="matrix-cell header-corner">等级</div>
+                  <div class="matrix-cell header-corner">Уровень</div>
                   <div v-for="lv in 9" :key="`h-${lv}`" class="matrix-cell header-level">{{ lv }}</div>
 
-                  <div class="matrix-cell row-label large">大</div>
+                  <div class="matrix-cell row-label large">Большой</div>
                   <div v-for="i in 9" :key="`l-${i}`" class="matrix-cell">
                     <input
                         type="number"
@@ -2786,7 +2800,7 @@ function saveData() {
                     />
                   </div>
 
-                  <div class="matrix-cell row-label medium">中</div>
+                  <div class="matrix-cell row-label medium">Средний</div>
                   <div v-for="i in 9" :key="`m-${i}`" class="matrix-cell">
                     <input
                         type="number"
@@ -2796,7 +2810,7 @@ function saveData() {
                     />
                   </div>
 
-                  <div class="matrix-cell row-label small">小</div>
+                  <div class="matrix-cell row-label small">Малый</div>
                   <div v-for="i in 9" :key="`s-${i}`" class="matrix-cell">
                     <input
                         type="number"
@@ -2812,9 +2826,9 @@ function saveData() {
         </div>
 
         <div v-else-if="miscSection === 'equipment_table'" class="form-section">
-          <h3 class="section-title">Lv70 装备词条数值模板</h3>
+          <h3 class="section-title">Шаблоны значений аффиксов для снаряжения Ур.70</h3>
           <div class="info-banner">
-            这里维护护甲/护手/配件三种“数值模板”，在装备编辑页（Lv70）可一键套用到主词条数值（不包含词条类型）。
+            Здесь настраиваются шаблоны для брони/перчаток/аксессуаров. На странице редактирования снаряжения (Ур.70) можно одним нажатием применить эти значения к основному аффиксу (без выбора типа модификатора).
           </div>
 
           <div class="weapon-table-list">
@@ -2822,32 +2836,32 @@ function saveData() {
               <div class="stat-header">
                 <div class="stat-title-group">
                   <span class="stat-name">
-                    {{ slotKey === 'armor' ? '护甲' : (slotKey === 'gloves' ? '护手' : '配件') }}
+                    {{ slotKey === 'armor' ? 'Броня' : (slotKey === 'gloves' ? 'Перчатки' : 'Аксессуар') }}
                   </span>
-                  <span class="stat-unit-badge flat">数值</span>
+                  <span class="stat-unit-badge flat">Значения</span>
                 </div>
-                <div class="stat-id">模板</div>
+                <div class="stat-id">Шаблон</div>
               </div>
 
               <div class="stat-body" v-if="ensureEquipmentTemplate(slotKey)">
                 <div class="matrix-grid" style="grid-template-columns: 80px repeat(4, minmax(60px, 1fr));">
-                  <div class="matrix-cell header-corner">词条</div>
-                  <div class="matrix-cell header-level">初始</div>
-                  <div class="matrix-cell header-level">精锻1</div>
-                  <div class="matrix-cell header-level">精锻2</div>
-                  <div class="matrix-cell header-level">精锻3</div>
+                  <div class="matrix-cell header-corner">Аффикс</div>
+                  <div class="matrix-cell header-level">Нач.</div>
+                  <div class="matrix-cell header-level">Ул.1</div>
+                  <div class="matrix-cell header-level">Ул.2</div>
+                  <div class="matrix-cell header-level">Ул.3</div>
 
-                  <div class="matrix-cell row-label large">主词条</div>
+                  <div class="matrix-cell row-label large">Основной</div>
                   <div v-for="i in 4" :key="`t_${slotKey}_p1_${i}`" class="matrix-cell">
                     <input type="number" step="0.1" v-model.number="misc.equipmentTemplates[slotKey].primary1[i - 1]" class="matrix-input" />
                   </div>
 
-                  <div class="matrix-cell row-label medium">副词条</div>
+                  <div class="matrix-cell row-label medium">Вторичный</div>
                   <div v-for="i in 4" :key="`t_${slotKey}_p2_${i}`" class="matrix-cell">
                     <input type="number" step="0.1" v-model.number="misc.equipmentTemplates[slotKey].primary2[i - 1]" class="matrix-input" />
                   </div>
 
-                  <div class="matrix-cell row-label small">主词条(单)</div>
+                  <div class="matrix-cell row-label small">Основной (один)</div>
                   <div v-for="i in 4" :key="`t_${slotKey}_p1s_${i}`" class="matrix-cell">
                     <input type="number" step="0.1" v-model.number="misc.equipmentTemplates[slotKey].primary1Single[i - 1]" class="matrix-input" />
                   </div>
@@ -2858,12 +2872,12 @@ function saveData() {
         </div>
 
         <div v-else-if="miscSection === 'equipment_categories'" class="form-section">
-          <h3 class="section-title">装备分类（增删 / 排序）</h3>
-          <div class="info-banner">删除分类后，该分类下装备会变为未分类（分类为空）。</div>
+          <h3 class="section-title">Категории снаряжения (добавление/удаление/сортировка)</h3>
+          <div class="info-banner">При удалении категории снаряжение в ней становится несортированным (категория пуста).</div>
 
           <div class="add-cat-row" style="display:flex; gap: 10px; margin-bottom: 12px;">
-            <input v-model="newEquipmentCategoryName" placeholder="输入新分类名..." />
-            <button class="ea-btn ea-btn--md ea-btn--fill-success" @click="addEquipmentCategory">添加</button>
+            <input v-model="newEquipmentCategoryName" placeholder="Введите название новой категории..." />
+            <button class="ea-btn ea-btn--md ea-btn--fill-success" @click="addEquipmentCategory">Добавить</button>
           </div>
 
           <draggable v-model="equipmentCategories" :item-key="(item) => item" handle=".drag-handle" :animation="150">
@@ -2871,19 +2885,19 @@ function saveData() {
               <div class="editor-row" style="align-items:center;">
                 <div class="drag-handle" style="cursor: grab; color:#666; font-family: monospace;">≡</div>
                 <div class="flex-grow" style="color:#ddd;">{{ element }}</div>
-                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEquipmentCategory(element)">删除</button>
+                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEquipmentCategory(element)">Удалить</button>
               </div>
             </template>
           </draggable>
         </div>
 
         <div v-else-if="miscSection === 'enemy_categories'" class="form-section">
-          <h3 class="section-title">敌人分类（增删 / 排序）</h3>
-          <div class="info-banner">删除分类后，该分类下敌人会变为未分类（分类为空）。</div>
+          <h3 class="section-title">Категории врагов (добавление/удаление/сортировка)</h3>
+          <div class="info-banner">При удалении категории враги в ней становятся несортированными (категория пуста).</div>
 
           <div class="add-cat-row" style="display:flex; gap: 10px; margin-bottom: 12px;">
-            <input v-model="newEnemyCategoryName" placeholder="输入新分类名..." />
-            <button class="ea-btn ea-btn--md ea-btn--fill-success" @click="addEnemyCategory">添加</button>
+            <input v-model="newEnemyCategoryName" placeholder="Введите название новой категории..." />
+            <button class="ea-btn ea-btn--md ea-btn--fill-success" @click="addEnemyCategory">Добавить</button>
           </div>
 
           <draggable v-model="enemyCategories" :item-key="(item) => item" handle=".drag-handle" :animation="150">
@@ -2891,7 +2905,7 @@ function saveData() {
               <div class="editor-row" style="align-items:center;">
                 <div class="drag-handle" style="cursor: grab; color:#666; font-family: monospace;">≡</div>
                 <div class="flex-grow" style="color:#ddd;">{{ element }}</div>
-                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEnemyCategory(element)">删除</button>
+                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEnemyCategory(element)">Удалить</button>
               </div>
             </template>
           </draggable>
@@ -2913,16 +2927,16 @@ function saveData() {
               <span class="id-tag">{{ selectedWeapon.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentWeapon">删除此武器</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentWeapon">Удалить оружие</button>
         </header>
 
         <div class="form-section">
-          <h3 class="section-title">基础信息</h3>
+          <h3 class="section-title">Основная информация</h3>
           <div class="form-grid three-col">
-            <div class="form-group"><label>名称</label><input v-model="selectedWeapon.name" type="text" /></div>
-            <div class="form-group"><label>ID (Unique)</label><input :value="selectedWeapon.id" @input="updateWeaponId" type="text" /></div>
+            <div class="form-group"><label>Имя</label><input v-model="selectedWeapon.name" type="text" /></div>
+            <div class="form-group"><label>ID (уникальный)</label><input :value="selectedWeapon.id" @input="updateWeaponId" type="text" /></div>
             <div class="form-group">
-              <label>星级</label>
+              <label>Редкость</label>
               <el-select v-model="selectedWeapon.rarity" size="large" style="width: 100%">
                 <el-option :value="6" label="6 ★" />
                 <el-option :value="5" label="5 ★" />
@@ -2931,20 +2945,20 @@ function saveData() {
               </el-select>
             </div>
             <div class="form-group">
-              <label>类型</label>
+              <label>Тип</label>
               <el-select v-model="selectedWeapon.type" size="large" style="width: 100%">
                 <el-option v-for="wpn in WEAPON_TYPES" :key="wpn.value" :label="wpn.label" :value="wpn.value" />
               </el-select>
             </div>
-            <div class="form-group full-width"><label>图标路径</label><input v-model="selectedWeapon.icon" type="text" /></div>
+            <div class="form-group full-width"><label>Путь к иконке</label><input v-model="selectedWeapon.icon" type="text" /></div>
             <div class="form-group full-width">
               <div class="form-grid" style="gap: 20px;">
                 <div class="form-group">
-                  <label>BUFF 名称</label>
+                  <label>Название баффа</label>
                   <input v-model="selectedWeapon.buffName" type="text" />
                 </div>
                 <div class="form-group">
-                  <label>持续时间 (s)</label>
+                  <label>Длительность (с)</label>
                   <input type="number" min="0" step="0.1" v-model.number="selectedWeapon.duration">
                 </div>
               </div>
@@ -2953,35 +2967,35 @@ function saveData() {
         </div>
 
         <div class="form-section">
-          <h3 class="section-title">武器数值</h3>
+          <h3 class="section-title">Значения оружия</h3>
           <div class="info-banner">
-            前两段为通用词条：选“属性项 + 大/中/小”。第三段为该武器专属：可添加多条属性，并为 1–9 级单独填数值。
+            Первые два слота — общие модификаторы: выберите «атрибут + размер». Третий слот — эксклюзивный бафф оружия: можно добавить несколько атрибутов и заполнить значения для уровней 1–9.
           </div>
 
           <div class="weapon-seg">
             <div class="weapon-seg-title">
               <span class="seg-bar"></span>
-              <span>通用词条</span>
+              <span>Общий модификатор 1</span>
             </div>
             <div class="form-grid" style="grid-template-columns: 1fr 160px; gap: 14px; align-items: end;">
               <div class="form-group">
-                <label>属性项</label>
+                <label>Атрибут</label>
                 <el-select
                     v-model="selectedWeapon.commonSlots[0].modifierId"
                     size="large"
                     style="width: 100%"
-                    placeholder="请选择"
+                    placeholder="Выберите"
                 >
-                  <el-option :value="null" label="（无）" />
+                  <el-option :value="null" label="(нет)" />
                   <el-option v-for="def in modifierDefs" :key="def.id" :label="def.label" :value="def.id" />
                 </el-select>
               </div>
               <div class="form-group">
-                <label>幅度</label>
+                <label>Размер</label>
                 <el-select v-model="selectedWeapon.commonSlots[0].size" size="large" style="width: 100%">
-                  <el-option value="large" label="大" />
-                  <el-option value="medium" label="中" />
-                  <el-option value="small" label="小" />
+                  <el-option value="large" label="Большой" />
+                  <el-option value="medium" label="Средний" />
+                  <el-option value="small" label="Малый" />
                 </el-select>
               </div>
             </div>
@@ -2990,27 +3004,27 @@ function saveData() {
           <div class="weapon-seg">
             <div class="weapon-seg-title">
               <span class="seg-bar"></span>
-              <span>通用词条</span>
+              <span>Общий модификатор 2</span>
             </div>
             <div class="form-grid" style="grid-template-columns: 1fr 160px; gap: 14px; align-items: end;">
               <div class="form-group">
-                <label>属性项</label>
+                <label>Атрибут</label>
                 <el-select
                     v-model="selectedWeapon.commonSlots[1].modifierId"
                     size="large"
                     style="width: 100%"
-                    placeholder="请选择"
+                    placeholder="Выберите"
                 >
-                  <el-option :value="null" label="（无）" />
+                  <el-option :value="null" label="(нет)" />
                   <el-option v-for="def in modifierDefs" :key="def.id" :label="def.label" :value="def.id" />
                 </el-select>
               </div>
               <div class="form-group">
-                <label>幅度</label>
+                <label>Размер</label>
                 <el-select v-model="selectedWeapon.commonSlots[1].size" size="large" style="width: 100%">
-                  <el-option value="large" label="大" />
-                  <el-option value="medium" label="中" />
-                  <el-option value="small" label="小" />
+                  <el-option value="large" label="Большой" />
+                  <el-option value="medium" label="Средний" />
+                  <el-option value="small" label="Малый" />
                 </el-select>
               </div>
             </div>
@@ -3019,17 +3033,17 @@ function saveData() {
           <div class="weapon-seg">
             <div class="weapon-seg-title">
               <span class="seg-bar"></span>
-              <span>专属 BUFF</span>
+              <span>Эксклюзивный бафф</span>
             </div>
             <div class="info-banner">
-              当前先按常驻属性处理（与前两段同样加减）；未来可能扩展为“仅在持续时间内生效”。
+              Пока обрабатывается как постоянный атрибут (складывается с первыми двумя); в будущем может быть расширен до эффекта с длительностью.
             </div>
 
             <div style="display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-bottom: 12px;">
               <div style="color:#aaa; font-size: 13px;">
-                BUFF 名称：<span style="color:#ffd700; font-weight:700;">{{ selectedWeapon.buffName || '（未填写）' }}</span>
+                Название баффа: <span style="color:#ffd700; font-weight:700;">{{ selectedWeapon.buffName || '(не заполнено)' }}</span>
               </div>
-              <button class="ea-btn ea-btn--md ea-btn--glass-rect" :style="{ '--ea-btn-accent': 'var(--ea-purple)' }" @click="addWeaponBuffBonusRow">＋ 添加属性</button>
+              <button class="ea-btn ea-btn--md ea-btn--glass-rect" :style="{ '--ea-btn-accent': 'var(--ea-purple)' }" @click="addWeaponBuffBonusRow">＋ Добавить атрибут</button>
             </div>
 
             <div v-if="selectedWeapon.buffBonuses && selectedWeapon.buffBonuses.length > 0" class="matrix-editor-area">
@@ -3042,26 +3056,26 @@ function saveData() {
                 <div style="display:flex; flex-direction: column; gap: 10px; width: 100%;">
                   <div class="form-grid" style="grid-template-columns: 1fr 140px; gap: 12px; align-items:end;">
                     <div class="form-group">
-                      <label>属性项</label>
+                      <label>Атрибут</label>
                       <el-select
                           v-model="bonus.modifierId"
                           size="large"
                           style="width: 100%"
-                          placeholder="请选择"
+                          placeholder="Выберите"
                       >
-                        <el-option :value="null" label="（无）" />
+                        <el-option :value="null" label="(нет)" />
                         <el-option v-for="def in modifierDefs" :key="def.id" :label="def.label" :value="def.id" />
                       </el-select>
                     </div>
                     <div class="form-group">
-                      <label>操作</label>
-                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeWeaponBuffBonusRow(idx)">删除</button>
+                      <label>Действие</label>
+                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeWeaponBuffBonusRow(idx)">Удалить</button>
                     </div>
                   </div>
 
                   <div class="form-grid" style="grid-template-columns: repeat(9, minmax(60px, 1fr)); gap: 10px;">
                     <div v-for="lv in 9" :key="lv" class="form-group">
-                      <label style="text-align:center;">{{ lv }}级</label>
+                      <label style="text-align:center;">Ур.{{ lv }}</label>
                       <input type="number" step="0.01" v-model.number="bonus.values[lv - 1]" />
                     </div>
                   </div>
@@ -3070,13 +3084,13 @@ function saveData() {
             </div>
 
             <div v-else class="empty-hint" style="margin-top: 10px;">
-              未添加任何专属属性
+              Нет добавленных эксклюзивных атрибутов
             </div>
           </div>
         </div>
       </div>
 
-      <div v-else class="empty-state">请从左侧列表选择条目</div>
+      <div v-else class="empty-state">Выберите элемент из списка слева</div>
     </main>
   </div>
 </template>
@@ -3393,7 +3407,7 @@ function saveData() {
 .matrix-cell:focus-within {
   background: #2a2a30;
 }
-/* === 卡片样式 === */
+/* === Card Styles === */
 .editor-card {
   background: #2b2b2b;
   border: 1px solid #444;

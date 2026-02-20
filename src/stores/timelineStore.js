@@ -301,7 +301,7 @@ export const useTimelineStore = defineStore('timeline', () => {
 
     const activeScenarioId = ref('default_sc')
     const scenarioList = ref([
-        { id: 'default_sc', name: '方案 1', data: null }
+        { id: 'default_sc', name: 'Timeline 1', data: null }
     ])
 
     watchThrottled([weaponDatabase, misc], () => {
@@ -782,7 +782,7 @@ export const useTimelineStore = defineStore('timeline', () => {
         if (currentScenario) currentScenario.data = _createSnapshot()
 
         const newId = `sc_${uid()}`
-        const newName = `方案 ${scenarioList.value.length + 1}`
+        const newName = `Scheme ${scenarioList.value.length + 1}`
 
         const emptySnapshot = {
             tracks: [{ id: null, actions: [] }, { id: null, actions: [] }, { id: null, actions: [] }, { id: null, actions: [] }],
@@ -1381,7 +1381,7 @@ export const useTimelineStore = defineStore('timeline', () => {
 
     const teamTracksInfo = computed(() => tracks.value.map(track => {
         const charInfo = characterRoster.value.find(c => c.id === track.id)
-        return { ...track, ...(charInfo || { name: '请选择干员', avatar: '', rarity: 0 }) }
+        return { ...track, ...(charInfo || { name: 'Select OP', avatar: '', rarity: 0 }) }
     }))
 
     const activeWeapon = computed(() => {
@@ -1468,7 +1468,7 @@ export const useTimelineStore = defineStore('timeline', () => {
             const { duration: _ignoredDuration, ...groupOverride } = (groupOverrideRaw && typeof groupOverrideRaw === 'object') ? groupOverrideRaw : {}
 
             const derivedElement = activeChar.attack_element || activeChar.element || 'physical'
-            const attackGroupName = '重击'
+            const attackGroupName = 'FS'
 
             const segmentSkills = (activeChar.attack_segments || []).slice(0, ATTACK_SEGMENT_COUNT).map((seg, idx) => {
                 const segId = `${groupId}_seg${idx + 1}`
@@ -1537,7 +1537,7 @@ export const useTimelineStore = defineStore('timeline', () => {
             const { duration: _ignoredDuration, ...groupOverride } = (groupOverrideRaw && typeof groupOverrideRaw === 'object') ? groupOverrideRaw : {}
 
             const derivedElement = variant.element || activeChar.attack_element || activeChar.element || 'physical'
-            const attackGroupName = variant.name || '强化重击'
+            const attackGroupName = variant.name || 'Heavy strike'
 
             const segmentSkills = (variant.attackSegments || []).slice(0, ATTACK_SEGMENT_COUNT).map((seg, idx) => {
                 const segId = `${groupId}_seg${idx + 1}`
@@ -1634,7 +1634,7 @@ export const useTimelineStore = defineStore('timeline', () => {
             return {
                 id: globalId,
                 type: 'dodge',
-                name: '闪避',
+                name: 'D',
                 librarySource: 'character',
                 duration,
                 damageTicks: [],
@@ -1646,10 +1646,10 @@ export const useTimelineStore = defineStore('timeline', () => {
         const standardSkills = [
             attackGroupSkill,
             createDodgeSkill(),
-            createBaseSkill('execution', 'execution', '处决'),
-            createBaseSkill('skill', 'skill', '战技'),
-            createBaseSkill('link', 'link', '连携'),
-            createBaseSkill('ultimate', 'ultimate', '终结技')
+            createBaseSkill('execution', 'execution', 'F'),
+            createBaseSkill('skill', 'skill', 'S'),
+            createBaseSkill('link', 'link', 'C'),
+            createBaseSkill('ultimate', 'ultimate', 'U')
         ]
 
         const variantSkills = []
@@ -1993,7 +1993,7 @@ export const useTimelineStore = defineStore('timeline', () => {
 
             const attackGroupInstanceId = `atkgrp_${uid()}`
             const attackSequenceTotal = segments.length
-            const attackGroupName = skill.name || '重击'
+            const attackGroupName = skill.name || 'FS'
             let cursor = startTime
 
             for (let i = 0; i < segments.length; i++) {
@@ -2023,7 +2023,7 @@ export const useTimelineStore = defineStore('timeline', () => {
                 }
                 newAction.attackGroupName = (typeof skill.attackGroupName === 'string' && skill.attackGroupName.trim())
                     ? skill.attackGroupName.trim()
-                    : ((typeof skill.name === 'string' && skill.name.trim()) ? skill.name.trim().replace(/\s*\d+\s*$/, '') : '重击')
+                    : ((typeof skill.name === 'string' && skill.name.trim()) ? skill.name.trim().replace(/\s*\d+\s*$/, '') : 'FS')
             }
             track.actions.push(newAction)
             track.actions.sort((a, b) => a.startTime - b.startTime)
@@ -2305,7 +2305,7 @@ export const useTimelineStore = defineStore('timeline', () => {
     function changeTrackOperator(trackIndex, oldOperatorId, newOperatorId) {
         const track = tracks.value[trackIndex];
         if (track) {
-            if (tracks.value.some((t, i) => i !== trackIndex && t.id === newOperatorId)) { alert('该干员已在另一条轨道上！'); return; }
+            if (tracks.value.some((t, i) => i !== trackIndex && t.id === newOperatorId)) { alert('The operator is already on another track!'); return; }
             const actionIdsToDelete = new Set(track.actions.map(a => a.instanceId));
             if (actionIdsToDelete.size > 0) {
                 connections.value = connections.value.filter(conn => !actionIdsToDelete.has(conn.from) && !actionIdsToDelete.has(conn.to));
@@ -3735,7 +3735,7 @@ export const useTimelineStore = defineStore('timeline', () => {
 
         activeEnemyId.value = 'custom';
         // 重置方案
-        scenarioList.value = [{ id: 'default_sc', name: '方案 1', data: null }];
+        scenarioList.value = [{ id: 'default_sc', name: 'Scheme 1', data: null }];
         activeScenarioId.value = 'default_sc';
 
         clearSelection();

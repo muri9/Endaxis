@@ -12,7 +12,7 @@ const props = defineProps({
 const store = useTimelineStore()
 const connectionHandler = useDragConnection()
 const TYPE_SHORTHAND = {
-  'attack': 'A', 'dodge': 'D', 'execution': 'X', 'skill': 'C', 'link': 'E', 'ultimate': 'U'
+  'attack': 'A', 'dodge': 'D', 'execution': 'F', 'skill': 'S', 'link': 'C', 'ultimate': 'U'
 }
 
 const isVariant = computed(() => {
@@ -38,7 +38,7 @@ const displayLabel = computed(() => {
 
     if (total > 0 && idx > 0) {
       if (idx === total) {
-        const groupName = props.action.attackGroupName || (name ? name.replace(/\s*\d+\s*$/, '') : '重击')
+        const groupName = props.action.attackGroupName || (name ? name.replace(/\s*\d+\s*$/, '') : 'Heavy Strike')
         return `${groupName}${suffix}`
       }
       return `A${idx}${suffix}`
@@ -51,10 +51,10 @@ const displayLabel = computed(() => {
 
 const isSelected = computed(() => store.isActionSelected(props.action.instanceId))
 
-// 幽灵模式：触发窗口 < 0 时仅显示逻辑点，不显示实体框
+// Ghost mode: when trigger window < 0, only display logical point, not the entity box
 const isGhostMode = computed(() => (props.action.triggerWindow || 0) < 0)
 
-// 计算主题色
+// Calculate theme color
 const themeColor = computed(() => {
   if (props.action.customColor) return props.action.customColor
   if (props.action.type === 'link') return store.getColor('link')
@@ -76,7 +76,7 @@ const themeColor = computed(() => {
 
 const actionLayout = computed(() => store.nodeRects[props.action.instanceId])
 
-// 连携冷却计算
+// Link cooldown calculation
 const effectiveCooldown = computed(() => {
   const baseCd = props.action.cooldown || 0
   if (props.action.type !== 'link') return baseCd
@@ -91,7 +91,7 @@ const effectiveCooldown = computed(() => {
   return baseCd * (1 - reduction / 100)
 })
 
-// 主体样式计算
+// Main style calculation
 const style = computed(() => {
   const layout = actionLayout.value
   if (!layout || !layout.rect) {
@@ -182,7 +182,7 @@ const style = computed(() => {
   }
 })
 
-// 冷却条样式
+// Cooldown bar style
 const cdStyle = computed(() => {
   const layout = actionLayout.value
 
@@ -203,7 +203,7 @@ const cdStyle = computed(() => {
   }
 })
 
-// 强化时间样式
+// Enhancement time style
 const enhancementMetrics = computed(() => {
   const layout = actionLayout.value
   if (!layout) return { widthPx: 0, extensionAmount: 0 }
@@ -243,7 +243,7 @@ const enhancementStyle = computed(() => {
   }
 })
 
-// 触发窗口样式
+// Trigger window style
 const triggerWindowStyle = computed(() => {
   const layout = actionLayout.value
 
@@ -260,7 +260,7 @@ const triggerWindowStyle = computed(() => {
   }
 })
 
-// 自定义时间条
+// Custom time bars
 const customBarsToRender = computed(() => {
   const bars = props.action.customBars || []
   return bars.map((bar, index) => {
@@ -268,15 +268,15 @@ const customBarsToRender = computed(() => {
     const originalOffset = bar.offset || 0
     if (originalDuration <= 0) return null
 
-    // 计算起始点的现实偏移
+    // Calculate the actual offset of the start point
     const shiftedStartTimestamp = store.getShiftedEndTime(props.action.startTime, originalOffset, props.action.instanceId)
     const shiftedOffset = shiftedStartTimestamp - props.action.startTime
 
-    // 计算受时停影响后的结束点，从而得出最终视觉时长
+    // Calculate the end point affected by time stop, resulting in the final visual duration
     const shiftedEndTimestamp = store.getShiftedEndTime(shiftedStartTimestamp, originalDuration, props.action.instanceId)
     const shiftedDuration = shiftedEndTimestamp - shiftedStartTimestamp
 
-    // 计算延长量
+    // Calculate extension amount
     const extensionAmount = Math.round((shiftedDuration - originalDuration) * 1000) / 1000
 
     const base = Number(props.action.startTime) || 0
@@ -292,9 +292,9 @@ const customBarsToRender = computed(() => {
   }).filter(item => item !== null)
 })
 
-// 计算动画时间的视觉宽度
+// Calculate visual width of animation time
 const animationTimeWidth = computed(() => {
-  // 从 Store 的计算结果中找到属于自己的那一项
+  // Find the item belonging to this action in the store's calculation results
   const myExtension = store.globalExtensions.find(ext => ext.sourceId === props.action.instanceId)
 
   if (myExtension) {
@@ -310,7 +310,7 @@ const char = computed(() => {
   return store.characterRoster.find(c => c.id === charId)
 })
 
-// 辅助函数
+// Helper functions
 function getEffectColor(type) { return store.getColor(type) }
 function getIconPath(type) {
   if (char.value && char.value.exclusive_buffs) {
@@ -340,7 +340,7 @@ const connectionSourceActionId = computed(() => {
   return node.actionId
 })
 
-// 计算判定点的位置样式
+// Calculate position style of judgment points
 const renderableTicks = computed(() => {
   if (store.useNewCompiler) {
     const resolvedAction = store.compiledTimeline.actionMap.get(props.action.instanceId)
@@ -523,7 +523,7 @@ function handleEffectDrop(effectId) {
       <div v-for="(tick, idx) in renderableTicks" :key="idx"
            class="damage-tick-wrapper"
            :style="tick.style"
-           :title="`时间: ${store.formatTimeLabel(tick.data.offset)}\n失衡值: ${tick.data.stagger || 0}\n技力回复: ${tick.data.sp || 0}`">
+           :title="`time: ${store.formatTimeLabel(tick.data.offset)}\nstagger: ${tick.data.stagger || 0}\nsp: ${tick.data.sp || 0}`">
         <div class="tick-marker"></div>
       </div>
     </div>
@@ -533,14 +533,14 @@ function handleEffectDrop(effectId) {
       <div class="tw-separator"></div>
     </div>
 
-    <div v-if="action.isLocked" class="status-icon lock-icon" title="位置已锁定">
+    <div v-if="action.isLocked" class="status-icon lock-icon" title="Position locked">
       <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </div>
 
-    <div v-if="action.isDisabled" class="status-icon mute-icon" title="已禁用：不参与计算">
+    <div v-if="action.isDisabled" class="status-icon mute-icon" title="Disabled: not participating in calculation">
       <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
@@ -614,7 +614,7 @@ function handleEffectDrop(effectId) {
 </template>
 
 <style scoped>
-/* === 基础容器 === */
+/* === Base container === */
 .action-item-wrapper {
   display: flex; align-items: center; justify-content: center;
   white-space: nowrap; cursor: grab; user-select: none;
@@ -624,11 +624,11 @@ function handleEffectDrop(effectId) {
 }
 .action-item-wrapper:hover { filter: brightness(1.2); }
 
-/* === 异常状态层 === */
+/* === Anomaly layer === */
 .anomalies-overlay { position: absolute; top: 0; left: -1px; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .anomaly-wrapper { position: absolute; display: flex; align-items: center; pointer-events: none; white-space: nowrap; bottom: 100% }
 
-/* 图标样式 */
+/* Icon styles */
 .anomaly-icon-box {
   width: 20px; height: 20px; background-color: #333; border: 1px solid #999;
   box-sizing: border-box; display: flex; align-items: center; justify-content: center;
@@ -676,7 +676,7 @@ function handleEffectDrop(effectId) {
   }
 }
 
-/* 伤害节点样式 */
+/* Damage tick styles */
 .damage-ticks-layer {
   position: absolute;
   top: 0;
@@ -719,7 +719,7 @@ function handleEffectDrop(effectId) {
   z-index: 30;
 }
 
-/* === 时长条样式 === */
+/* === Duration bar styles === */
 .anomaly-duration-bar {
   height: 16px; border: none; border-radius: 2px; position: relative;
   display: flex; align-items: center; overflow: visible;
@@ -736,7 +736,7 @@ function handleEffectDrop(effectId) {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); z-index: 2; font-weight: bold; line-height: 1; font-family: sans-serif;
 }
 
-/* === 被消耗节点 === */
+/* === Consumed node === */
 .transfer-node-wrapper {
   position: absolute; right: -6px; top: 50%; transform: translateY(-50%);
   width: 12px; height: 12px; display: flex; align-items: center; justify-content: center;
@@ -760,7 +760,7 @@ function handleEffectDrop(effectId) {
   transform: translate(-50%, -50%);
 }
 
-/* === 其他样式 === */
+/* === Other styles === */
 .bottom-bar { 
   bottom: 0;
   left: 0;
