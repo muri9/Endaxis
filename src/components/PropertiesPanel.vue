@@ -123,7 +123,7 @@ const currentCharacter = computed(() => {
 })
 
 const currentSkillType = computed(() => {
-  if (isWeaponStatusMode.value) return 'weapon'
+  //if (isWeaponStatusMode.value) return 'weapon'
   return targetData.value?.type || 'unknown'
 })
 
