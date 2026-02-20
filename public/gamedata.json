@@ -23,14 +23,14 @@
   "characterRoster": [
     {
       "id": "ENDMINISTRATOR",
-      "name": "管理员",
+      "name": "Endministrator",
       "rarity": 6,
       "element": "physical",
       "avatar": "/avatars/ENDMINISTRATOR/ENDMINISTRATOR.webp",
       "exclusive_buffs": [
         {
           "key": "endmin_debuff",
-          "name": "结晶",
+          "name": "Crystallization",
           "path": "/avatars/ENDMINISTRATOR/icon_skill_endmin_debuff.webp"
         }
       ],
@@ -342,7 +342,7 @@
     },
     {
       "id": "POGRANICHNK",
-      "name": "骏卫",
+      "name": "Pogranichnk",
       "rarity": 6,
       "element": "physical",
       "avatar": "/avatars/POGRANICHNK/POGRANICHNK.webp",
@@ -1002,7 +1002,7 @@
     },
     {
       "id": "ARDELIA",
-      "name": "艾尔黛拉",
+      "name": "Ardelia",
       "rarity": 6,
       "element": "nature",
       "avatar": "/avatars/ARDELIA/ARDELIA.webp",
@@ -1359,7 +1359,7 @@
     },
     {
       "id": "LASTRITE",
-      "name": "别礼",
+      "name": "Lastrite",
       "rarity": 6,
       "element": "cold",
       "avatar": "/avatars/LASTRITE/LASTRITE.webp",
@@ -2029,7 +2029,7 @@
     },
     {
       "id": "YVONNE",
-      "name": "伊冯",
+      "name": "Yvonne",
       "rarity": 6,
       "element": "cold",
       "avatar": "/avatars/YVONNE/YVONNE.webp",
@@ -2582,7 +2582,7 @@
     },
     {
       "id": "LAEVATAIN",
-      "name": "莱万汀",
+      "name": "Laevatain",
       "rarity": 6,
       "element": "blaze",
       "avatar": "/avatars/LAEVATAIN/LAEVATAIN.webp",
@@ -3432,7 +3432,7 @@
     },
     {
       "id": "LIFENG",
-      "name": "黎风",
+      "name": "Lifeng",
       "rarity": 6,
       "element": "physical",
       "avatar": "/avatars/LIFENG/LIFENG.webp",
@@ -3848,7 +3848,7 @@
     },
     {
       "id": "EMBER",
-      "name": "余烬",
+      "name": "Ember",
       "rarity": 6,
       "element": "blaze",
       "avatar": "/avatars/EMBER/EMBER.webp",
@@ -4130,7 +4130,7 @@
     },
     {
       "id": "XAIHI",
-      "name": "赛希",
+      "name": "Xaihi",
       "rarity": 5,
       "element": "cold",
       "avatar": "/avatars/XAIHI/XAIHI.webp",
@@ -4451,7 +4451,7 @@
     },
     {
       "id": "SNOWSHINE",
-      "name": "昼雪",
+      "name": "Snowshine",
       "rarity": 5,
       "element": "cold",
       "avatar": "/avatars/SNOWSHINE/SNOWSHINE.webp",
@@ -5403,7 +5403,7 @@
     },
     {
       "id": "DAPAN",
-      "name": "大潘",
+      "name": "Dapan",
       "rarity": 5,
       "element": "physical",
       "avatar": "/avatars/DAPAN/DAPAN.webp",
@@ -5731,7 +5731,7 @@
     },
     {
       "id": "WULFGARD",
-      "name": "狼卫",
+      "name": "Wulfgard",
       "rarity": 5,
       "element": "blaze",
       "avatar": "/avatars/WULFGARD/WULFGARD.webp",
@@ -6417,7 +6417,7 @@
     },
     {
       "id": "CHENQIANYU",
-      "name": "陈千语",
+      "name": "Chenqianyu",
       "rarity": 5,
       "element": "physical",
       "avatar": "/avatars/CHENQIANYU/CHENQIANYU.webp",
@@ -6755,7 +6755,7 @@
     },
     {
       "id": "ALESH",
-      "name": "阿列什",
+      "name": "Alesh",
       "rarity": 5,
       "element": "cold",
       "avatar": "/avatars/ALESH/ALESH.webp",
@@ -7188,7 +7188,7 @@
     },
     {
       "id": "CATCHER",
-      "name": "卡契尔",
+      "name": "Catcher",
       "rarity": 4,
       "element": "physical",
       "avatar": "/avatars/CATCHER/CATCHER.webp",
@@ -7490,7 +7490,7 @@
     },
     {
       "id": "FLUORITE",
-      "name": "萤石",
+      "name": "Fluorite",
       "rarity": 4,
       "element": "nature",
       "avatar": "/avatars/FLUORITE/FLUORITE.webp",
@@ -7814,7 +7814,7 @@
     },
     {
       "id": "ANTAL",
-      "name": "安塔尔",
+      "name": "Antal",
       "rarity": 4,
       "element": "emag",
       "avatar": "/avatars/ANTAL/ANTAL.webp",
@@ -8116,7 +8116,7 @@
     },
     {
       "id": "ESTELLA",
-      "name": "埃特拉",
+      "name": "Estella",
       "rarity": 4,
       "element": "cold",
       "avatar": "/avatars/ESTELLA/ESTELLA.webp",
@@ -8444,7 +8444,7 @@
     },
     {
       "id": "AKEKURI",
-      "name": "秋栗",
+      "name": "Akekuri",
       "rarity": 4,
       "element": "blaze",
       "avatar": "/avatars/AKEKURI/AKEKURI.webp",
@@ -10068,7 +10068,7 @@
     {
       "id": "item_equip_t4_suit_phy01_edc_03",
       "name": "点剑火石",
-      "category": "点剑",
+      "category": "Swordmancer",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_phy01_edc_03.webp",
@@ -10105,7 +10105,7 @@
     {
       "id": "item_equip_t4_suit_phy01_body_02",
       "name": "点剑重装甲",
-      "category": "点剑",
+      "category": "Swordmancer",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_phy01_body_02.webp",
@@ -10142,7 +10142,7 @@
     {
       "id": "item_equip_t4_suit_phy01_hand_01",
       "name": "点剑战术手套",
-      "category": "点剑",
+      "category": "Swordmancer",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_phy01_hand_01.webp",
@@ -10179,7 +10179,7 @@
     {
       "id": "item_equip_t4_suit_phy01_hand_02",
       "name": "点剑战术手甲",
-      "category": "点剑",
+      "category": "Swordmancer",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_phy01_hand_02.webp",
@@ -10216,7 +10216,7 @@
     {
       "id": "item_equip_t4_suit_usp02_hand_01",
       "name": "长息护手",
-      "category": "长息",
+      "category": "Eternal Xiranite",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_usp02_hand_01.webp",
@@ -10253,7 +10253,7 @@
     {
       "id": "item_equip_t4_suit_usp02_body_01",
       "name": "长息装甲",
-      "category": "长息",
+      "category": "Eternal Xiranite",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_usp02_body_01.webp",
@@ -10290,7 +10290,7 @@
     {
       "id": "item_equip_t4_suit_usp02_edc_01",
       "name": "长息蓄电核",
-      "category": "长息",
+      "category": "Eternal Xiranite",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_usp02_edc_01.webp",
@@ -10327,7 +10327,7 @@
     {
       "id": "item_equip_t4_suit_usp02_edc_03",
       "name": "长息辅助臂",
-      "category": "长息",
+      "category": "Eternal Xiranite",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_usp02_edc_03.webp",
@@ -10366,7 +10366,7 @@
     {
       "id": "item_equip_t4_suit_usp02_hand_02",
       "name": "长息护手·壹型",
-      "category": "长息",
+      "category": "Eternal Xiranite",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_usp02_hand_01.webp",
@@ -10403,7 +10403,7 @@
     {
       "id": "item_equip_t4_suit_usp02_edc_02",
       "name": "长息蓄电核·壹型",
-      "category": "长息",
+      "category": "Eternal Xiranite",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_usp02_edc_02.webp",
@@ -10440,7 +10440,7 @@
     {
       "id": "item_equip_t4_suit_burst01_body_01",
       "name": "落潮轻甲",
-      "category": "潮涌",
+      "category": "Tide Surge",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_burst01_body_01.webp",
@@ -10477,7 +10477,7 @@
     {
       "id": "item_equip_t4_suit_burst01_edc_01",
       "name": "悬河供氧栓",
-      "category": "潮涌",
+      "category": "Tide Surge",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_burst01_edc_01.webp",
@@ -10514,7 +10514,7 @@
     {
       "id": "item_equip_t4_suit_burst01_edc_02",
       "name": "浊流切割炬",
-      "category": "潮涌",
+      "category": "Tide Surge",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_burst01_edc_02.webp",
@@ -10551,7 +10551,7 @@
     {
       "id": "item_equip_t4_suit_burst01_hand_01",
       "name": "潮涌手甲",
-      "category": "潮涌",
+      "category": "Tide Surge",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_burst01_hand_01.webp",
@@ -10588,7 +10588,7 @@
     {
       "id": "item_equip_t4_suit_atk02_body_01",
       "name": "50式应龙重甲",
-      "category": "50式应龙",
+      "category": "Type 50 Yinglung",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atk02_body_01.webp",
@@ -10625,7 +10625,7 @@
     {
       "id": "item_equip_t4_suit_atk02_body_04",
       "name": "50式应龙轻甲",
-      "category": "50式应龙",
+      "category": "Type 50 Yinglung",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atk02_body_04.webp",
@@ -10662,7 +10662,7 @@
     {
       "id": "item_equip_t4_suit_atk02_hand_01",
       "name": "50式应龙护手",
-      "category": "50式应龙",
+      "category": "Type 50 Yinglung",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atk02_hand_01.webp",
@@ -10699,7 +10699,7 @@
     {
       "id": "item_equip_t4_suit_atk02_hand_03",
       "name": "50式应龙护手·壹型",
-      "category": "50式应龙",
+      "category": "Type 50 Yinglung",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atk02_hand_01.webp",
@@ -10736,7 +10736,7 @@
     {
       "id": "item_equip_t4_suit_atk02_edc_01",
       "name": "50式应龙雷达",
-      "category": "50式应龙",
+      "category": "Type 50 Yinglung",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atk02_edc_01.webp",
@@ -10773,7 +10773,7 @@
     {
       "id": "item_equip_t4_suit_atk02_edc_04",
       "name": "50式应龙短刃",
-      "category": "50式应龙",
+      "category": "Type 50 Yinglung",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atk02_edc_04.webp",
@@ -10810,7 +10810,7 @@
     {
       "id": "item_equip_t4_suit_atk02_edc_05",
       "name": "50式应龙短刃·壹型",
-      "category": "50式应龙",
+      "category": "Type 50 Yinglung",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atk02_edc_05.webp",
@@ -10847,7 +10847,7 @@
     {
       "id": "item_equip_t4_suit_criti01_body_01",
       "name": "M.I.警用护甲",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_body_01.webp",
@@ -10884,7 +10884,7 @@
     {
       "id": "item_equip_t4_suit_criti01_body_02",
       "name": "M.I.警用罩衣",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_body_03.webp",
@@ -10921,7 +10921,7 @@
     {
       "id": "item_equip_t4_suit_criti01_body_04",
       "name": "M.I.警用罩衣·贰型",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_body_04.webp",
@@ -10958,7 +10958,7 @@
     {
       "id": "item_equip_t4_suit_criti01_hand_01",
       "name": "M.I.警用手套",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_hand_01.webp",
@@ -10995,7 +10995,7 @@
     {
       "id": "item_equip_t4_suit_criti01_hand_02",
       "name": "M.I.警用手环",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_hand_02.webp",
@@ -11032,7 +11032,7 @@
     {
       "id": "item_equip_t4_suit_criti01_hand_03",
       "name": "M.I.警用手环·壹型",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_hand_03.webp",
@@ -11069,7 +11069,7 @@
     {
       "id": "item_equip_t4_suit_criti01_edc_01",
       "name": "M.I.警用臂环",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_edc_01.webp",
@@ -11106,7 +11106,7 @@
     {
       "id": "item_equip_t4_suit_criti01_edc_02",
       "name": "M.I.警用瞄具",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_edc_02.webp",
@@ -11143,7 +11143,7 @@
     {
       "id": "item_equip_t4_suit_criti01_edc_03",
       "name": "M.I.警用工具组",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_edc_03.webp",
@@ -11180,7 +11180,7 @@
     {
       "id": "item_equip_t4_suit_criti01_edc_05",
       "name": "M.I.警用刺刃·壹型",
-      "category": "M.I.警用",
+      "category": "MI Security",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_criti01_edc_05.webp",
@@ -11217,7 +11217,7 @@
     {
       "id": "item_equip_t4_suit_fire_natr01_body_01",
       "name": "动火用外骨骼",
-      "category": "动火用",
+      "category": "Hot Work",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_fire_natr01_body_01.webp",
@@ -11254,7 +11254,7 @@
     {
       "id": "item_equip_t4_suit_fire_natr01_hand_02",
       "name": "动火用手甲",
-      "category": "动火用",
+      "category": "Hot Work",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_fire_natr01_hand_02.webp",
@@ -11291,7 +11291,7 @@
     {
       "id": "item_equip_t4_suit_fire_natr01_hand_03",
       "name": "动火用手甲·壹型",
-      "category": "动火用",
+      "category": "Hot Work",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_fire_natr01_hand_03.webp",
@@ -11328,7 +11328,7 @@
     {
       "id": "item_equip_t4_suit_fire_natr01_edc_01",
       "name": "动火用储能匣",
-      "category": "动火用",
+      "category": "Hot Work",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_fire_natr01_edc_01.webp",
@@ -11365,7 +11365,7 @@
     {
       "id": "item_equip_t4_suit_fire_natr01_edc_02",
       "name": "动火用测温镜",
-      "category": "动火用",
+      "category": "Hot Work",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_fire_natr01_edc_02.webp",
@@ -11402,7 +11402,7 @@
     {
       "id": "item_equip_t4_suit_fire_natr01_edc_03",
       "name": "动火用电力匣",
-      "category": "动火用",
+      "category": "Hot Work",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_fire_natr01_edc_03.webp",
@@ -11439,7 +11439,7 @@
     {
       "id": "item_equip_t4_suit_atb01_body_01",
       "name": "拓荒护甲",
-      "category": "拓荒",
+      "category": "Frontiers",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atb01_body_01.webp",
@@ -11476,7 +11476,7 @@
     {
       "id": "item_equip_t4_suit_atb01_body_02",
       "name": "拓荒护甲·贰型",
-      "category": "拓荒",
+      "category": "Frontiers",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atb01_body_02.webp",
@@ -11513,7 +11513,7 @@
     {
       "id": "item_equip_t4_suit_atb01_body_03",
       "name": "拓荒护甲·叁型",
-      "category": "拓荒",
+      "category": "Frontiers",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atb01_body_03.webp",
@@ -11550,7 +11550,7 @@
     {
       "id": "item_equip_t4_suit_atb01_hand_01",
       "name": "拓荒耐蚀手套",
-      "category": "拓荒",
+      "category": "Frontiers",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atb01_hand_01.webp",
@@ -11587,7 +11587,7 @@
     {
       "id": "item_equip_t4_suit_atb01_edc_02",
       "name": "拓荒通信器·壹型",
-      "category": "拓荒",
+      "category": "Frontiers",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atb01_edc_02.webp",
@@ -11624,7 +11624,7 @@
     {
       "id": "item_equip_t4_suit_atb01_edc_04",
       "name": "拓荒增量供氧栓",
-      "category": "拓荒",
+      "category": "Frontiers",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_atb01_edc_04.webp",
@@ -11661,7 +11661,7 @@
     {
       "id": "item_equip_t4_suit_pulse_cryst01_body_01",
       "name": "脉冲式干扰服",
-      "category": "脉冲式",
+      "category": "Pulser Labs",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_pulse_cryst01_body_01.webp",
@@ -11698,7 +11698,7 @@
     {
       "id": "item_equip_t4_suit_pulse_cryst01_hand_01",
       "name": "脉冲式手套",
-      "category": "脉冲式",
+      "category": "Pulser Labs",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_pulse_cryst01_hand_01.webp",
@@ -11735,7 +11735,7 @@
     {
       "id": "item_equip_t4_suit_pulse_cryst01_edc_02",
       "name": "脉冲式校准器",
-      "category": "脉冲式",
+      "category": "Pulser Labs",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_pulse_cryst01_edc_02.webp",
@@ -11772,7 +11772,7 @@
     {
       "id": "item_equip_t4_suit_attri01_body_01",
       "name": "碾骨重护甲",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_body_01.webp",
@@ -11809,7 +11809,7 @@
     {
       "id": "item_equip_t4_suit_attri01_body_02",
       "name": "碾骨重护甲·壹型",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_body_02.webp",
@@ -11846,7 +11846,7 @@
     {
       "id": "item_equip_t4_suit_attri01_body_03",
       "name": "碾骨披巾",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_body_03.webp",
@@ -11883,7 +11883,7 @@
     {
       "id": "item_equip_t4_suit_attri01_body_04",
       "name": "碾骨披巾·壹型",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_body_03.webp",
@@ -11920,7 +11920,7 @@
     {
       "id": "item_equip_t4_suit_attri01_edc_04",
       "name": "碾骨面具",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_edc_04.webp",
@@ -11957,7 +11957,7 @@
     {
       "id": "item_equip_t4_suit_attri01_edc_05",
       "name": "碾骨面具·壹型",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_edc_05.webp",
@@ -11994,7 +11994,7 @@
     {
       "id": "item_equip_t4_suit_attri01_edc_03",
       "name": "碾骨小雕像",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_edc_03.webp",
@@ -12031,7 +12031,7 @@
     {
       "id": "item_equip_t4_suit_attri01_edc_06",
       "name": "碾骨小雕像·壹型",
-      "category": "碾骨",
+      "category": "Bonekrusha",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_attri01_edc_06.webp",
@@ -12067,8 +12067,8 @@
     },
     {
       "id": "item_equip_t4_suit_poise01_body_01",
-      "name": "轻超域",
-      "category": "轻超域",
+      "name": "Æthertech",
+      "category": "Æthertech",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_poise01_body_01.webp",
@@ -12105,7 +12105,7 @@
     {
       "id": "item_equip_t4_suit_poise01_hand_01",
       "name": "轻超域护手",
-      "category": "轻超域",
+      "category": "Æthertech",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_poise01_hand_01.webp",
@@ -12142,7 +12142,7 @@
     {
       "id": "item_equip_t4_suit_poise01_edc_01",
       "name": "轻超域分析环",
-      "category": "轻超域",
+      "category": "Æthertech",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_poise01_edc_01.webp",
@@ -12179,7 +12179,7 @@
     {
       "id": "item_equip_t4_suit_poise01_edc_02",
       "name": "轻超域稳定盘",
-      "category": "轻超域",
+      "category": "Æthertech",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_poise01_edc_02.webp",
@@ -12216,7 +12216,7 @@
     {
       "id": "item_equip_t4_suit_heal01_body_01",
       "name": "生物辅助重甲",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_body_01.webp",
@@ -12253,7 +12253,7 @@
     {
       "id": "item_equip_t4_suit_heal01_body_02",
       "name": "生物辅助胸甲",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "armor",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_body_02.webp",
@@ -12290,7 +12290,7 @@
     {
       "id": "item_equip_t4_suit_heal01_hand_01",
       "name": "生物辅助臂甲",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_hand_01.webp",
@@ -12327,7 +12327,7 @@
     {
       "id": "item_equip_t4_suit_heal01_hand_02",
       "name": "生物辅助手甲",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "gloves",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_hand_02.webp",
@@ -12364,7 +12364,7 @@
     {
       "id": "item_equip_t4_suit_heal01_edc_01",
       "name": "生物辅助接驳器",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_edc_01.webp",
@@ -12401,7 +12401,7 @@
     {
       "id": "item_equip_t4_suit_heal01_edc_02",
       "name": "生物辅助接驳器·壹型",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_edc_02.webp",
@@ -12438,7 +12438,7 @@
     {
       "id": "item_equip_t4_suit_heal01_edc_03",
       "name": "生物辅助护板",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_edc_03.webp",
@@ -12475,7 +12475,7 @@
     {
       "id": "item_equip_t4_suit_heal01_edc_04",
       "name": "物辅助护盾针",
-      "category": "生物辅助",
+      "category": "LYNX",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_suit_heal01_edc_04.webp",
@@ -12512,7 +12512,7 @@
     {
       "id": "item_equip_t3_suit_usp01_body_01",
       "name": "天灾防护重甲",
-      "category": "天灾防护",
+      "category": "Catastrophe",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_usp01_body_01.webp",
@@ -12540,7 +12540,7 @@
     {
       "id": "item_equip_t3_suit_usp01_body_02",
       "name": "天灾防护重甲·壹型",
-      "category": "天灾防护",
+      "category": "Catastrophe",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_usp01_body_02.webp",
@@ -12568,7 +12568,7 @@
     {
       "id": "item_equip_t3_suit_usp01_edc_01",
       "name": "天灾防护净芯",
-      "category": "天灾防护",
+      "category": "Catastrophe",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_usp01_edc_01.webp",
@@ -12596,7 +12596,7 @@
     {
       "id": "item_equip_t3_suit_usp01_edc_02",
       "name": "天灾防护净芯·壹型",
-      "category": "天灾防护",
+      "category": "Catastrophe",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_usp01_edc_02.webp",
@@ -12624,7 +12624,7 @@
     {
       "id": "item_equip_t3_suit_usp01_hand_01",
       "name": "天灾防护手套",
-      "category": "天灾防护",
+      "category": "Catastrophe",
       "slot": "gloves",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_usp01_hand_01.webp",
@@ -12652,7 +12652,7 @@
     {
       "id": "item_equip_t3_suit_usp01_edc_03",
       "name": "天灾防护滤芯",
-      "category": "天灾防护",
+      "category": "Catastrophe",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_usp01_edc_03.webp",
@@ -12680,7 +12680,7 @@
     {
       "id": "item_equip_t3_suit_atk01_body_01",
       "name": "阿伯莉重甲",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_body_01.webp",
@@ -12708,7 +12708,7 @@
     {
       "id": "item_equip_t3_suit_atk01_body_02",
       "name": "阿伯莉重甲·壹型",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_body_02.webp",
@@ -12736,7 +12736,7 @@
     {
       "id": "item_equip_t3_suit_atk01_body_03",
       "name": "阿伯莉轻甲",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_body_03.webp",
@@ -12764,7 +12764,7 @@
     {
       "id": "item_equip_t3_suit_atk01_body_04",
       "name": "阿伯莉轻甲·壹型",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_body_04.webp",
@@ -12792,7 +12792,7 @@
     {
       "id": "item_equip_t3_suit_atk01_hand_01",
       "name": "阿伯莉手甲",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "gloves",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_hand_01.webp",
@@ -12820,7 +12820,7 @@
     {
       "id": "item_equip_t3_suit_atk01_edc_02",
       "name": "阿伯莉侦听芯片",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_edc_02.webp",
@@ -12848,7 +12848,7 @@
     {
       "id": "item_equip_t3_suit_atk01_edc_03",
       "name": "阿伯莉侦听芯片·壹型",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_edc_03.webp",
@@ -12876,7 +12876,7 @@
     {
       "id": "item_equip_t3_suit_atk01_edc_01",
       "name": "阿伯莉紫光灯",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_edc_01.webp",
@@ -12904,7 +12904,7 @@
     {
       "id": "item_equip_t3_suit_atk01_edc_04",
       "name": "阿伯莉照明器",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_edc_04.webp",
@@ -12932,7 +12932,7 @@
     {
       "id": "item_equip_t3_suit_atk01_edc_05",
       "name": "阿伯莉传感芯片",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_edc_05.webp",
@@ -12960,7 +12960,7 @@
     {
       "id": "item_equip_t3_suit_atk01_edc_06",
       "name": "阿伯莉传感芯片·壹型",
-      "category": "阿伯莉遗声",
+      "category": "Aburrey's Legacy",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_atk01_edc_06.webp",
@@ -12988,7 +12988,7 @@
     {
       "id": "item_equip_t3_suit_will01_body_01",
       "name": "蚀电防护背心·壹型",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_will01_body_01.webp",
@@ -13016,7 +13016,7 @@
     {
       "id": "item_equip_t3_suit_will01_hand_01",
       "name": "蚀电防护手套·壹型",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "gloves",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_will01_hand_01.webp",
@@ -13044,7 +13044,7 @@
     {
       "id": "item_equip_t3_suit_will01_edc_02",
       "name": "蚀电防护扳手·壹型",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_will01_edc_02.webp",
@@ -13072,7 +13072,7 @@
     {
       "id": "item_equip_t3_suit_will01_edc_01",
       "name": "蚀电防护电池·壹型",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_will01_edc_01.webp",
@@ -13100,7 +13100,7 @@
     {
       "id": "item_equip_t2_suit_will01_body_01",
       "name": "蚀电防护背心",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "armor",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_will01_body_01.webp",
@@ -13128,7 +13128,7 @@
     {
       "id": "item_equip_t2_suit_will01_hand_01",
       "name": "蚀电防护手套",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "gloves",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_will01_hand_01.webp",
@@ -13156,7 +13156,7 @@
     {
       "id": "item_equip_t2_suit_will01_edc_01",
       "name": "蚀电防护扳手",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_will01_edc_01.webp",
@@ -13184,7 +13184,7 @@
     {
       "id": "item_equip_t2_suit_will01_edc_02",
       "name": "蚀电防护电池",
-      "category": "蚀电防护",
+      "category": "Mordvolt Resistant",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_will01_edc_02.webp",
@@ -13212,7 +13212,7 @@
     {
       "id": "item_equip_t2_suit_wisd01_body_01",
       "name": "蚀电屏蔽背心",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "armor",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_wisd01_body_01.webp",
@@ -13240,7 +13240,7 @@
     {
       "id": "item_equip_t2_suit_wisd01_hand_01",
       "name": "蚀电屏蔽手套",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "gloves",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_wisd01_hand_01.webp",
@@ -13268,7 +13268,7 @@
     {
       "id": "item_equip_t2_suit_wisd01_edc_01",
       "name": "蚀电屏蔽扳手",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_wisd01_edc_01.webp",
@@ -13296,7 +13296,7 @@
     {
       "id": "item_equip_t2_suit_wisd01_edc_02",
       "name": "蚀电屏蔽扳手·壹型",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_wisd01_edc_02.webp",
@@ -13324,7 +13324,7 @@
     {
       "id": "item_equip_t2_suit_wisd01_edc_03",
       "name": "蚀电屏蔽电池",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_wisd01_edc_03.webp",
@@ -13352,7 +13352,7 @@
     {
       "id": "item_equip_t3_suit_wisd01_body_01",
       "name": "蚀电屏蔽背心·壹型",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_wisd01_body_01.webp",
@@ -13380,7 +13380,7 @@
     {
       "id": "item_equip_t3_suit_wisd01_body_02",
       "name": "蚀电屏蔽背心·贰型",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_wisd01_body_02.webp",
@@ -13408,7 +13408,7 @@
     {
       "id": "item_equip_t3_suit_wisd01_hand_01",
       "name": "蚀电屏蔽手套·壹型",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_wisd01_hand_01.webp",
@@ -13436,7 +13436,7 @@
     {
       "id": "item_equip_t3_suit_wisd01_edc_01",
       "name": "蚀电屏蔽扳手·贰型",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_wisd01_edc_01.webp",
@@ -13464,7 +13464,7 @@
     {
       "id": "item_equip_t3_suit_wisd01_edc_02",
       "name": "蚀电屏蔽电池·壹型",
-      "category": "蚀电屏蔽",
+      "category": "Mordvolt Insulation",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_wisd01_edc_02.webp",
@@ -13492,7 +13492,7 @@
     {
       "id": "item_equip_t2_suit_agi01_body_01",
       "name": "巡行信使夹克",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "armor",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_agi01_body_01.webp",
@@ -13520,7 +13520,7 @@
     {
       "id": "item_equip_t2_suit_agi01_hand_01",
       "name": "巡行信使手套",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "gloves",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_agi01_hand_01.webp",
@@ -13548,7 +13548,7 @@
     {
       "id": "item_equip_t2_suit_agi01_edc_02",
       "name": "巡行信使手电",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_agi01_edc_02.webp",
@@ -13576,7 +13576,7 @@
     {
       "id": "item_equip_t2_suit_agi01_edc_01",
       "name": "巡行信使陀螺",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_agi01_edc_01.webp",
@@ -13604,7 +13604,7 @@
     {
       "id": "item_equip_t3_suit_agi01_body_01",
       "name": "巡行信使夹克·壹型",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_agi01_body_01.webp",
@@ -13632,7 +13632,7 @@
     {
       "id": "item_equip_t3_suit_agi01_hand_01",
       "name": "巡行信使手套·壹型",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "gloves",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_agi01_hand_01.webp",
@@ -13660,7 +13660,7 @@
     {
       "id": "item_equip_t3_suit_agi01_edc_02",
       "name": "巡行信使手电·贰型",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_agi01_edc_02.webp",
@@ -13688,7 +13688,7 @@
     {
       "id": "item_equip_t3_suit_agi01_edc_01",
       "name": "巡行信使手电·壹型",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_agi01_edc_01.webp",
@@ -13716,7 +13716,7 @@
     {
       "id": "item_equip_t3_suit_agi01_edc_03",
       "name": "巡行信使陀螺·壹型",
-      "category": "巡行信使",
+      "category": "Roving MSGR",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_agi01_edc_03.webp",
@@ -13744,7 +13744,7 @@
     {
       "id": "item_equip_t2_suit_str01_body_01",
       "name": "重装信使夹克",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "armor",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_str01_body_01.webp",
@@ -13772,7 +13772,7 @@
     {
       "id": "item_equip_t2_suit_str01_hand_01",
       "name": "重装信使手套",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "gloves",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_str01_hand_01.webp",
@@ -13800,7 +13800,7 @@
     {
       "id": "item_equip_t2_suit_str01_edc_02",
       "name": "重装信使手电",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_str01_edc_02.webp",
@@ -13828,7 +13828,7 @@
     {
       "id": "item_equip_t2_suit_str01_edc_01",
       "name": "重装信使陀螺",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "accessory",
       "level": 36,
       "icon": "/equipment/item_equip_t2_suit_str01_edc_01.webp",
@@ -13856,7 +13856,7 @@
     {
       "id": "item_equip_t3_suit_str01_body_01",
       "name": "重装信使夹克·壹型",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "armor",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_str01_body_01.webp",
@@ -13884,7 +13884,7 @@
     {
       "id": "item_equip_t3_suit_str01_hand_02",
       "name": "重装信使手套·贰型",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "gloves",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_str01_hand_02.webp",
@@ -13912,7 +13912,7 @@
     {
       "id": "item_equip_t3_suit_str01_hand_01",
       "name": "重装信使手套·壹型",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "gloves",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_str01_hand_01.webp",
@@ -13940,7 +13940,7 @@
     {
       "id": "item_equip_t3_suit_str01_edc_02",
       "name": "重装信使手电·壹型",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_str01_edc_02.webp",
@@ -13968,7 +13968,7 @@
     {
       "id": "item_equip_t3_suit_str01_edc_01",
       "name": "重装信使陀螺·壹型",
-      "category": "重装信徒",
+      "category": "Armored MSGR",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t3_suit_str01_edc_01.webp",
@@ -13996,7 +13996,7 @@
     {
       "id": "item_equip_t1_suit_wisdwill01_body_01",
       "name": "集成化轻甲",
-      "category": "集成轻型",
+      "category": "AIC Light",
       "slot": "armor",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_wisdwill01_body_01.webp",
@@ -14024,7 +14024,7 @@
     {
       "id": "item_equip_t1_suit_wisdwill01_hand_01",
       "name": "集成化战术手套",
-      "category": "集成轻型",
+      "category": "AIC Light",
       "slot": "gloves",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_wisdwill01_hand_01.webp",
@@ -14052,7 +14052,7 @@
     {
       "id": "item_equip_t1_suit_wisdwill01_edc_01",
       "name": "集成化轻甲片",
-      "category": "集成轻型",
+      "category": "AIC Light",
       "slot": "accessory",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_wisdwill01_edc_01.webp",
@@ -14080,7 +14080,7 @@
     {
       "id": "item_equip_t1_suit_wisdwill01_edc_02",
       "name": "集成化陶瓷板",
-      "category": "集成轻型",
+      "category": "AIC Light",
       "slot": "accessory",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_wisdwill01_edc_02.webp",
@@ -14108,7 +14108,7 @@
     {
       "id": "item_equip_t1_suit_stragi01_body_01",
       "name": "集成化重甲",
-      "category": "集成重型",
+      "category": "AIC Heavy",
       "slot": "armor",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_stragi01_body_01.webp",
@@ -14136,7 +14136,7 @@
     {
       "id": "item_equip_t1_suit_stragi01_hand_01",
       "name": "集成化手甲",
-      "category": "集成重型",
+      "category": "AIC Heavy",
       "slot": "gloves",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_stragi01_hand_01.webp",
@@ -14164,7 +14164,7 @@
     {
       "id": "item_equip_t1_suit_stragi01_edc_02",
       "name": "集成化重甲片",
-      "category": "集成重型",
+      "category": "AIC Heavy",
       "slot": "accessory",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_stragi01_edc_02.webp",
@@ -14192,7 +14192,7 @@
     {
       "id": "item_equip_t1_suit_stragi01_edc_01",
       "name": "集成化合金板",
-      "category": "集成重型",
+      "category": "AIC Heavy",
       "slot": "accessory",
       "level": 20,
       "icon": "/equipment/item_equip_t1_suit_stragi01_edc_01.webp",
@@ -14220,7 +14220,7 @@
     {
       "id": "item_equip_t2_parts_tundra01_edc_04",
       "name": "矿场联络仪·壹型",
-      "category": "四号谷地",
+      "category": "Valley 4",
       "slot": "accessory",
       "level": 50,
       "icon": "/equipment/item_equip_t2_parts_tundra01_edc_04.webp",
@@ -14248,7 +14248,7 @@
     {
       "id": "item_equip_t0_parts_tundra01_hand_02",
       "name": "简易护手",
-      "category": "四号谷地",
+      "category": "Valley 4",
       "slot": "gloves",
       "level": 10,
       "icon": "/equipment/item_equip_t0_parts_tundra01_hand_02.webp",
@@ -14276,7 +14276,7 @@
     {
       "id": "item_equip_t0_parts_tundra01_hand_01",
       "name": "简易手甲",
-      "category": "四号谷地",
+      "category": "Valley 4",
       "slot": "gloves",
       "level": 10,
       "icon": "/equipment/item_equip_t0_parts_tundra01_hand_01.webp",
@@ -14304,7 +14304,7 @@
     {
       "id": "item_equip_t0_parts_tundra01_body_02",
       "name": "简易护服",
-      "category": "四号谷地",
+      "category": "Valley 4",
       "slot": "armor",
       "level": 10,
       "icon": "/equipment/item_equip_t0_parts_tundra01_body_02.webp",
@@ -14332,7 +14332,7 @@
     {
       "id": "item_equip_t0_parts_tundra01_body_01",
       "name": "简易护甲",
-      "category": "四号谷地",
+      "category": "Valley 4",
       "slot": "armor",
       "level": 10,
       "icon": "/equipment/item_equip_t0_parts_tundra01_body_01.webp",
@@ -14360,7 +14360,7 @@
     {
       "id": "item_equip_t4_parts_wuling01_edc_03",
       "name": "纾难印章",
-      "category": "武陵",
+      "category": "Wuling",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_parts_wuling01_edc_03.webp",
@@ -14399,7 +14399,7 @@
     {
       "id": "item_equip_t4_parts_wuling01_edc_04",
       "name": "纾难印章·壹型",
-      "category": "武陵",
+      "category": "Wuling",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_parts_wuling01_edc_04.webp",
@@ -14436,7 +14436,7 @@
     {
       "id": "item_equip_t4_parts_wuling01_edc_01",
       "name": "纾难识别牌",
-      "category": "武陵",
+      "category": "Wuling",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_parts_wuling01_edc_01.webp",
@@ -14473,7 +14473,7 @@
     {
       "id": "item_equip_t4_parts_wuling01_edc_02",
       "name": "纾难识别牌·壹型",
-      "category": "武陵",
+      "category": "Wuling",
       "slot": "accessory",
       "level": 70,
       "icon": "/equipment/item_equip_t4_parts_wuling01_edc_02.webp",
@@ -14509,130 +14509,130 @@
     }
   ],
   "equipmentCategories": [
-    "武陵",
-    "四号谷地",
-    "集成重型",
-    "集成轻型",
-    "重装信徒",
-    "巡行信使",
-    "蚀电屏蔽",
-    "蚀电防护",
-    "阿伯莉遗声",
-    "天灾防护",
-    "点剑",
-    "生物辅助",
-    "轻超域",
-    "碾骨",
-    "脉冲式",
-    "拓荒",
-    "动火用",
-    "M.I.警用",
-    "50式应龙",
-    "潮涌",
-    "长息"
+    "Wuling",
+    "Valley 4",
+    "AIC Heavy",
+    "AIC Light",
+    "Armored MSGR",
+    "Roving MSGR",
+    "Mordvolt Insulation",
+    "Mordvolt Resistant",
+    "Aburrey's Legacy",
+    "Catastrophe",
+    "Swordmancer",
+    "LYNX",
+    "Æthertech",
+    "Bonekrusha",
+    "Pulser Labs",
+    "Frontiers",
+    "Hot Work",
+    "MI Security",
+    "Type 50 Yinglung",
+    "Tide Surge",
+    "Eternal Xiranite"
   ],
   "equipmentCategoryConfigs": {
-    "武陵": {
+    "Wuling": {
       "setBonus": {
         "duration": 0
       }
     },
-    "四号谷地": {
+    "Valley 4": {
       "setBonus": {
         "duration": 0
       }
     },
-    "集成重型": {
+    "AIC Heavy": {
       "setBonus": {
         "duration": 0
       }
     },
-    "集成轻型": {
+    "AIC Light": {
       "setBonus": {
         "duration": 5
       }
     },
-    "重装信徒": {
+    "Armored MSGR": {
       "setBonus": {
         "duration": 0
       }
     },
-    "巡行信使": {
+    "Roving MSGR": {
       "setBonus": {
         "duration": 0
       }
     },
-    "蚀电屏蔽": {
+    "Mordvolt Insulation": {
       "setBonus": {
         "duration": 0
       }
     },
-    "蚀电防护": {
+    "Mordvolt Resistant": {
       "setBonus": {
         "duration": 0
       }
     },
-    "阿伯莉遗声": {
+    "Aburrey's Legacy": {
       "setBonus": {
         "duration": 15
       }
     },
-    "天灾防护": {
+    "Catastrophe": {
       "setBonus": {
         "duration": 0
       }
     },
-    "点剑": {
+    "Swordmancer": {
       "setBonus": {
         "duration": 0
       }
     },
-    "生物辅助": {
+    "LYNX": {
       "setBonus": {
         "duration": 0
       }
     },
-    "轻超域": {
+    "Æthertech": {
       "setBonus": {
         "duration": 15
       }
     },
-    "碾骨": {
+    "Bonekrusha": {
       "setBonus": {
         "duration": 0
       }
     },
-    "脉冲式": {
+    "Pulser Labs": {
       "setBonus": {
         "duration": 0
       }
     },
-    "拓荒": {
+    "Frontiers": {
       "setBonus": {
         "duration": 12
       }
     },
-    "动火用": {
+    "Hot Work": {
       "setBonus": {
         "duration": 8
       }
     },
-    "M.I.警用": {
+    "MI Security": {
       "setBonus": {
         "duration": 5
       }
     },
-    "50式应龙": {
+    "Type 50 Yinglung": {
       "setBonus": {
         "duration": 0
       }
     },
-    "潮涌": {
+    "Tide Surge": {
       "setBonus": {
         "duration": 10
       }
     },
-    "长息": {
+    "Eternal Xiranite": {
       "setBonus": {
         "duration": 15
       }
@@ -14642,17 +14642,17 @@
     "modifierDefs": [
       {
         "id": "primary_ability",
-        "label": "主能力提升",
+        "label": "Main ability enhancement",
         "unit": "flat"
       },
       {
         "id": "secondary_ability",
-        "label": "副能力提升",
+        "label": "Secondary ability enhancement",
         "unit": "percent"
       },
       {
         "id": "strength",
-        "label": "力量提升",
+        "label": "Str",
         "unit": "flat"
       },
       {
@@ -14682,7 +14682,7 @@
       },
       {
         "id": "crit_rate",
-        "label": "CR",
+        "label": "Crit rate",
         "unit": "percent"
       },
       {
@@ -14732,7 +14732,7 @@
       },
       {
         "id": "link_cd_reduction",
-        "label": "Link CD reduction",
+        "label": "Combo CD reduction",
         "unit": "percent"
       }
     ],
