@@ -15,41 +15,41 @@ const { characterRoster, iconDatabase, enemyDatabase, enemyCategories, weaponDat
 // === 常量定义 ===
 
 const ELEMENTS = [
-  { label: '灼热', value: 'blaze' },
-  { label: '寒冷', value: 'cold' },
-  { label: '电磁', value: 'emag' },
-  { label: '自然', value: 'nature' },
-  { label: '物理', value: 'physical' }
+  { label: 'Fire', value: 'blaze' },
+  { label: 'Cold', value: 'cold' },
+  { label: 'Electro', value: 'emag' },
+  { label: 'Nature', value: 'nature' },
+  { label: 'Physical', value: 'physical' }
 ]
 
 const VARIANT_TYPES = [
-  { label: '重击', value: 'attack' },
-  { label: '战技', value: 'skill' },
-  { label: '连携', value: 'link' },
-  { label: '终结技', value: 'ultimate' },
-  { label: '处决', value: 'execution' }
+  { label: 'Attack', value: 'attack' },
+  { label: 'Skill', value: 'skill' },
+  { label: 'Combo', value: 'link' },
+  { label: 'Ultimate', value: 'ultimate' },
+  { label: 'Finisher', value: 'execution' }
 ]
 
 const EFFECT_NAMES = {
-  "break": "破防", "armor_break": "碎甲", "stagger": "猛击", "knockdown": "倒地", "knockup": "击飞",
-  "blaze_attach": "灼热附着", "emag_attach": "电磁附着", "cold_attach": "寒冷附着", "nature_attach": "自然附着",
-  "blaze_burst": "灼热爆发", "emag_burst": "电磁爆发", "cold_burst": "寒冷爆发", "nature_burst": "自然爆发",
-  "burning": "燃烧", "conductive": "导电", "frozen": "冻结", "ice_shatter": "碎冰", "corrosion": "腐蚀",
-  "default": "默认图标"
+  "break": "Vulnerable", "armor_break": "Crush", "stagger": "Breach", "knockdown": "Knockdown", "knockup": "Lifts",
+  "blaze_attach": "Fire Infliction", "emag_attach": "Electric Infliction", "cold_attach": "Cryo Infliction", "nature_attach": "Nature Infliction",
+  "blaze_burst": "Fire Burst", "emag_burst": "Electric Susceptibility", "cold_burst": "Cryo Burst", "nature_burst": "Nature Burst",
+  "burning": "Burning", "conductive": "Electrification", "frozen": "Frozen", "ice_shatter": "Solidification", "corrosion": "Corrosion",
+  "default": "default"
 }
 
 const WEAPON_TYPES = [
-  { label: '单手剑', value: 'sword' },
-  { label: '双手剑', value: 'claym' },
-  { label: '长柄武器', value: 'lance' },
-  { label: '手铳', value: 'pistol' },
-  { label: '施术单元', value: 'funnel' }
+  { label: 'Sword', value: 'sword' },
+  { label: 'Greatsword', value: 'claym' },
+  { label: 'Polearm', value: 'lance' },
+  { label: 'Handcannon', value: 'pistol' },
+  { label: 'Arts Unit', value: 'funnel' }
 ]
 
 const EQUIPMENT_SLOTS = [
-  { label: '护甲', value: 'armor' },
-  { label: '护手', value: 'gloves' },
-  { label: '配件', value: 'accessory' }
+  { label: 'Armor', value: 'armor' },
+  { label: 'Gloves', value: 'gloves' },
+  { label: 'Accessory', value: 'accessory' }
 ]
 
 const EQUIPMENT_LEVELS = [70, 50, 36, 20, 10]
@@ -495,12 +495,12 @@ const equipmentAffixColumns = computed(() => {
   const is70 = Number(eq?.level) === 70
   return is70
     ? [
-        { label: '初始', index: 0 },
-        { label: '精锻1', index: 1 },
-        { label: '精锻2', index: 2 },
-        { label: '精锻3', index: 3 },
+        { label: 'initial', index: 0 },
+        { label: '1', index: 1 },
+        { label: '2', index: 2 },
+        { label: '3', index: 3 },
       ]
-    : [{ label: '初始', index: 0 }]
+    : [{ label: 'initial', index: 0 }]
 })
 
 const modifierDefs = computed(() => misc.value?.modifierDefs || [])
@@ -804,9 +804,9 @@ async function applyEquipmentTemplate(eq) {
     const currentHasNonZero = currentValues.some(v => (Number(v) || 0) !== 0)
     if (currentHasNonZero) {
       try {
-        await ElMessageBox.confirm('模板数值全为 0，会清空当前数值，是否继续？', '提示', {
-          confirmButtonText: '继续',
-          cancelButtonText: '取消',
+        await ElMessageBox.confirm('The template values are all 0, which will clear the current values. Do you want to continue?', 'Hint', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning',
         })
       } catch {
@@ -899,7 +899,7 @@ function addNewCharacter() {
   const allGlobalEffects = [...effectKeys]
 
   const newChar = {
-    id: newId, name: "新干员", rarity: 5, element: "physical", weapon: "sword", avatar: "/avatars/default.webp", exclusive_buffs: [],
+    id: newId, name: "New Operator", rarity: 5, element: "physical", weapon: "sword", avatar: "/avatars/default.webp", exclusive_buffs: [],
     accept_team_gauge: true,
 
     // 初始化各类动作属性
@@ -921,14 +921,14 @@ function addNewCharacter() {
 
   characterRoster.value.unshift(newChar)
   selectedCharId.value = newId
-  ElMessage.success('已添加新干员')
+  ElMessage.success('New operators have been added.')
 }
 
 function addNewEnemy() {
   const newId = `enemy_${Date.now()}`
   const newEnemy = {
     id: newId,
-    name: '新敌人',
+    name: 'New Enemy',
     avatar: '/Icon_Enemy/default_enemy.webp',
     maxStagger: 100,
     staggerNodeCount: 0,
@@ -941,14 +941,14 @@ function addNewEnemy() {
   if (!enemyDatabase.value) enemyDatabase.value = []
   enemyDatabase.value.push(newEnemy)
   selectedEnemyId.value = newId
-  ElMessage.success('已添加新敌人')
+  ElMessage.success('New enemy have been added.')
 }
 
 function addNewWeapon() {
   const newId = `wp_${Date.now()}`
   const newWeapon = {
     id: newId,
-    name: '新武器',
+    name: 'New weapon',
     buffName: '',
     type: 'sword',
     rarity: 3,
@@ -971,7 +971,7 @@ function addNewEquipment() {
   const category = equipmentCategories.value?.[0] || ''
   const newEquipment = {
     id: newId,
-    name: '新装备',
+    name: 'New equipment',
     category,
     slot: 'armor',
     level: 70,
@@ -985,7 +985,7 @@ function addNewEquipment() {
     equipmentCategoryConfigs.value[category] = { setBonus: { duration: 0 } }
   }
 
-  ElMessage.success('已添加新装备')
+  ElMessage.success('New equipment has been added.')
 }
 
 function addCoreModifierDef(statId) {
@@ -993,7 +993,7 @@ function addCoreModifierDef(statId) {
   ensureMiscRoot()
   if (modifierDefs.value.some(d => d.id === statId)) return
   const core = CORE_STATS.find(s => s.id === statId)
-  const newDef = { id: statId, label: core ? `${core.label}提升` : '新属性', unit: core?.unit || 'flat' }
+  const newDef = { id: statId, label: core ? `${core.label} increase` : 'New attribute', unit: core?.unit || 'flat' }
   misc.value.modifierDefs.push(newDef)
   ensureWeaponCommonEntry(statId)
   if (miscSection.value === 'weapon_table') {
@@ -1003,9 +1003,9 @@ function addCoreModifierDef(statId) {
 
 function removeModifierDef(id) {
   if (!id) return
-  ElMessageBox.confirm('确定要移除此属性吗？已配置到武器的引用会被清空。', '提示', {
-    confirmButtonText: '移除',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm('Are you sure you want to remove this attribute? References already configured to weapons will be cleared.', 'Hint', {
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
     type: 'warning'
   }).then(() => {
     const idx = misc.value.modifierDefs.findIndex(d => d.id === id)
@@ -1030,11 +1030,11 @@ function removeModifierDef(id) {
 function addEquipmentCategory() {
   const name = (newEquipmentCategoryName.value || '').trim()
   if (!name) {
-    ElMessage.warning('分类名称不能为空')
+    ElMessage.warning('Category names cannot be empty.')
     return
   }
   if (equipmentCategories.value.includes(name)) {
-    ElMessage.warning('该分类已存在')
+    ElMessage.warning('This category already exists.')
     return
   }
   equipmentCategories.value.push(name)
@@ -1049,7 +1049,7 @@ function deleteEquipmentCategory(name) {
   if (!name) return
   ElMessageBox.confirm(`确定要删除装备分类 "${name}" 吗？该分类下的装备会变为未分类。`, '警告', {
     confirmButtonText: '删除',
-    cancelButtonText: '取消',
+    cancelButtonText: 'Cancel',
     type: 'warning'
   }).then(() => {
     for (const eq of equipmentDatabase.value || []) {
@@ -1080,7 +1080,7 @@ function deleteEnemyCategory(name) {
   if (!name) return
   ElMessageBox.confirm(`确定要删除敌人分类 "${name}" 吗？该分类下的敌人会变为未分类。`, '警告', {
     confirmButtonText: '删除',
-    cancelButtonText: '取消',
+    cancelButtonText: 'Cancel',
     type: 'warning'
   }).then(() => {
     for (const enemy of enemyDatabase.value || []) {
@@ -1109,7 +1109,7 @@ function removeWeaponBuffBonusRow(index) {
 function deleteCurrentCharacter() {
   if (!selectedChar.value) return
   ElMessageBox.confirm(`确定要删除干员 "${selectedChar.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+    confirmButtonText: '删除', cancelButtonText: 'Cancel', type: 'warning'
   }).then(() => {
     const idx = characterRoster.value.findIndex(c => c.id === selectedCharId.value)
     if (idx !== -1) {
@@ -1124,7 +1124,7 @@ function deleteCurrentCharacter() {
 function deleteCurrentEnemy() {
   if (!selectedEnemy.value) return
   ElMessageBox.confirm(`确定要删除敌人 "${selectedEnemy.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+    confirmButtonText: '删除', cancelButtonText: 'Cancel', type: 'warning'
   }).then(() => {
     const idx = enemyDatabase.value.findIndex(e => e.id === selectedEnemyId.value)
     if (idx !== -1) {
@@ -1138,7 +1138,7 @@ function deleteCurrentEnemy() {
 function deleteCurrentWeapon() {
   if (!selectedWeapon.value) return
   ElMessageBox.confirm(`确定要删除武器 "${selectedWeapon.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+    confirmButtonText: '删除', cancelButtonText: 'Cancel', type: 'warning'
   }).then(() => {
     const idx = weaponDatabase.value.findIndex(w => w.id === selectedWeaponId.value)
     if (idx !== -1) {
@@ -1152,7 +1152,7 @@ function deleteCurrentWeapon() {
 function deleteCurrentEquipment() {
   if (!selectedEquipment.value) return
   ElMessageBox.confirm(`确定要删除装备 "${selectedEquipment.value.name}" 吗？`, '警告', {
-    confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
+    confirmButtonText: 'Delete', cancelButtonText: 'Cancel', type: 'warning'
   }).then(() => {
     const idx = equipmentDatabase.value.findIndex(e => e.id === selectedEquipmentId.value)
     if (idx !== -1) {
@@ -1775,45 +1775,45 @@ function saveData() {
           :class="{ 'is-active': editingMode === 'character' }"
           :style="{ '--ea-btn-accent': 'var(--ea-gold)' }"
           @click="setMode('character')"
-        >干员</button>
+        >Operator</button>
         <button
             class="ea-btn ea-btn--glass-cut"
             :class="{ 'is-active': editingMode === 'weapon' }"
             :style="{ '--ea-btn-accent': 'var(--ea-blue)' }"
             @click="setMode('weapon')"
-        >武器</button>
+        >Weapon</button>
         <button
             class="ea-btn ea-btn--glass-cut"
             :class="{ 'is-active': editingMode === 'equipment' }"
             :style="{ '--ea-btn-accent': 'var(--ea-success)' }"
             @click="setMode('equipment')"
-        >装备</button>
+        >Equipment</button>
         <button
           class="ea-btn ea-btn--glass-cut"
           :class="{ 'is-active': editingMode === 'enemy' }"
           :style="{ '--ea-btn-accent': 'var(--ea-danger-soft)' }"
           @click="setMode('enemy')"
-        >敌人</button>
+        >Enemy</button>
         <button
           class="ea-btn ea-btn--glass-cut"
           :class="{ 'is-active': editingMode === 'misc' }"
           :style="{ '--ea-btn-accent': 'var(--ea-purple)' }"
           @click="setMode('misc')"
-        >杂项</button>
+        >Misc</button>
       </div>
 
       <div class="sidebar-header">
         <h2>
           {{
             editingMode === 'character'
-              ? '干员数据'
+              ? 'Operator Data'
               : editingMode === 'enemy'
-                ? '敌人数据'
+                ? 'Enemy data'
                 : editingMode === 'weapon'
-                  ? '武器数据'
+                  ? 'Weapon data'
                   : editingMode === 'equipment'
-                    ? '装备数据'
-                    : '杂项'
+                    ? 'Equipment data'
+                    : 'Miscellaneous'
           }}
         </h2>
         <button
@@ -2000,9 +2000,9 @@ function saveData() {
             <polyline points="17 21 17 13 7 13 7 21"></polyline>
             <polyline points="7 3 7 8 15 8"></polyline>
           </svg>
-          保存数据
+          Save
         </button>
-        <router-link to="/" class="ea-btn ea-btn--block ea-btn--outline-muted">↩ 返回排轴器</router-link>
+        <router-link to="/" class="ea-btn ea-btn--block ea-btn--outline-muted">↩ Back to timeline</router-link>
       </div>
     </aside>
 
@@ -2019,7 +2019,7 @@ function saveData() {
               <span class="id-tag">{{ selectedChar.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentCharacter">删除此干员</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentCharacter">Remove</button>
         </header>
 
         <div class="cms-tabs">
@@ -2028,7 +2028,7 @@ function saveData() {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            基础信息
+            Basic
           </button>
 
           <button :class="{ active: activeTab === 'attack' }" @click="activeTab = 'attack'">
@@ -2038,14 +2038,14 @@ function saveData() {
               <path d="M16 16l4 4"></path>
               <path d="M19 21l2-2"></path>
             </svg>
-            重击
+            Attack
           </button>
 
           <button :class="{ active: activeTab === 'skill' }" @click="activeTab = 'skill'">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
-            战技
+            Skill
           </button>
 
           <button :class="{ active: activeTab === 'link' }" @click="activeTab = 'link'">
@@ -2053,14 +2053,14 @@ function saveData() {
               <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
               <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
             </svg>
-            连携
+            Combo
           </button>
 
           <button :class="{ active: activeTab === 'ultimate' }" @click="activeTab = 'ultimate'">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
             </svg>
-            终结技
+            Ultimate
           </button>
 
           <button :class="{ active: activeTab === 'execution' }" @click="activeTab = 'execution'">
@@ -2071,7 +2071,7 @@ function saveData() {
               <line x1="12" y1="6" x2="12" y2="2"></line>
               <line x1="12" y1="22" x2="12" y2="18"></line>
             </svg>
-            处决
+            Finisher
           </button>
 
           <button :class="{ active: activeTab === 'dodge' }" @click="activeTab = 'dodge'">
@@ -2079,7 +2079,7 @@ function saveData() {
               <path d="M3 12c3-6 6-6 9 0s6 6 9 0"></path>
               <path d="M3 12c3 6 6 6 9 0s6-6 9 0"></path>
             </svg>
-            闪避
+            Dodge
           </button>
 
           <button :class="{ active: activeTab === 'variants' }" @click="activeTab = 'variants'">
@@ -2088,18 +2088,18 @@ function saveData() {
               <polyline points="2 17 12 22 22 17"></polyline>
               <polyline points="2 12 12 17 22 12"></polyline>
             </svg>
-            变体
+            Variants
           </button>
         </div>
 
         <div class="tab-content">
 
           <div v-show="activeTab === 'basic'" class="form-section">
-            <h3 class="section-title">基本属性</h3>
+            <h3 class="section-title">Basic attributes</h3>
             <div class="form-grid">
-              <div class="form-group"><label>名称</label><input v-model="selectedChar.name" type="text" /></div>
+              <div class="form-group"><label>Name</label><input v-model="selectedChar.name" type="text" /></div>
               <div class="form-group"><label>ID (Unique)</label><input :value="selectedChar.id" @input="updateCharId" type="text" /></div>
-              <div class="form-group"><label>星级</label>
+              <div class="form-group"><label>Stars</label>
                 <el-select v-model="selectedChar.rarity" size="large" style="width: 100%">
                   <el-option :value="6" label="6 ★" />
                   <el-option :value="5" label="5 ★" />
@@ -2107,24 +2107,24 @@ function saveData() {
                 </el-select>
               </div>
               <div class="form-group">
-                <label>元素属性</label>
+                <label>Element</label>
                 <el-select v-model="selectedChar.element" size="large" style="width: 100%">
                   <el-option v-for="elm in ELEMENTS" :key="elm.value" :label="elm.label" :value="elm.value" />
                 </el-select>
               </div>
               <div class="form-group">
-                <label>武器类型</label>
+                <label>Weapon type</label>
                 <el-select v-model="selectedChar.weapon" size="large" style="width: 100%">
                   <el-option v-for="wpn in WEAPON_TYPES" :key="wpn.value" :label="wpn.label" :value="wpn.value" />
                 </el-select>
               </div>
-              <div class="form-group full-width"><label>图标路径</label><input v-model="selectedChar.avatar" type="text" /></div>
+              <div class="form-group full-width"><label>Avatar icon path</label><input v-model="selectedChar.avatar" type="text" /></div>
             </div>
 
-            <h3 class="section-title">特殊机制</h3>
+            <h3 class="section-title">Specials</h3>
             <div class="form-grid">
               <div class="form-group">
-                <label>充能判定</label>
+                <label>Charging</label>
                 <div class="checkbox-wrapper" :class="{ 'is-checked': selectedChar.accept_team_gauge !== false }">
                   <input
                       type="checkbox"
@@ -2132,27 +2132,27 @@ function saveData() {
                       :checked="selectedChar.accept_team_gauge !== false"
                       @change="e => selectedChar.accept_team_gauge = e.target.checked"
                   >
-                  <label for="cb_accept_gauge">接受队友充能</label>
+                  <label for="cb_accept_gauge">Receive energy from teammates</label>
                 </div>
               </div>
             </div>
 
-            <h3 class="section-title">专属效果</h3>
+            <h3 class="section-title">Exclusive effects</h3>
             <div class="exclusive-list">
               <div v-for="(buff, idx) in selectedChar.exclusive_buffs" :key="idx" class="exclusive-row">
                 <input v-model="buff.key" placeholder="Key" />
-                <input v-model="buff.name" placeholder="显示名称" />
-                <input v-model="buff.path" placeholder="图标路径" class="flex-grow" />
+                <input v-model="buff.name" placeholder="Title" />
+                <input v-model="buff.path" placeholder="Icon path" class="flex-grow" />
                 <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="selectedChar.exclusive_buffs.splice(idx, 1)">×</button>
               </div>
-              <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="selectedChar.exclusive_buffs.push({key:'',name:'',path:''})">+ 添加专属效果</button>
+              <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="selectedChar.exclusive_buffs.push({key:'',name:'',path:''})">+ Add custom effects</button>
             </div>
           </div>
 
           <div v-show="activeTab === 'variants'" class="form-section">
             <div class="info-banner">
-              此处添加的动作将拥有<strong>独立的数值</strong>（从创建时刻的基础数值深拷贝而来）。<br>
-              修改此处数值不会影响基础技能，反之亦然。
+              The action added here will have <strong>independent numerical values</strong> (deeply copied from the base values at creation time).<br>
+              Modifying these values will not affect the base skill, and vice versa.
             </div>
 
             <div v-for="(variant, idx) in (selectedChar.variants || [])" :key="idx" class="variant-card">
@@ -2163,69 +2163,69 @@ function saveData() {
 
               <div class="form-grid three-col">
                 <div class="form-group">
-                  <label>显示名称</label>
-                  <input v-model="variant.name" placeholder="例如：强化战技" />
+                  <label>Title</label>
+                  <input v-model="variant.name" placeholder="For example: enhancing combat skills" />
                 </div>
                 <div class="form-group">
-                  <label>动作类型 (切换重置)</label>
+                  <label>Action type (Toggle reset)</label>
                   <el-select v-model="variant.type" size="large" style="width: 100%" @change="onVariantTypeChange(variant, idx)">
                     <el-option v-for="t in VARIANT_TYPES" :key="t.value" :label="t.label" :value="t.value" />
                   </el-select>
                 </div>
                 <div class="form-group">
-                  <label>唯一标识 (ID后缀)</label>
-                  <input v-model="variant.id" placeholder="英文key, 如 s1_enhanced" />
+                  <label>Unique identifier (ID)</label>
+                  <input v-model="variant.id" placeholder="key code, like s1_enhanced" />
                 </div>
                 <div class="form-group" v-if="['skill', 'link', 'ultimate'].includes(variant.type)">
-                  <label>变体专属图标路径</label>
+                  <label>Variant-specific icon path</label>
                   <input v-model="variant.icon" type="text"/>
                 </div>
 
-                <div class="form-group" v-if="variant.type !== 'attack'"><label>持续时间</label><input type="number" step="0.1" v-model.number="variant.duration"></div>
+                <div class="form-group" v-if="variant.type !== 'attack'"><label>Duration</label><input type="number" step="0.1" v-model.number="variant.duration"></div>
 
                 <template v-if="variant.type === 'attack'">
                   <div class="form-group">
-                    <label>重击分段</label>
+                    <label>Duration</label>
                     <el-select v-model="variantAttackSegmentIndexList[idx]" size="large" style="width: 100%">
-                      <el-option v-for="i in ATTACK_SEGMENT_COUNT" :key="`vseg_${idx}_${i}`" :label="`第${i}段`" :value="i - 1" />
+                      <el-option v-for="i in ATTACK_SEGMENT_COUNT" :key="`vseg_${idx}_${i}`" :label="`${i}`" :value="i - 1" />
                     </el-select>
                   </div>
-                  <div class="form-group"><label>总时长 (s)</label><input type="number" :value="getVariantAttackTotalDuration(variant)" disabled></div>
-                  <div class="form-group"><label>本段时长 (s)</label><input type="number" step="0.1" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].duration"></div>
-                  <div class="form-group"><label>本段自身充能</label><input type="number" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].gaugeGain"></div>
+                  <div class="form-group"><label>Total duration (s)</label><input type="number" :value="getVariantAttackTotalDuration(variant)" disabled></div>
+                  <div class="form-group"><label>Segment duration (s)</label><input type="number" step="0.1" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].duration"></div>
+                  <div class="form-group"><label>Self charging</label><input type="number" v-model.number="variant.attackSegments[variantAttackSegmentIndexList[idx] || 0].gaugeGain"></div>
                   <div class="form-group full-width">
-                    <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="ensureVariantAttackSegments(variant, selectedChar, { force: true })">从基础重击重新深拷贝 5 段</button>
+                    <button class="ea-btn ea-btn--block ea-btn--dashed-muted" @click="ensureVariantAttackSegments(variant, selectedChar, { force: true })">Copy attack sequence.</button>
                   </div>
                 </template>
 
-                <div class="form-group" v-if="variant.type === 'skill'"><label>技力消耗</label><input type="number" v-model.number="variant.spCost"></div>
-                <div class="form-group" v-if="variant.type === 'skill'"><label>自身充能</label><input type="number" v-model.number="variant.gaugeGain"></div>
-                <div class="form-group" v-if="variant.type === 'skill'"><label>队友充能</label><input type="number" v-model.number="variant.teamGaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'skill'"><label>SP cost</label><input type="number" v-model.number="variant.spCost"></div>
+                <div class="form-group" v-if="variant.type === 'skill'"><label>Self charge</label><input type="number" v-model.number="variant.gaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'skill'"><label>Team charge</label><input type="number" v-model.number="variant.teamGaugeGain"></div>
 
-                <div class="form-group" v-if="variant.type === 'link'"><label>冷却时间 (CD)</label><input type="number" v-model.number="variant.cooldown"></div>
-                <div class="form-group" v-if="variant.type === 'link'"><label>自身充能</label><input type="number" v-model.number="variant.gaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'link'"><label>CD</label><input type="number" v-model.number="variant.cooldown"></div>
+                <div class="form-group" v-if="variant.type === 'link'"><label>Self charge</label><input type="number" v-model.number="variant.gaugeGain"></div>
 
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>充能消耗</label><input type="number" v-model.number="variant.gaugeCost"></div>
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>充能返还</label><input type="number" v-model.number="variant.gaugeGain"></div>
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>强化时间 (s)</label><input type="number" step="0.5" v-model.number="variant.enhancementTime"></div>
-                <div class="form-group" v-if="variant.type === 'ultimate'"><label>动画时间 (s)</label><input type="number" step="0.1" v-model.number="variant.animationTime"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Cost</label><input type="number" v-model.number="variant.gaugeCost"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Charge</label><input type="number" v-model.number="variant.gaugeGain"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Enhancement time (s)</label><input type="number" step="0.5" v-model.number="variant.enhancementTime"></div>
+                <div class="form-group" v-if="variant.type === 'ultimate'"><label>Animation (s)</label><input type="number" step="0.1" v-model.number="variant.animationTime"></div>
               </div>
 
               <div class="ticks-editor-area" style="margin-top: 10px;">
-                <label style="font-size: 12px; color: #aaa; font-weight: bold; display: block; margin-bottom: 5px;">伤害判定点</label>
-                <div v-if="getVariantTicks(variant, idx).length === 0" class="empty-ticks-hint">暂无判定点</div>
+                <label style="font-size: 12px; color: #aaa; font-weight: bold; display: block; margin-bottom: 5px;">Damage</label>
+                <div v-if="getVariantTicks(variant, idx).length === 0" class="empty-ticks-hint">not set</div>
                 <div v-for="(tick, tIdx) in getVariantTicks(variant, idx)" :key="tIdx" class="tick-row">
                   <div class="tick-top">
                     <div class="tick-idx">HIT {{ tIdx + 1 }}</div>
                     <div class="tick-inputs">
-                      <div class="t-group"><label>时间(s)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ff7875">失衡值</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ffd700">回复技力</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
+                      <div class="t-group"><label>Time(s)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ff7875">Stagger</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ffd700">SP</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="removeVariantDamageTick(variant, idx, tIdx)">×</button>
                   </div>
                   <div class="tick-binding">
-                    <label>绑定状态</label>
+                    <label>Binding status</label>
                     <el-select
                         v-model="tick.boundEffects"
                         multiple
@@ -2234,7 +2234,7 @@ function saveData() {
                         popper-class="ea-tick-binding-popper"
                         size="small"
                         class="tick-select"
-                        placeholder="选择要绑定的状态"
+                        placeholder="Select the state to bind."
                         :disabled="getVariantBindingOptions(variant, idx).length === 0"
                     >
                       <el-option v-for="opt in getVariantBindingOptions(variant, idx)" :key="opt.value" :label="opt.label" :value="opt.value">
@@ -2247,7 +2247,7 @@ function saveData() {
                     </el-select>
                   </div>
                 </div>
-                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 5px;" @click="addVariantDamageTick(variant, idx)">+ 添加判定点</button>
+                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 5px;" @click="addVariantDamageTick(variant, idx)">+ Add</button>
               </div>
 
               <div class="checkbox-grid" style="margin-top: 15px;">
@@ -2288,21 +2288,21 @@ function saveData() {
 
                       <div class="card-props-grid">
                         <div class="prop-item full-span">
-                          <label>层数 (Stacks)</label>
+                          <label>Levels (Stacks)</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.stacks" placeholder="1" class="mini-input">
-                            <span class="unit">层</span>
+                            <span class="unit"></span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>触发 (Start)</label>
+                          <label>Trigger (Start)</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.offset" placeholder="0" step="0.1" class="mini-input">
                             <span class="unit">s</span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>持续 (Dur)</label>
+                          <label>Duration</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.duration" placeholder="0" step="0.5" class="mini-input">
                             <span class="unit">s</span>
@@ -2313,17 +2313,17 @@ function saveData() {
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-40 ea-btn--icon-plus" @click="addVariantEffect(variant, idx, rIndex)">+</button>
                   </div>
-                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariantRow(variant, idx)" :disabled="getVariantAvailableOptions(variant, idx).length === 0">+ 新增效果行</button>
+                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariantRow(variant, idx)" :disabled="getVariantAvailableOptions(variant, idx).length === 0">+ Add</button>
                 </div>
               </div>
             </div>
 
-            <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariant" style="margin-top: 20px;">+ 添加新变体动作</button>
+            <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addVariant" style="margin-top: 20px;">+ Add new</button>
           </div>
 
           <template v-for="type in ['attack', 'skill', 'link', 'ultimate', 'execution', 'dodge']" :key="type">
             <div v-show="activeTab === type" class="form-section">
-              <h3 class="section-title">数值配置</h3>
+              <h3 class="section-title">Configuration</h3>
 
               <div v-if="type === 'attack'" class="attack-seg-toolbar">
                 <div class="attack-seg-buttons">
@@ -2333,67 +2333,67 @@ function saveData() {
                       class="ea-btn ea-btn--glass-cut ea-btn--sm"
                       :class="{ active: attackSegmentIndex === (i - 1) }"
                       @click="attackSegmentIndex = i - 1"
-                  >第{{ i }}段</button>
+                  >Attack {{ i }}</button>
                 </div>
                 <div class="attack-seg-meta">
-                  <span class="meta-item">总时长：{{ attackTotalDuration }}s</span>
-                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: false })">批量覆盖（不含时长）</button>
-                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: true })">批量覆盖（含时长）</button>
+                  <span class="meta-item">Total duration: {{ attackTotalDuration }}s</span>
+                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: false })">Set all (excluding duration)</button>
+                  <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyAttackSegmentToAll({ includeDuration: true })">Set all (including duration)</button>
                 </div>
               </div>
 
               <div v-if="type === 'attack' && currentAttackSegment" class="form-grid three-col">
-                <div class="form-group"><label>本段持续时间 (s)</label><input type="number" step="0.1" v-model.number="currentAttackSegment.duration"></div>
-                <div class="form-group"><label>本段自身充能</label><input type="number" v-model.number="currentAttackSegment.gaugeGain"></div>
+                <div class="form-group"><label>Segment duration (s)</label><input type="number" step="0.1" v-model.number="currentAttackSegment.duration"></div>
+                <div class="form-group"><label>Gauge gain</label><input type="number" v-model.number="currentAttackSegment.gaugeGain"></div>
               </div>
 
               <div v-else class="form-grid three-col">
                 <div class="form-group" v-if="type === 'skill' || type === 'ultimate'">
-                  <label>技能属性</label>
-                  <el-select v-model="selectedChar[`${type}_element`]" size="large" placeholder="默认 (跟随干员)" style="width: 100%">
-                    <el-option value="" label="默认 (跟随干员)" />
+                  <label>Skill Attributes</label>
+                  <el-select v-model="selectedChar[`${type}_element`]" size="large" placeholder="Default (Follows Operator)" style="width: 100%">
+                    <el-option value="" label="Default (Follows Operator)" />
                     <el-option v-for="elm in ELEMENTS" :key="elm.value" :label="elm.label" :value="elm.value" />
                   </el-select>
                 </div>
 
-                <div class="form-group" v-if="['skill', 'link', 'ultimate'].includes(type)"><label>自定义图标路径</label><input v-model="selectedChar[`${type}_icon`]" type="text"/></div>
+                <div class="form-group" v-if="['skill', 'link', 'ultimate'].includes(type)"><label>Custom icon path</label><input v-model="selectedChar[`${type}_icon`]" type="text"/></div>
 
-                <div class="form-group"><label>持续时间 (s)</label><input type="number" step="0.1" v-model.number="selectedChar[`${type}_duration`]"></div>
+                <div class="form-group"><label>Duration (s)</label><input type="number" step="0.1" v-model.number="selectedChar[`${type}_duration`]"></div>
 
-                <div class="form-group" v-if="type === 'skill'"><label>技力消耗</label><input type="number" v-model.number="selectedChar[`${type}_spCost`]"></div>
-                <div class="form-group" v-if="type === 'skill'"><label>自身充能</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]" @input="onSkillGaugeInput"></div>
-                <div class="form-group" v-if="type === 'skill'"><label>队友充能</label><input type="number" v-model.number="selectedChar[`${type}_teamGaugeGain`]"></div>
+                <div class="form-group" v-if="type === 'skill'"><label>SP cost</label><input type="number" v-model.number="selectedChar[`${type}_spCost`]"></div>
+                <div class="form-group" v-if="type === 'skill'"><label>Gauge gain</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]" @input="onSkillGaugeInput"></div>
+                <div class="form-group" v-if="type === 'skill'"><label>Team gauge gain</label><input type="number" v-model.number="selectedChar[`${type}_teamGaugeGain`]"></div>
 
-                <div class="form-group" v-if="type === 'link'"><label>冷却时间 (s)</label><input type="number" v-model.number="selectedChar[`${type}_cooldown`]"></div>
-                <div class="form-group" v-if="type === 'link'"><label>自身充能</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]"></div>
+                <div class="form-group" v-if="type === 'link'"><label>CD (s)</label><input type="number" v-model.number="selectedChar[`${type}_cooldown`]"></div>
+                <div class="form-group" v-if="type === 'link'"><label>Gauge gain</label><input type="number" v-model.number="selectedChar[`${type}_gaugeGain`]"></div>
 
-                <div class="form-group" v-if="type === 'ultimate'"><label>充能消耗</label><input type="number" v-model.number="selectedChar[`${type}_gaugeMax`]"></div>
-                <div class="form-group" v-if="type === 'ultimate'"><label>自身充能</label><input type="number" v-model.number="selectedChar[`${type}_gaugeReply`]"></div>
-                <div class="form-group" v-if="type === 'ultimate'"><label>强化时间 (s)</label><input type="number" step="0.5" v-model.number="selectedChar[`${type}_enhancementTime`]"></div>
+                <div class="form-group" v-if="type === 'ultimate'"><label>Gauge max</label><input type="number" v-model.number="selectedChar[`${type}_gaugeMax`]"></div>
+                <div class="form-group" v-if="type === 'ultimate'"><label>Gauge reply</label><input type="number" v-model.number="selectedChar[`${type}_gaugeReply`]"></div>
+                <div class="form-group" v-if="type === 'ultimate'"><label>Enhancement time (s)</label><input type="number" step="0.5" v-model.number="selectedChar[`${type}_enhancementTime`]"></div>
                 <div class="form-group" v-if="type === 'ultimate'">
-                  <label>动画时间 (s)</label>
+                  <label>Animation time (s)</label>
                   <input type="number" step="0.1" v-model.number="selectedChar[`${type}_animationTime`]">
                 </div>
               </div>
 
               <template v-if="type !== 'dodge'">
-                <h3 class="section-title">伤害判定点</h3>
+                <h3 class="section-title">Damage</h3>
               <div class="ticks-editor-area">
                 <div v-if="getDamageTicks(selectedChar, type).length === 0" class="empty-ticks-hint">
-                  暂无判定点，请点击下方按钮添加
+                  Not set. Please click the button below to add one.
                 </div>
                 <div v-for="(tick, tIdx) in getDamageTicks(selectedChar, type)" :key="tIdx" class="tick-row">
                   <div class="tick-top">
                     <div class="tick-idx">HIT {{ tIdx + 1 }}</div>
                     <div class="tick-inputs">
-                      <div class="t-group"><label>时间(s)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ff7875">失衡值</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
-                      <div class="t-group"><label style="color:#ffd700">回复技力</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
+                      <div class="t-group"><label>Time(s)</label><input type="number" v-model.number="tick.offset" step="any" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ff7875">Stagger</label><input type="number" v-model.number="tick.stagger" class="mini-input"></div>
+                      <div class="t-group"><label style="color:#ffd700">SP</label><input type="number" v-model.number="tick.sp" class="mini-input"></div>
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-24 ea-btn--glass-rect ea-btn--accent-red ea-btn--glass-rect-danger" @click="removeDamageTick(selectedChar, type, tIdx)">×</button>
                   </div>
                   <div class="tick-binding">
-                    <label>绑定状态</label>
+                    <label>Bound effects</label>
                     <el-select
                         v-model="tick.boundEffects"
                         multiple
@@ -2402,7 +2402,7 @@ function saveData() {
                         popper-class="ea-tick-binding-popper"
                         size="small"
                         class="tick-select"
-                        placeholder="选择要绑定的状态"
+                        placeholder="Select the state to bind."
                         :disabled="getBindingOptions(type).length === 0"
                     >
                       <el-option v-for="opt in getBindingOptions(type)" :key="opt.value" :label="opt.label" :value="opt.value">
@@ -2415,10 +2415,10 @@ function saveData() {
                     </el-select>
                   </div>
                 </div>
-                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 10px;" @click="addDamageTick(selectedChar, type)">+ 添加判定点</button>
+                <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" style="margin-top: 10px;" @click="addDamageTick(selectedChar, type)">+ Add</button>
               </div>
 
-              <h3 class="section-title">效果池配置</h3>
+              <h3 class="section-title">Effects configuration</h3>
               <div v-if="type === 'attack' && currentAttackSegment" class="checkbox-grid">
                 <label v-for="key in effectKeys" :key="`${type}_${attackSegmentIndex}_${key}`" class="cb-item">
                   <input type="checkbox" :value="key" v-model="currentAttackSegment.allowed_types" @change="onCheckChange(selectedChar, type, key)">
@@ -2441,7 +2441,7 @@ function saveData() {
               </div>
 
               <div class="matrix-editor-area">
-                <h3 class="section-title">默认附带状态 (二维矩阵)</h3>
+                <h3 class="section-title">Default accompanying state (2d matrix)</h3>
                 <div class="anomalies-grid-editor">
                   <div v-for="(row, rIndex) in getAnomalyRows(selectedChar, type)" :key="rIndex" class="editor-row">
 
@@ -2456,21 +2456,21 @@ function saveData() {
 
                       <div class="card-props-grid">
                         <div class="prop-item full-span">
-                          <label>层数</label>
+                          <label>Stacks</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.stacks" placeholder="1" class="mini-input">
-                            <span class="unit">层</span>
+                            <span class="unit"></span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>触发</label>
+                          <label>Trigger time</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.offset" placeholder="0" step="0.1" class="mini-input">
                             <span class="unit">s</span>
                           </div>
                         </div>
                         <div class="prop-item">
-                          <label>持续</label>
+                          <label>Duration</label>
                           <div class="input-with-unit">
                             <input type="number" v-model.number="item.duration" placeholder="0" step="0.5" class="mini-input">
                             <span class="unit">s</span>
@@ -2481,7 +2481,7 @@ function saveData() {
                     </div>
                     <button class="ea-btn ea-btn--icon ea-btn--icon-40 ea-btn--icon-plus" @click="addAnomalyToRow(selectedChar, type, rIndex)">+</button>
                   </div>
-                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addAnomalyRow(selectedChar, type)" :disabled="getAvailableAnomalyOptions(type).length === 0">+ 新增效果行</button>
+                  <button class="ea-btn ea-btn--block ea-btn--lg ea-btn--dashed-panel ea-btn--radius-6" @click="addAnomalyRow(selectedChar, type)" :disabled="getAvailableAnomalyOptions(type).length === 0">+ Add</button>
                 </div>
               </div>
               </template>
@@ -2502,16 +2502,16 @@ function saveData() {
               <span class="id-tag">{{ selectedEnemy.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEnemy">删除此敌人</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEnemy">Remove</button>
         </header>
 
         <div class="form-section">
-          <h3 class="section-title">基本信息</h3>
+          <h3 class="section-title">Basic Information</h3>
           <div class="form-grid">
-            <div class="form-group"><label>名称</label><input v-model="selectedEnemy.name" /></div>
+            <div class="form-group"><label>Name</label><input v-model="selectedEnemy.name" /></div>
             <div class="form-group"><label>ID</label><input :value="selectedEnemy.id" @change="updateEnemyId" /></div>
             <div class="form-group">
-              <label>等阶</label>
+              <label>Tier</label>
               <el-select
                 v-model="selectedEnemy.tier"
                 size="large"
@@ -2525,23 +2525,23 @@ function saveData() {
 
             <div class="form-group">
               <div style="display:flex; align-items:center; justify-content:space-between;">
-                <label>分类</label>
+                <label>Classification</label>
               </div>
               <el-select v-model="selectedEnemy.category" size="large" style="width: 100%">
-                <el-option :value="''" label="未分类" />
+                <el-option :value="''" label="Uncategorized" />
                 <el-option v-for="cat in enemyCategories" :key="cat" :label="cat" :value="cat" />
               </el-select>
             </div>
-            <div class="form-group full-width"><label>图标路径</label><input v-model="selectedEnemy.avatar" /></div>
+            <div class="form-group full-width"><label>Icon path</label><input v-model="selectedEnemy.avatar" /></div>
           </div>
 
-          <h3 class="section-title">数值属性</h3>
+          <h3 class="section-title">Attributes</h3>
           <div class="form-grid three-col">
-            <div class="form-group"><label style="color:#ff7875">失衡上限</label><input type="number" v-model.number="selectedEnemy.maxStagger"></div>
-            <div class="form-group"><label style="color:#ff7875">失衡节点数</label><input type="number" v-model.number="selectedEnemy.staggerNodeCount"></div>
-            <div class="form-group"><label style="color:#ff7875">踉跄时长 (s)</label><input type="number" step="0.1" v-model.number="selectedEnemy.staggerNodeDuration"></div>
-            <div class="form-group"><label style="color:#ff7875">失衡时长 (s)</label><input type="number" step="0.5" v-model.number="selectedEnemy.staggerBreakDuration"></div>
-            <div class="form-group"><label style="color:#ffd700">处决回复技力</label><input type="number" v-model.number="selectedEnemy.executionRecovery"></div>
+            <div class="form-group"><label style="color:#ff7875">Max stagger</label><input type="number" v-model.number="selectedEnemy.maxStagger"></div>
+            <div class="form-group"><label style="color:#ff7875">Stagger nodes</label><input type="number" v-model.number="selectedEnemy.staggerNodeCount"></div>
+            <div class="form-group"><label style="color:#ff7875">Node duration (s)</label><input type="number" step="0.1" v-model.number="selectedEnemy.staggerNodeDuration"></div>
+            <div class="form-group"><label style="color:#ff7875">Break duration (s)</label><input type="number" step="0.5" v-model.number="selectedEnemy.staggerBreakDuration"></div>
+            <div class="form-group"><label style="color:#ffd700">Finisher recovery</label><input type="number" v-model.number="selectedEnemy.executionRecovery"></div>
           </div>
         </div>
       </div>
@@ -2561,48 +2561,48 @@ function saveData() {
               <span class="id-tag">{{ selectedEquipment.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEquipment">删除此装备</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentEquipment">Remove</button>
         </header>
 
         <div class="form-section">
-          <h3 class="section-title">基础信息</h3>
+          <h3 class="section-title">Basic Information</h3>
           <div class="form-grid three-col">
-            <div class="form-group"><label>名称</label><input v-model="selectedEquipment.name" type="text" /></div>
+            <div class="form-group"><label>Title</label><input v-model="selectedEquipment.name" type="text" /></div>
             <div class="form-group"><label>ID (Unique)</label><input :value="selectedEquipment.id" @input="updateEquipmentId" type="text" /></div>
             <div class="form-group">
-              <label>部位</label>
+              <label>Slot</label>
               <el-select v-model="selectedEquipment.slot" size="large" style="width: 100%">
                 <el-option v-for="s in EQUIPMENT_SLOTS" :key="s.value" :label="s.label" :value="s.value" />
               </el-select>
             </div>
             <div class="form-group">
-              <label>等级</label>
+              <label>Level</label>
               <el-select v-model="selectedEquipment.level" size="large" style="width: 100%">
                 <el-option v-for="lv in EQUIPMENT_LEVELS" :key="lv" :label="`Lv${lv}`" :value="lv" />
               </el-select>
             </div>
             <div class="form-group">
               <div style="display:flex; align-items:center; justify-content:space-between;">
-                <label>分类</label>
+                <label>Category</label>
               </div>
               <el-select v-model="selectedEquipment.category" size="large" style="width: 100%">
-                <el-option :value="''" label="未分类" />
+                <el-option :value="''" label="Uncategorized" />
                 <el-option v-for="cat in equipmentCategories" :key="cat" :label="cat" :value="cat" />
               </el-select>
             </div>
-            <div class="form-group full-width"><label>图标路径</label><input v-model="selectedEquipment.icon" type="text" /></div>
+            <div class="form-group full-width"><label>Icon path</label><input v-model="selectedEquipment.icon" type="text" /></div>
           </div>
         </div>
 
         <div class="form-section">
-          <h3 class="section-title">三件套（套装 BUFF）</h3>
+          <h3 class="section-title">Three-piece set (set buff)</h3>
           <div class="form-grid three-col">
             <div class="form-group">
-              <label>BUFF 名称（固定等于分类名）</label>
+              <label>BUFF name (always equal to category name)</label>
               <input :value="selectedEquipment.category || ''" disabled />
             </div>
             <div class="form-group">
-              <label>持续时间 (s)</label>
+              <label>Duration (s)</label>
               <input
                   type="number"
                   min="0"
@@ -2615,27 +2615,27 @@ function saveData() {
         </div>
 
         <div class="form-section">
-          <h3 class="section-title">装备词条数值</h3>
+          <h3 class="section-title">Equipment stats</h3>
           <div class="info-banner">
-            Lv70 装备支持“初始 / 精锻1 / 精锻2 / 精锻3”四档；非 Lv70 仅支持“初始数值”。副词条可为空；适配词条可多选（用于寒冷+电磁等组合）。
+            Lv70 equipment supports four tiers: "Initial / 1 / 2 / 3"; non-Lv70 equipment only supports "Initial Value". Sub-attributes can be empty; multiple compatible attributes can be selected (for combinations such as Cold + Electro).
           </div>
 
           <div v-if="Number(selectedEquipment.level) === 70" class="attack-seg-toolbar" style="margin-bottom: 12px;">
             <div class="attack-seg-meta" style="justify-content: space-between;">
-              <span class="meta-item">可精锻属性：4 档</span>
-              <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyEquipmentTemplate(selectedEquipment)">套用部位模板（仅数值）</button>
+              <span class="meta-item">Refineable attributes: Tier 4</span>
+              <button class="ea-btn ea-btn--glass-cut ea-btn--sm" @click="applyEquipmentTemplate(selectedEquipment)">Apply part template (numerical only)</button>
             </div>
           </div>
 
           <div v-if="selectedEquipmentAffixes" class="matrix-grid" :style="{ gridTemplateColumns: `140px 200px repeat(${equipmentAffixColumns.length}, 1fr)` }">
-            <div class="matrix-cell header-corner">词条</div>
-            <div class="matrix-cell header-level">属性</div>
+            <div class="matrix-cell header-corner">Entry</div>
+            <div class="matrix-cell header-level">Prop</div>
             <div v-for="col in equipmentAffixColumns" :key="`eq_col_${col.index}`" class="matrix-cell header-level">{{ col.label }}</div>
 
-            <div class="matrix-cell row-label large">主词条</div>
+            <div class="matrix-cell row-label large">Main stat</div>
             <div class="matrix-cell">
-              <el-select v-model="selectedEquipmentAffixes.primary1.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="请选择">
-                <el-option :value="null" label="（无）" />
+              <el-select v-model="selectedEquipmentAffixes.primary1.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="Please select">
+                <el-option :value="null" label="(none)" />
                 <el-option v-for="opt in primaryStatOptions" :key="`p1_${opt.value}`" :label="opt.label" :value="opt.value" />
               </el-select>
             </div>
@@ -2643,10 +2643,10 @@ function saveData() {
               <input type="number" step="0.1" v-model.number="selectedEquipmentAffixes.primary1.values[col.index]" class="matrix-input" />
             </div>
 
-            <div class="matrix-cell row-label medium">副词条</div>
+            <div class="matrix-cell row-label medium">Secondary stat</div>
             <div class="matrix-cell">
-              <el-select v-model="selectedEquipmentAffixes.primary2.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="请选择">
-                <el-option :value="null" label="（无）" />
+              <el-select v-model="selectedEquipmentAffixes.primary2.modifierId" size="small" style="width: 100%" :teleported="true" placeholder="Please select">
+                <el-option :value="null" label="(none)" />
                 <el-option v-for="opt in primaryStatOptions" :key="`p2_${opt.value}`" :label="opt.label" :value="opt.value" />
               </el-select>
             </div>
@@ -2654,7 +2654,7 @@ function saveData() {
               <input type="number" step="0.1" v-model.number="selectedEquipmentAffixes.primary2.values[col.index]" class="matrix-input" />
             </div>
 
-            <div class="matrix-cell row-label small">属性加成</div>
+            <div class="matrix-cell row-label small">Attribute bonus</div>
             <div class="matrix-cell" style="overflow: visible;">
               <el-select-v2
                   v-model="selectedEquipmentAffixes.adapter.modifierIds"
@@ -2666,7 +2666,7 @@ function saveData() {
                   style="width: 100%"
                   :teleported="true"
                   :options="equipmentModifierOptionsV2"
-                  placeholder="请选择"
+                  placeholder="Please select"
               />
             </div>
             <div v-for="col in equipmentAffixColumns" :key="`adv_${col.index}`" class="matrix-cell">
@@ -2683,28 +2683,28 @@ function saveData() {
               <h1 class="edit-title">
                 {{
                   miscSection === 'stats'
-                    ? '所有属性'
+                    ? 'All attributes'
                     : miscSection === 'weapon_table'
-                      ? '武器词条数值'
+                      ? 'Weapon stats'
                       : miscSection === 'equipment_table'
-                        ? '装备词条模板'
+                        ? 'Equipment Attributes'
                       : miscSection === 'equipment_categories'
-                        ? '装备分类'
-                        : '敌人分类'
+                        ? 'Equipment Kit'
+                        : 'Enemy Classification'
                 }}
               </h1>
-              <span class="id-tag">杂项</span>
+              <span class="id-tag">Miscellaneous</span>
             </div>
           </div>
         </header>
 
         <div v-if="miscSection === 'stats'" class="form-section">
           <div class="info-banner">
-            这里只维护“已适配”的属性；武器/装备数值只有配置到这些属性上才会生效。
+            This section only maintains "adapted" attributes; weapon/equipment values will only take effect when configured for these attributes.
           </div>
 
           <div v-if="availableCoreStatsToAdd.length > 0" style="margin-top: 18px;">
-            <h3 class="section-title">快速添加（已适配属性）</h3>
+            <h3 class="section-title">Quickly add (adapted attributes)</h3>
             <div style="display:flex; flex-wrap: wrap; gap: 10px;">
               <button
                   v-for="s in availableCoreStatsToAdd"
@@ -2712,14 +2712,14 @@ function saveData() {
                   class="ea-btn ea-btn--glass-cut"
                   :style="{ '--ea-btn-accent': s.unit === 'percent' ? 'var(--ea-gold)' : 'var(--ea-purple)' }"
                   @click="addCoreModifierDef(s.id)"
-              >{{ s.label }}提升</button>
+              >{{ s.label }} +</button>
             </div>
           </div>
 
-          <h3 class="section-title" style="margin-top: 18px;">属性列表（可拖拽排序）</h3>
+          <h3 class="section-title" style="margin-top: 18px;">Attribute list (can be dragged and sorted)</h3>
 
           <div v-if="misc.modifierDefs.length === 0" class="empty-hint">
-            暂无属性，请使用上方“快速添加”
+            No attributes available. Please use the "Quick Add" button above.
           </div>
 
           <draggable v-model="misc.modifierDefs" :item-key="(item) => item.id" handle=".drag-handle" :animation="150">
@@ -2729,18 +2729,18 @@ function saveData() {
                 <div class="flex-grow">
                   <div class="form-grid" style="grid-template-columns: 1fr 160px 110px; gap: 12px; align-items:end;">
                     <div class="form-group">
-                      <label>名称</label>
+                      <label>title</label>
                       <input v-model="element.label" type="text" />
                     </div>
                     <div class="form-group">
-                      <label>单位</label>
+                      <label>unit</label>
                       <div class="unit-badge" :class="element.unit">
-                        {{ element.unit === 'percent' ? '百分比 (%)' : '固定数值' }}
+                        {{ element.unit === 'percent' ? 'percent (%)' : 'fixed' }}
                       </div>
                     </div>
                     <div class="form-group">
-                      <label>操作</label>
-                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeModifierDef(element.id)">移除</button>
+                      <label>Action</label>
+                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeModifierDef(element.id)">Remove</button>
                     </div>
                   </div>
                 </div>
@@ -2750,13 +2750,13 @@ function saveData() {
         </div>
 
         <div v-else-if="miscSection === 'weapon_table'" class="form-section">
-          <h3 class="section-title">武器词条数值表</h3>
+          <h3 class="section-title">Weapon Attribute Value Table</h3>
           <div class="info-banner">
-            此处配置属性在不同等级（1-9级）和不同幅度（大/中/小）下的具体数值。<br>
+            This section configures the specific values of attributes at different levels (1-9) and different ranges (large/medium/small).<br>
           </div>
 
           <div v-if="modifierDefs.length === 0" class="empty-hint">
-            暂无属性，请先在“所有属性”中添加。
+            No attributes are available yet. Please add them in "All Attributes" first.
           </div>
 
           <div class="weapon-table-list">
@@ -2765,7 +2765,7 @@ function saveData() {
                 <div class="stat-title-group">
                   <span class="stat-name">{{ def.label }}</span>
                   <span class="stat-unit-badge" :class="def.unit">
-            {{ def.unit === 'percent' ? '百分比 (%)' : '固定数值' }}
+            {{ def.unit === 'percent' ? 'percent (%)' : 'fixed' }}
           </span>
                 </div>
                 <div class="stat-id">ID: {{ def.id }}</div>
@@ -2773,7 +2773,7 @@ function saveData() {
 
               <div class="stat-body" v-if="ensureWeaponCommonEntry(def.id)">
                 <div class="matrix-grid">
-                  <div class="matrix-cell header-corner">等级</div>
+                  <div class="matrix-cell header-corner">Level</div>
                   <div v-for="lv in 9" :key="`h-${lv}`" class="matrix-cell header-level">{{ lv }}</div>
 
                   <div class="matrix-cell row-label large">大</div>
@@ -2812,9 +2812,9 @@ function saveData() {
         </div>
 
         <div v-else-if="miscSection === 'equipment_table'" class="form-section">
-          <h3 class="section-title">Lv70 装备词条数值模板</h3>
+          <h3 class="section-title">Lv70 Equipment Attribute Template</h3>
           <div class="info-banner">
-            这里维护护甲/护手/配件三种“数值模板”，在装备编辑页（Lv70）可一键套用到主词条数值（不包含词条类型）。
+            This section maintains three "numerical templates" for armor, gauntlets, and accessories. These templates can be applied to the main attribute values (excluding attribute types) with a single click on the equipment editing page (Lv70).
           </div>
 
           <div class="weapon-table-list">
@@ -2822,32 +2822,32 @@ function saveData() {
               <div class="stat-header">
                 <div class="stat-title-group">
                   <span class="stat-name">
-                    {{ slotKey === 'armor' ? '护甲' : (slotKey === 'gloves' ? '护手' : '配件') }}
+                    {{ slotKey === 'armor' ? 'Armor' : (slotKey === 'gloves' ? 'Gloves' : 'Accessory') }}
                   </span>
-                  <span class="stat-unit-badge flat">数值</span>
+                  <span class="stat-unit-badge flat">numerical values</span>
                 </div>
-                <div class="stat-id">模板</div>
+                <div class="stat-id">template</div>
               </div>
 
               <div class="stat-body" v-if="ensureEquipmentTemplate(slotKey)">
                 <div class="matrix-grid" style="grid-template-columns: 80px repeat(4, minmax(60px, 1fr));">
-                  <div class="matrix-cell header-corner">词条</div>
-                  <div class="matrix-cell header-level">初始</div>
-                  <div class="matrix-cell header-level">精锻1</div>
-                  <div class="matrix-cell header-level">精锻2</div>
-                  <div class="matrix-cell header-level">精锻3</div>
+                  <div class="matrix-cell header-corner">Entry</div>
+                  <div class="matrix-cell header-level">initial</div>
+                  <div class="matrix-cell header-level">1</div>
+                  <div class="matrix-cell header-level">2</div>
+                  <div class="matrix-cell header-level">3</div>
 
-                  <div class="matrix-cell row-label large">主词条</div>
+                  <div class="matrix-cell row-label large">Main stat</div>
                   <div v-for="i in 4" :key="`t_${slotKey}_p1_${i}`" class="matrix-cell">
                     <input type="number" step="0.1" v-model.number="misc.equipmentTemplates[slotKey].primary1[i - 1]" class="matrix-input" />
                   </div>
 
-                  <div class="matrix-cell row-label medium">副词条</div>
+                  <div class="matrix-cell row-label medium">Secondary stat</div>
                   <div v-for="i in 4" :key="`t_${slotKey}_p2_${i}`" class="matrix-cell">
                     <input type="number" step="0.1" v-model.number="misc.equipmentTemplates[slotKey].primary2[i - 1]" class="matrix-input" />
                   </div>
 
-                  <div class="matrix-cell row-label small">主词条(单)</div>
+                  <div class="matrix-cell row-label small">Main (single)</div>
                   <div v-for="i in 4" :key="`t_${slotKey}_p1s_${i}`" class="matrix-cell">
                     <input type="number" step="0.1" v-model.number="misc.equipmentTemplates[slotKey].primary1Single[i - 1]" class="matrix-input" />
                   </div>
@@ -2858,11 +2858,11 @@ function saveData() {
         </div>
 
         <div v-else-if="miscSection === 'equipment_categories'" class="form-section">
-          <h3 class="section-title">装备分类（增删 / 排序）</h3>
-          <div class="info-banner">删除分类后，该分类下装备会变为未分类（分类为空）。</div>
+          <h3 class="section-title">Equipment sets (Add/Delete/Sort)</h3>
+          <div class="info-banner">After a category is deleted, the equipment under that category will become uncategorized (the category will be empty).</div>
 
           <div class="add-cat-row" style="display:flex; gap: 10px; margin-bottom: 12px;">
-            <input v-model="newEquipmentCategoryName" placeholder="输入新分类名..." />
+            <input v-model="newEquipmentCategoryName" placeholder="Enter new category name..." />
             <button class="ea-btn ea-btn--md ea-btn--fill-success" @click="addEquipmentCategory">添加</button>
           </div>
 
@@ -2871,19 +2871,19 @@ function saveData() {
               <div class="editor-row" style="align-items:center;">
                 <div class="drag-handle" style="cursor: grab; color:#666; font-family: monospace;">≡</div>
                 <div class="flex-grow" style="color:#ddd;">{{ element }}</div>
-                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEquipmentCategory(element)">删除</button>
+                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEquipmentCategory(element)">Delete</button>
               </div>
             </template>
           </draggable>
         </div>
 
         <div v-else-if="miscSection === 'enemy_categories'" class="form-section">
-          <h3 class="section-title">敌人分类（增删 / 排序）</h3>
-          <div class="info-banner">删除分类后，该分类下敌人会变为未分类（分类为空）。</div>
+          <h3 class="section-title">Enemy Classification (Add/Delete/Sort)</h3>
+          <div class="info-banner">After a category is deleted, enemies under that category will become uncategorized (the category will be empty).</div>
 
           <div class="add-cat-row" style="display:flex; gap: 10px; margin-bottom: 12px;">
-            <input v-model="newEnemyCategoryName" placeholder="输入新分类名..." />
-            <button class="ea-btn ea-btn--md ea-btn--fill-success" @click="addEnemyCategory">添加</button>
+            <input v-model="newEnemyCategoryName" placeholder="Enter new category name..." />
+            <button class="ea-btn ea-btn--md ea-btn--fill-success" @click="addEnemyCategory">Add</button>
           </div>
 
           <draggable v-model="enemyCategories" :item-key="(item) => item" handle=".drag-handle" :animation="150">
@@ -2891,7 +2891,7 @@ function saveData() {
               <div class="editor-row" style="align-items:center;">
                 <div class="drag-handle" style="cursor: grab; color:#666; font-family: monospace;">≡</div>
                 <div class="flex-grow" style="color:#ddd;">{{ element }}</div>
-                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEnemyCategory(element)">删除</button>
+                <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteEnemyCategory(element)">Remove</button>
               </div>
             </template>
           </draggable>
@@ -2913,16 +2913,16 @@ function saveData() {
               <span class="id-tag">{{ selectedWeapon.id }}</span>
             </div>
           </div>
-          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentWeapon">删除此武器</button>
+          <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="deleteCurrentWeapon">Remove</button>
         </header>
 
         <div class="form-section">
-          <h3 class="section-title">基础信息</h3>
+          <h3 class="section-title">Basic Information</h3>
           <div class="form-grid three-col">
-            <div class="form-group"><label>名称</label><input v-model="selectedWeapon.name" type="text" /></div>
+            <div class="form-group"><label>Title</label><input v-model="selectedWeapon.name" type="text" /></div>
             <div class="form-group"><label>ID (Unique)</label><input :value="selectedWeapon.id" @input="updateWeaponId" type="text" /></div>
             <div class="form-group">
-              <label>星级</label>
+              <label>Stars</label>
               <el-select v-model="selectedWeapon.rarity" size="large" style="width: 100%">
                 <el-option :value="6" label="6 ★" />
                 <el-option :value="5" label="5 ★" />
@@ -2931,20 +2931,20 @@ function saveData() {
               </el-select>
             </div>
             <div class="form-group">
-              <label>类型</label>
+              <label>Type</label>
               <el-select v-model="selectedWeapon.type" size="large" style="width: 100%">
                 <el-option v-for="wpn in WEAPON_TYPES" :key="wpn.value" :label="wpn.label" :value="wpn.value" />
               </el-select>
             </div>
-            <div class="form-group full-width"><label>图标路径</label><input v-model="selectedWeapon.icon" type="text" /></div>
+            <div class="form-group full-width"><label>Icon path</label><input v-model="selectedWeapon.icon" type="text" /></div>
             <div class="form-group full-width">
               <div class="form-grid" style="gap: 20px;">
                 <div class="form-group">
-                  <label>BUFF 名称</label>
+                  <label>BUFF</label>
                   <input v-model="selectedWeapon.buffName" type="text" />
                 </div>
                 <div class="form-group">
-                  <label>持续时间 (s)</label>
+                  <label>Duration (s)</label>
                   <input type="number" min="0" step="0.1" v-model.number="selectedWeapon.duration">
                 </div>
               </div>
@@ -2953,35 +2953,35 @@ function saveData() {
         </div>
 
         <div class="form-section">
-          <h3 class="section-title">武器数值</h3>
+          <h3 class="section-title">Weapon stats</h3>
           <div class="info-banner">
-            前两段为通用词条：选“属性项 + 大/中/小”。第三段为该武器专属：可添加多条属性，并为 1–9 级单独填数值。
+            The first two sections are general entries: select "Attribute + Large/Medium/Small". The third section is specific to this weapon: multiple attributes can be added, and values can be entered separately for levels 1–9.
           </div>
 
           <div class="weapon-seg">
             <div class="weapon-seg-title">
               <span class="seg-bar"></span>
-              <span>通用词条</span>
+              <span>General terms</span>
             </div>
             <div class="form-grid" style="grid-template-columns: 1fr 160px; gap: 14px; align-items: end;">
               <div class="form-group">
-                <label>属性项</label>
+                <label>Attributes</label>
                 <el-select
                     v-model="selectedWeapon.commonSlots[0].modifierId"
                     size="large"
                     style="width: 100%"
-                    placeholder="请选择"
+                    placeholder="Please select"
                 >
                   <el-option :value="null" label="（无）" />
                   <el-option v-for="def in modifierDefs" :key="def.id" :label="def.label" :value="def.id" />
                 </el-select>
               </div>
               <div class="form-group">
-                <label>幅度</label>
+                <label>Amplitude</label>
                 <el-select v-model="selectedWeapon.commonSlots[0].size" size="large" style="width: 100%">
-                  <el-option value="large" label="大" />
-                  <el-option value="medium" label="中" />
-                  <el-option value="small" label="小" />
+                  <el-option value="large" label="L" />
+                  <el-option value="medium" label="M" />
+                  <el-option value="small" label="S" />
                 </el-select>
               </div>
             </div>
@@ -2990,27 +2990,27 @@ function saveData() {
           <div class="weapon-seg">
             <div class="weapon-seg-title">
               <span class="seg-bar"></span>
-              <span>通用词条</span>
+              <span>General terms</span>
             </div>
             <div class="form-grid" style="grid-template-columns: 1fr 160px; gap: 14px; align-items: end;">
               <div class="form-group">
-                <label>属性项</label>
+                <label>Attributes</label>
                 <el-select
                     v-model="selectedWeapon.commonSlots[1].modifierId"
                     size="large"
                     style="width: 100%"
-                    placeholder="请选择"
+                    placeholder="Please select"
                 >
                   <el-option :value="null" label="（无）" />
                   <el-option v-for="def in modifierDefs" :key="def.id" :label="def.label" :value="def.id" />
                 </el-select>
               </div>
               <div class="form-group">
-                <label>幅度</label>
+                <label>Amplitude</label>
                 <el-select v-model="selectedWeapon.commonSlots[1].size" size="large" style="width: 100%">
-                  <el-option value="large" label="大" />
-                  <el-option value="medium" label="中" />
-                  <el-option value="small" label="小" />
+                  <el-option value="large" label="L" />
+                  <el-option value="medium" label="M" />
+                  <el-option value="small" label="S" />
                 </el-select>
               </div>
             </div>
@@ -3019,17 +3019,17 @@ function saveData() {
           <div class="weapon-seg">
             <div class="weapon-seg-title">
               <span class="seg-bar"></span>
-              <span>专属 BUFF</span>
+              <span>BUFF</span>
             </div>
             <div class="info-banner">
-              当前先按常驻属性处理（与前两段同样加减）；未来可能扩展为“仅在持续时间内生效”。
+              For now, it will be treated as a permanent attribute (with additions and subtractions as in the previous two paragraphs); in the future, it may be expanded to "only effective during the duration".
             </div>
 
             <div style="display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-bottom: 12px;">
               <div style="color:#aaa; font-size: 13px;">
-                BUFF 名称：<span style="color:#ffd700; font-weight:700;">{{ selectedWeapon.buffName || '（未填写）' }}</span>
+                BUFF title：<span style="color:#ffd700; font-weight:700;">{{ selectedWeapon.buffName || ' empty ' }}</span>
               </div>
-              <button class="ea-btn ea-btn--md ea-btn--glass-rect" :style="{ '--ea-btn-accent': 'var(--ea-purple)' }" @click="addWeaponBuffBonusRow">＋ 添加属性</button>
+              <button class="ea-btn ea-btn--md ea-btn--glass-rect" :style="{ '--ea-btn-accent': 'var(--ea-purple)' }" @click="addWeaponBuffBonusRow">+ Add</button>
             </div>
 
             <div v-if="selectedWeapon.buffBonuses && selectedWeapon.buffBonuses.length > 0" class="matrix-editor-area">
@@ -3042,26 +3042,26 @@ function saveData() {
                 <div style="display:flex; flex-direction: column; gap: 10px; width: 100%;">
                   <div class="form-grid" style="grid-template-columns: 1fr 140px; gap: 12px; align-items:end;">
                     <div class="form-group">
-                      <label>属性项</label>
+                      <label>Attributes</label>
                       <el-select
                           v-model="bonus.modifierId"
                           size="large"
                           style="width: 100%"
-                          placeholder="请选择"
+                          placeholder="Please select"
                       >
                         <el-option :value="null" label="（无）" />
                         <el-option v-for="def in modifierDefs" :key="def.id" :label="def.label" :value="def.id" />
                       </el-select>
                     </div>
                     <div class="form-group">
-                      <label>操作</label>
-                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeWeaponBuffBonusRow(idx)">删除</button>
+                      <label>Action</label>
+                      <button class="ea-btn ea-btn--md ea-btn--fill-danger" @click="removeWeaponBuffBonusRow(idx)">Remove</button>
                     </div>
                   </div>
 
                   <div class="form-grid" style="grid-template-columns: repeat(9, minmax(60px, 1fr)); gap: 10px;">
                     <div v-for="lv in 9" :key="lv" class="form-group">
-                      <label style="text-align:center;">{{ lv }}级</label>
+                      <label style="text-align:center;">{{ lv }} lvl</label>
                       <input type="number" step="0.01" v-model.number="bonus.values[lv - 1]" />
                     </div>
                   </div>
@@ -3070,13 +3070,13 @@ function saveData() {
             </div>
 
             <div v-else class="empty-hint" style="margin-top: 10px;">
-              未添加任何专属属性
+              No exclusive attributes added
             </div>
           </div>
         </div>
       </div>
 
-      <div v-else class="empty-state">请从左侧列表选择条目</div>
+      <div v-else class="empty-state">Please select an item from the list on the left.</div>
     </main>
   </div>
 </template>
