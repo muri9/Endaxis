@@ -9,30 +9,30 @@ const props = defineProps({
 const store = useTimelineStore()
 
 // ===================================================================================
-// 布局常量
+// Layout constants
 // ===================================================================================
 const ROW_HEIGHT = 50
-const CHART_HEIGHT = 50    // 高度占满轨道
-const BASE_Y = 50          // 基准线沉底
+const CHART_HEIGHT = 50    // Height fills the track
+const BASE_Y = 50          // Baseline at bottom
 
 // ===================================================================================
-// 颜色与渐变
+// Colors & gradients
 // ===================================================================================
 
-// 获取当前轨道干员的元素属性颜色
+// Get the element color of the current track's operator
 const themeColor = computed(() => {
-  if (!props.trackId) return '#00e5ff' // 默认青色
+  if (!props.trackId) return '#00e5ff' // default cyan
   return store.getCharacterElementColor(props.trackId)
 })
 
-// 生成唯一的渐变 ID，防止轨道间样式冲突
+// Generate a unique gradient ID to avoid style conflicts between tracks
 const gradientId = computed(() => `gauge-grad-${props.trackId}`)
 
 // ===================================================================================
-// 数据计算
+// Data calculation
 // ===================================================================================
 
-// 获取原始充能数据点序列
+// Get the raw gauge data point sequence
 const gaugePoints = computed(() => {
   if (!props.trackId) return []
   return store.calculateGaugeData(props.trackId)
@@ -42,7 +42,7 @@ const pathData = computed(() => {
   if (gaugePoints.value.length === 0) return ''
   return gaugePoints.value.map(p => {
     const x = store.timeToPx(p.time)
-    const ratio = Math.min(p.ratio, 1.0) // 限制最大值为 1.0
+    const ratio = Math.min(p.ratio, 1.0) // Clamp maximum value to 1.0
     const y = BASE_Y - (ratio * CHART_HEIGHT)
     return `${x},${y}`
   }).join(' ')
@@ -54,7 +54,7 @@ const areaData = computed(() => {
   const lastPoint = gaugePoints.value[gaugePoints.value.length - 1]
   const lastX = lastPoint ? store.timeToPx(lastPoint.time) : 0
 
-  // 闭合路径逻辑
+  // Path closing logic
   return `0,${BASE_Y} ${pointsStr} ${lastX},${BASE_Y}`
 })
 
@@ -64,7 +64,7 @@ const fullSegments = computed(() => {
   const currentBlockWidth = store.timeBlockWidth
 
   for (let i = 0; i < points.length - 1; i++) {
-    // 判定连续两点均为满能量状态
+    // Determine if two consecutive points are both at full energy
     if (points[i].ratio >= 1 && points[i + 1].ratio >= 1) {
       const x1 = store.timeToPx(points[i].time)
       const x2 = store.timeToPx(points[i + 1].time)

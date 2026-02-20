@@ -6,16 +6,16 @@ import { ElMessage } from 'element-plus'
 const store = useTimelineStore()
 
 onMounted(async () => {
-  // 1. 先加载基础游戏数据 (gamedata.json)
+  // 1. First load basic game data (gamedata.json)
   await store.fetchGameData()
 
-  // 2. 尝试读取浏览器缓存
+  // 2. Try to read browser cache
   const hasAutoSave = store.loadFromBrowser()
   if (hasAutoSave) {
-    ElMessage.success('已恢复上次的进度')
+    ElMessage.success('Progress has been restored.')
   }
 
-  // 3. 无论是否读取成功，都开启监听以进行后续的自动保存
+  // 3. Regardless of success, start listening for subsequent auto-save
   store.initAutoSave()
 })
 </script>
@@ -76,7 +76,7 @@ body.is-lib-dragging .action-item-wrapper {
   transform: scale(1);
 }
 
-/* 滚动条样式 */
+/* Scrollbar styles */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -98,7 +98,7 @@ body.is-lib-dragging .action-item-wrapper {
   background: rgba(255, 255, 255, 0.4);
 }
 
-/* Switch 开关样式 */
+/* Switch styles */
 .el-switch {
   height: 24px;
 }
@@ -134,7 +134,7 @@ body.is-lib-dragging .action-item-wrapper {
   color: #ffd700 !important;
 }
 
-/* 输入框与文本域样式 */
+/* Input and textarea styles */
 .el-input__wrapper,
 .el-textarea__inner {
   background-color: #16161a !important;
@@ -175,7 +175,7 @@ body.is-lib-dragging .action-item-wrapper {
   font-size: 12px;
 }
 
-/* 下拉列表样式 */
+/* Dropdown list styles */
 :root {
   --el-border-radius-base: 0px !important;
 }

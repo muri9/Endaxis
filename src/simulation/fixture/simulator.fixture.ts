@@ -25,7 +25,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_attack",
         type: "attack",
-        name: "重击",
+        name: "Heavy Strike",
         element: "physical",
         duration: 3.2,
         cooldown: 0,
@@ -71,7 +71,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_skill",
         type: "skill",
-        name: "战技",
+        name: "Skill",
         element: "physical",
         duration: 0.8,
         cooldown: 0,
@@ -108,7 +108,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_link",
         type: "link",
-        name: "连携",
+        name: "Link",
         element: "physical",
         duration: 0.9,
         cooldown: 16,
@@ -145,7 +145,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_attack",
         type: "attack",
-        name: "重击",
+        name: "Heavy Strike",
         element: "physical",
         duration: 3.2,
         cooldown: 0,
@@ -191,7 +191,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_attack",
         type: "attack",
-        name: "重击",
+        name: "Heavy Strike",
         element: "physical",
         duration: 3.2,
         cooldown: 0,
@@ -237,7 +237,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_attack",
         type: "attack",
-        name: "重击",
+        name: "Heavy Strike",
         element: "physical",
         duration: 3.2,
         cooldown: 0,
@@ -283,7 +283,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_attack",
         type: "attack",
-        name: "重击",
+        name: "Heavy Strike",
         element: "physical",
         duration: 3.2,
         cooldown: 0,
@@ -329,7 +329,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_link",
         type: "link",
-        name: "连携",
+        name: "Link",
         librarySource: "character",
         element: "physical",
         duration: 0.9,
@@ -371,7 +371,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "CHENQIANYU_execution",
         type: "execution",
-        name: "处决",
+        name: "Execution",
         element: "physical",
         duration: 2.5,
         cooldown: 0,
@@ -417,7 +417,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "ENDMINISTRATOR_link",
         type: "link",
-        name: "连携",
+        name: "Link",
         element: "physical",
         duration: 1.2,
         cooldown: 16,
@@ -455,7 +455,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "ENDMINISTRATOR_link",
         type: "link",
-        name: "连携",
+        name: "Link",
         librarySource: "character",
         element: "physical",
         duration: 1.2,
@@ -496,7 +496,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "ENDMINISTRATOR_skill",
         type: "skill",
-        name: "战技",
+        name: "Skill",
         element: "physical",
         duration: 0.8,
         cooldown: 0,
@@ -533,7 +533,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "ESTELLA_skill",
         type: "skill",
-        name: "战技",
+        name: "Skill",
         element: "cold",
         duration: 2,
         cooldown: 0,
@@ -581,7 +581,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "ESTELLA_link",
         type: "link",
-        name: "连携",
+        name: "Link",
         element: "cold",
         duration: 2,
         cooldown: 15,
@@ -627,7 +627,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "AKEKURI_skill",
         type: "skill",
-        name: "战技",
+        name: "Skill",
         element: "blaze",
         duration: 2,
         cooldown: 0,
@@ -664,7 +664,7 @@ export const simulatorFixture1: LegacySimulatorFixture = {
       node: {
         id: "AKEKURI_link",
         type: "link",
-        name: "连携",
+        name: "Link",
         element: "blaze",
         duration: 2,
         cooldown: 15,

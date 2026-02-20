@@ -5,7 +5,7 @@ import CustomNumberInput from './CustomNumberInput.vue'
 
 const store = useTimelineStore()
 
-// === 核心数据逻辑 ===
+// === Core data logic ===
 const activeTrack = computed(() => store.tracks.find(t => t.id === store.activeTrackId))
 const activeCharacter = computed(() => {
   return store.characterRoster.find(c => c.id === store.activeTrackId)
@@ -18,8 +18,8 @@ const hasAnyEquipmentEquipped = computed(() => {
   return !!(t.equipArmorId || t.equipGlovesId || t.equipAccessory1Id || t.equipAccessory2Id)
 })
 
-const activeCharacterName = computed(() => activeCharacter.value ? activeCharacter.value.name : '未选择干员')
-const activeWeaponName = computed(() => activeWeapon.value ? activeWeapon.value.name : '未装备武器')
+const activeCharacterName = computed(() => activeCharacter.value ? activeCharacter.value.name : 'no OP')
+const activeWeaponName = computed(() => activeWeapon.value ? activeWeapon.value.name : 'Unarmed')
 const activeLibraryTab = ref('character')
 const hasWeaponLibrary = computed(() => store.activeWeaponSkillLibrary.length > 0)
 const currentLibrary = computed(() => {
@@ -29,26 +29,26 @@ const currentLibrary = computed(() => {
 })
 const activeLibraryTitle = computed(() => {
   if (activeLibraryTab.value === 'weapon') return `${activeCharacterName.value} · ${activeWeaponName.value}`
-  if (activeLibraryTab.value === 'set') return `${activeCharacterName.value} · 装备`
+  if (activeLibraryTab.value === 'set') return `${activeCharacterName.value} · Equipment`
   return activeCharacterName.value
 })
 
-// 技能类型完整名称映射
+// Skill type full name mapping
 const getFullTypeName = (type) => {
   const map = {
-    'attack': '重击',
-    'dodge': '闪避',
-    'skill': '战技',
-    'link': '连携',
-    'ultimate': '终结技',
-    'execution': '处决',
-    'weapon': '武器',
-    'set': '套装'
+    'attack': 'attack',
+    'dodge': 'dodge',
+    'skill': 'skill',
+    'link': 'combo',
+    'ultimate': 'ultimate',
+    'execution': 'finisher',
+    'weapon': 'weapon',
+    'set': 'set'
   }
-  return map[type] || '技能'
+  return map[type] || 'skill'
 }
 
-// 图标路径
+// Icon paths
 const WEAPON_ICON_MAP = {
   'sword': '/icons/icon_attack_sword.webp',
   'claym': '/icons/icon_attack_claym.webp',
@@ -75,7 +75,7 @@ function getSkillDisplayIcon(skill) {
   return skill.icon || ''
 }
 
-// === 充能设置逻辑 ===
+// === Charge settings logic ===
 const maxGaugeValue = computed({
   get: () => {
     if (!activeTrack.value) return 100
@@ -130,7 +130,7 @@ const originiumArtsPowerValue = computed({
   }
 })
 
-// === 武器词条等级选择（每段 1-9）===
+// === Weapon attribute tier selection (1-9 each) ===
 const weaponCommon1TierValue = computed({
   get: () => activeTrack.value ? (activeTrack.value.weaponCommon1Tier ?? 1) : 1,
   set: (val) => {
@@ -192,15 +192,15 @@ const equipAccessory2TierValue = computed({
 })
 
 function formatEquipValue(eq) {
-  if (!eq) return '未装备'
+  if (!eq) return 'Not equipped'
   const lv = Number(eq.level) || 0
   return `${eq.name || eq.id || ''}${lv ? ` · Lv${lv}` : ''}`
 }
 
 function formatSlotLabel(slot) {
   const modifierId = slot?.modifierId || slot?.key
-  if (!modifierId) return '（无）'
-  const sizeLabel = slot.size === 'large' ? '大' : (slot.size === 'medium' ? '中' : '小')
+  if (!modifierId) return '(none)'
+  const sizeLabel = slot.size === 'large' ? 'Large' : (slot.size === 'medium' ? 'Medium' : 'Small')
   return `${store.getModifierLabel(modifierId)} · ${sizeLabel}`
 }
 
@@ -209,11 +209,11 @@ const weaponSlot2Label = computed(() => formatSlotLabel(activeWeapon.value?.comm
 const weaponBuffKeysLabel = computed(() => {
   const list = Array.isArray(activeWeapon.value?.buffBonuses) ? activeWeapon.value.buffBonuses : []
   const ids = list.map(b => b?.modifierId || b?.key).filter(Boolean)
-  if (ids.length === 0) return '（无）'
+  if (ids.length === 0) return '(none)'
   return ids.map(k => store.getModifierLabel(k)).join('、')
 })
 
-// === 技能列表逻辑 ===
+// === Skill list logic ===
 const localSkills = ref([])
 
 function onSkillClick(skillId) {
@@ -272,7 +272,7 @@ watch(() => store.selectedLibrarySource, (src) => {
   }
 })
 
-// === 拖拽 Ghost 逻辑 ===
+// === Drag ghost logic ===
 function hexToRgba(hex, alpha) {
   if (!hex) return `rgba(255,255,255,${alpha})`
   let c = hex.substring(1).split('')
@@ -428,34 +428,34 @@ function onNativeDragEnd() {
           :class="{ active: hasActiveCharacter && activeLibraryTab === 'character' }"
           :disabled="!hasActiveCharacter"
           @click="activeLibraryTab = 'character'">
-          干员
+          OP
         </button>
         <button
           class="lib-tab"
           :class="{ active: hasActiveCharacter && activeLibraryTab === 'weapon' }"
           :disabled="!hasWeaponLibrary || !hasActiveCharacter"
-          title="需要为当前干员选择武器"
+          title="Need to select a weapon for the current operator"
           @click="activeLibraryTab = 'weapon'">
-          武器
+          WPN
         </button>
         <button
           class="lib-tab"
           :class="{ active: hasActiveCharacter && activeLibraryTab === 'set' }"
           :disabled="!hasActiveCharacter || !hasAnyEquipmentEquipped"
-          title="需要先装备任意装备"
+          title="Need to equip at least one piece of equipment"
           @click="activeLibraryTab = 'set'">
-          装备
+          SET
         </button>
       </div>
       <div class="header-divider"></div>
     </div>
 
     <div v-if="activeTrack && activeCharacter && activeLibraryTab === 'character'" class="gauge-settings-panel">
-      <div class="panel-tag">干员数值</div>
+      <div class="panel-tag">Operator stats</div>
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">初始充能</span>
+          <span class="label">Initial charge</span>
           <span class="value cyan">{{ initialGaugeValue }}</span>
         </div>
         <div class="setting-controls">
@@ -468,7 +468,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">充能上限</span>
+          <span class="label">Charge limit</span>
           <span class="value gold">{{ maxGaugeValue }}</span>
         </div>
         <div class="setting-controls">
@@ -481,7 +481,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">充能效率</span>
+          <span class="label">Charging efficiency</span>
           <span class="value green">{{ gaugeEfficiencyValue }}%</span>
         </div>
         <div class="setting-controls">
@@ -494,7 +494,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">连携技冷却缩减</span>
+          <span class="label">CD reduction</span>
           <span class="value gold">{{ linkCdReductionValue }}%</span>
         </div>
         <div class="setting-controls">
@@ -507,7 +507,7 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info">
-          <span class="label">源石技艺强度</span>
+          <span class="label">Arts power</span>
           <span class="value purple">{{ originiumArtsPowerValue }}</span>
         </div>
         <div class="setting-controls">
@@ -519,16 +519,16 @@ function onNativeDragEnd() {
     </div>
 
     <div v-if="activeTrack && activeCharacter && activeLibraryTab === 'weapon' && activeWeapon" class="gauge-settings-panel">
-      <div class="panel-tag">武器数值</div>
+      <div class="panel-tag">Weapon stats</div>
 
       <div class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">通用词条 1</span>
+          <span class="label">Attribute 1</span>
           <span class="value">{{ weaponSlot1Label }}</span>
         </div>
         <div class="setting-controls">
           <el-slider v-model="weaponCommon1TierValue" :min="1" :max="9" :step="1" :show-tooltip="false" size="small" class="tech-slider white-theme" />
-          <CustomNumberInput v-model="weaponCommon1TierValue" :min="1" :max="9" suffix="级" class="tech-input" />
+          <CustomNumberInput v-model="weaponCommon1TierValue" :min="1" :max="9" suffix="Tier" class="tech-input" />
         </div>
       </div>
 
@@ -536,12 +536,12 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">通用词条 2</span>
+          <span class="label">Attribute 2</span>
           <span class="value">{{ weaponSlot2Label }}</span>
         </div>
         <div class="setting-controls">
           <el-slider v-model="weaponCommon2TierValue" :min="1" :max="9" :step="1" :show-tooltip="false" size="small" class="tech-slider white-theme" />
-          <CustomNumberInput v-model="weaponCommon2TierValue" :min="1" :max="9" suffix="级" class="tech-input" />
+          <CustomNumberInput v-model="weaponCommon2TierValue" :min="1" :max="9" suffix="Tier" class="tech-input" />
         </div>
       </div>
 
@@ -549,75 +549,75 @@ function onNativeDragEnd() {
 
       <div class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">{{ activeWeapon.buffName || '专属 BUFF' }}</span>
+          <span class="label">{{ activeWeapon.buffName || 'BUFF' }}</span>
           <span class="value">{{ weaponBuffKeysLabel }}</span>
         </div>
         <div class="setting-controls">
           <el-slider v-model="weaponBuffTierValue" :min="1" :max="9" :step="1" :show-tooltip="false" size="small" class="tech-slider white-theme" />
-          <CustomNumberInput v-model="weaponBuffTierValue" :min="1" :max="9" suffix="级" class="tech-input" />
+          <CustomNumberInput v-model="weaponBuffTierValue" :min="1" :max="9" suffix="Tier" class="tech-input" />
         </div>
       </div>
     </div>
 
     <div v-if="activeTrack && activeCharacter && activeLibraryTab === 'set'" class="gauge-settings-panel">
-      <div class="panel-tag">装备精锻</div>
+      <div class="panel-tag">Equipment</div>
 
       <div v-if="equipArmor" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">护甲</span>
+          <span class="label">Armor</span>
           <span class="value">{{ formatEquipValue(equipArmor) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipArmor.level) === 70">
           <el-slider v-model="equipArmorTierValue" :min="0" :max="3" :step="1" :show-tooltip="false" size="small" class="tech-slider white-theme" />
-          <CustomNumberInput v-model="equipArmorTierValue" :min="0" :max="3" suffix="级" class="tech-input" />
+          <CustomNumberInput v-model="equipArmorTierValue" :min="0" :max="3" suffix="Lv" class="tech-input" />
         </div>
         <div class="setting-controls" v-else>
-          <span class="value" style="color:#666; font-size: 12px;">非 Lv70 无精锻</span>
+          <span class="value" style="color:#666; font-size: 12px;">No refinement below Lv70</span>
         </div>
       </div>
 
       <div v-if="equipArmor && equipGloves" class="group-divider"></div>
       <div v-if="equipGloves" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">护手</span>
+          <span class="label">Gloves</span>
           <span class="value">{{ formatEquipValue(equipGloves) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipGloves.level) === 70">
           <el-slider v-model="equipGlovesTierValue" :min="0" :max="3" :step="1" :show-tooltip="false" size="small" class="tech-slider white-theme" />
-          <CustomNumberInput v-model="equipGlovesTierValue" :min="0" :max="3" suffix="级" class="tech-input" />
+          <CustomNumberInput v-model="equipGlovesTierValue" :min="0" :max="3" suffix="Lv" class="tech-input" />
         </div>
         <div class="setting-controls" v-else>
-          <span class="value" style="color:#666; font-size: 12px;">非 Lv70 无精锻</span>
+          <span class="value" style="color:#666; font-size: 12px;">No refinement below Lv70</span>
         </div>
       </div>
 
       <div v-if="(equipArmor || equipGloves) && equipAccessory1" class="group-divider"></div>
       <div v-if="equipAccessory1" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">配件 1</span>
+          <span class="label">Accessory 1</span>
           <span class="value">{{ formatEquipValue(equipAccessory1) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipAccessory1.level) === 70">
           <el-slider v-model="equipAccessory1TierValue" :min="0" :max="3" :step="1" :show-tooltip="false" size="small" class="tech-slider white-theme" />
-          <CustomNumberInput v-model="equipAccessory1TierValue" :min="0" :max="3" suffix="级" class="tech-input" />
+          <CustomNumberInput v-model="equipAccessory1TierValue" :min="0" :max="3" suffix="Lv" class="tech-input" />
         </div>
         <div class="setting-controls" v-else>
-          <span class="value" style="color:#666; font-size: 12px;">非 Lv70 无精锻</span>
+          <span class="value" style="color:#666; font-size: 12px;">No refinement below Lv70</span>
         </div>
       </div>
 
       <div v-if="(equipArmor || equipGloves || equipAccessory1) && equipAccessory2" class="group-divider"></div>
       <div v-if="equipAccessory2" class="setting-group">
         <div class="setting-info stacked-layout">
-          <span class="label">配件 2</span>
+          <span class="label">Accessory 2</span>
           <span class="value">{{ formatEquipValue(equipAccessory2) }}</span>
         </div>
         <div class="setting-controls" v-if="Number(equipAccessory2.level) === 70">
           <el-slider v-model="equipAccessory2TierValue" :min="0" :max="3" :step="1" :show-tooltip="false" size="small" class="tech-slider white-theme" />
-          <CustomNumberInput v-model="equipAccessory2TierValue" :min="0" :max="3" suffix="级" class="tech-input" />
+          <CustomNumberInput v-model="equipAccessory2TierValue" :min="0" :max="3" suffix="Lv" class="tech-input" />
         </div>
         <div class="setting-controls" v-else>
-          <span class="value" style="color:#666; font-size: 12px;">非 Lv70 无精锻</span>
+          <span class="value" style="color:#666; font-size: 12px;">No refinement below Lv70</span>
         </div>
       </div>
     </div>
@@ -627,19 +627,19 @@ function onNativeDragEnd() {
         <span class="section-title">
           {{
             activeLibraryTab === 'weapon'
-              ? '武器BUFF库'
+              ? 'Weapon bonus'
               : activeLibraryTab === 'set'
-                ? '套装BUFF库'
-                : '干员技能库'
+                ? 'Set bonus'
+                : 'Operator Skills'
           }}
         </span>
         <span class="section-hint">
           {{
             activeLibraryTab === 'weapon'
-              ? '拖拽武器BUFF到轨道，拖拽位置即为开始时间'
+              ? 'Drag weapon buff to track; drop position = start time'
               : activeLibraryTab === 'set'
-                ? '拖拽BUFF到轨道，拖拽位置即为开始时间'
-                : '点击编辑基础数值 / 拖拽排轴'
+                ? 'Drag buff to track; drop position = start time'
+                : 'Click to edit / drag to axis'
           }}
         </span>
       </div>
@@ -708,7 +708,7 @@ function onNativeDragEnd() {
 .library-container::-webkit-scrollbar {
   display: none;
 }
-/* 头部样式 */
+/* Header styles */
 .lib-header { display: flex; flex-direction: column; gap: 4px; }
 .header-main { display: flex; align-items: center; gap: 10px; }
 .header-icon-bar { width: 4px; height: 18px; background-color: #ffd700; }
@@ -729,7 +729,7 @@ function onNativeDragEnd() {
 .lib-tab:disabled { opacity: 0.35; cursor: not-allowed; }
 .header-divider { height: 2px; background: linear-gradient(90deg, #ffd700 0%, transparent 100%); opacity: 0.3; margin-top: 3px; }
 
-/* 参数面板 */
+/* Parameter panel */
 .gauge-settings-panel {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
   backdrop-filter: blur(10px);
@@ -786,7 +786,7 @@ function onNativeDragEnd() {
 .setting-info.stacked-layout .label { color: rgba(255, 255, 255, 0.4); font-size: 10px; line-height: 1; margin-left: 1px; }
 .setting-info.stacked-layout .value { font-size: 11px !important; line-height: 1.3; color: #e0e0e0; word-break: break-all; white-space: normal; text-align: left; }
 
-/* 技能卡片列表 */
+/* Skill card list */
 .skill-section { display: flex; flex-direction: column; gap: 15px; }
 .section-title-box { display: flex; flex-direction: column; border-left: 2px solid #444; padding-left: 10px; }
 .section-title { font-size: 14px; font-weight: bold; color: #ccc; }
@@ -970,7 +970,7 @@ function onNativeDragEnd() {
   clip-path: polygon(100% 0, 0 100%, 100% 100%);
 }
 
-/* Slider 自定义 */
+/* Slider custom */
 :deep(.el-slider) { height: 24px; display: flex; align-items: center; }
 :deep(.el-slider__runway) { height: 4px !important; background-color: rgba(255, 255, 255, 0.1) !important; border-radius: 2px; margin: 0 !important; flex: 1; }
 :deep(.el-slider__bar) { height: 4px !important; border-radius: 2px; }

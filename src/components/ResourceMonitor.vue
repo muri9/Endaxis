@@ -11,7 +11,7 @@ const { enemyDatabase, enemyCategories } = storeToRefs(store)
 const ENEMY_TIERS = store.ENEMY_TIERS
 const TIER_WEIGHTS = { 'boss': 4, 'champion': 3, 'elite': 2, 'normal': 1 }
 
-// === 布局常量 ===
+// === Layout constants ===
 const TOTAL_HEIGHT = 200
 const STAGGER_HEIGHT = 60
 const SP_HEIGHT = 140
@@ -27,22 +27,22 @@ const gridLineTimes = computed(() => {
   return result
 })
 
-// === 颜色常量 ===
+// === Color constants ===
 const COLOR_STAGGER = '#ff7875'
 const COLOR_LIMIT = '#d32f2f'
 const COLOR_SP_MAIN = '#ffd700'
 const COLOR_SP_WARN = '#ff4d4f'
 
-// === 敌人选择器逻辑 ===
+// === Enemy selector logic ===
 const isEnemySelectorVisible = ref(false)
 const enemySearchQuery = ref('')
 const activeCategoryTab = ref('ALL')
 
 const activeEnemyInfo = computed(() => {
   if (store.activeEnemyId === 'custom') {
-    return { name: '自定义敌人', avatar: '', isCustom: true }
+    return { name: 'Custom enemy', avatar: '', isCustom: true }
   }
-  return store.enemyDatabase.find(e => e.id === store.activeEnemyId) || { name: '未知敌人', avatar: '' }
+  return store.enemyDatabase.find(e => e.id === store.activeEnemyId) || { name: 'Unknown enemy', avatar: '' }
 })
 
 const groupedEnemyList = computed(() => {
@@ -56,7 +56,7 @@ const groupedEnemyList = computed(() => {
   const groups = {}
 
   const targetCategories = (activeCategoryTab.value === 'ALL')
-      ? [...enemyCategories.value, '未分类']
+      ? [...enemyCategories.value, 'Uncategorized']
       : [activeCategoryTab.value]
 
   targetCategories.forEach(cat => { groups[cat] = [] })
@@ -64,7 +64,7 @@ const groupedEnemyList = computed(() => {
   list.forEach(enemy => {
     let cat = enemy.category
     if (!cat || !enemyCategories.value.includes(cat)) {
-      cat = '未分类'
+      cat = 'Uncategorized'
     }
 
     if (groups[cat]) {
@@ -100,7 +100,7 @@ function selectEnemy(id) {
   isEnemySelectorVisible.value = false
 }
 
-// === 数据计算 (失衡)===
+// === Data calculation (Stagger) ===
 const staggerResult = computed(() => {
   if (store.useNewCompiler) {
     return store.staggerSeries
@@ -148,7 +148,7 @@ const lockZones = computed(() => lockSegments.value.map(seg => ({
 })))
 
 
-// === 数据计算 (技力) ===
+// === Data calculation (SP) ===
 const spData = computed(() => {
   if (store.useNewCompiler) {
     return store.spSeries
@@ -156,7 +156,7 @@ const spData = computed(() => {
   return store.calculateGlobalSpData()
 })
 
-// 技力绘图坐标计算
+// SP plot coordinate calculation
 const BASE_Y_SP = STAGGER_HEIGHT + SP_HEIGHT - 20
 const PADDING_TOP_SP = STAGGER_HEIGHT + 2
 const EFFECTIVE_HEIGHT_SP = BASE_Y_SP - PADDING_TOP_SP
@@ -208,46 +208,46 @@ const transformStyle = computed(() => {
         </div>
         <div class="enemy-info-col">
           <div class="enemy-name">{{ activeEnemyInfo.name }}</div>
-          <div class="click-hint">点击更换敌人</div>
+          <div class="click-hint">Change</div>
         </div>
       </div>
 
       <div class="settings-scroll-area">
         <div class="section-container tech-style border-red">
-          <div class="panel-tag-mini red">敌人属性</div>
+          <div class="panel-tag-mini red">Enemy</div>
           <div class="attribute-grid-mini">
             <div class="control-row-mini">
-              <label>失衡上限</label>
+              <label>Stagger</label>
               <CustomNumberInput v-model="store.systemConstants.maxStagger" :min="1" active-color="#ff7875" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>失衡节点</label>
+              <label>Stagger nodes</label>
               <CustomNumberInput v-model="store.systemConstants.staggerNodeCount" :min="0" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>踉跄时长</label>
+              <label>Stagger node duration</label>
               <CustomNumberInput v-model="store.systemConstants.staggerNodeDuration" :step="0.1" active-color="#ff7875" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>失衡时长</label>
+              <label>Stagger break duration</label>
               <CustomNumberInput v-model="store.systemConstants.staggerBreakDuration" :step="0.5" active-color="#ff7875" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>处决回复</label>
+              <label>Finisher recovery</label>
               <CustomNumberInput v-model="store.systemConstants.executionRecovery" :min="0" class="standard-input" />
             </div>
           </div>
         </div>
 
         <div class="section-container tech-style border-gold">
-          <div class="panel-tag-mini gold">队伍属性</div>
+          <div class="panel-tag-mini gold">Team</div>
           <div class="attribute-grid-mini">
             <div class="control-row-mini">
-              <label>初始技力</label>
+              <label>Initial SP</label>
               <CustomNumberInput v-model="store.systemConstants.initialSp" :min="0" :max="300" active-color="#ffd700" class="standard-input" />
             </div>
             <div class="control-row-mini">
-              <label>回复 / 秒</label>
+              <label>SP regen</label>
               <CustomNumberInput v-model="store.systemConstants.spRegenRate" :step="0.5" :min="0" active-color="#ffd700" class="standard-input" />
             </div>
           </div>
@@ -336,14 +336,14 @@ const transformStyle = computed(() => {
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
           </span>
-          不足
+          Insufficient
         </div>
       </div>
     </div>
 
-    <el-dialog v-model="isEnemySelectorVisible" title="选择敌人" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
+    <el-dialog v-model="isEnemySelectorVisible" title="Select enemy" width="600px" align-center class="char-selector-dialog" :append-to-body="true">
       <div class="selector-header">
-        <el-input v-model="enemySearchQuery" placeholder="搜索敌人..." :prefix-icon="Search" clearable style="width: 100%" />
+        <el-input v-model="enemySearchQuery" placeholder="Search..." :prefix-icon="Search" clearable style="width: 100%" />
       </div>
 
       <div class="category-tabs">
@@ -352,7 +352,7 @@ const transformStyle = computed(() => {
             :class="{ 'is-active': activeCategoryTab === 'ALL' }"
             :style="{ '--ea-btn-accent': 'var(--ea-gold)' }"
             @click="activeCategoryTab = 'ALL'"
-        >全部</button>
+        >All</button>
         <button
             v-for="cat in enemyCategories"
             :key="cat"
@@ -369,7 +369,7 @@ const transformStyle = computed(() => {
 
         <div v-if="activeCategoryTab === 'ALL' && !enemySearchQuery" class="enemy-group-section">
           <div class="group-header">
-            特殊 <span class="count">(1)</span>
+            Special <span class="count">(1)</span>
           </div>
           <div class="group-items">
             <div class="enemy-card"
@@ -381,8 +381,8 @@ const transformStyle = computed(() => {
             </div>
 
               <div class="enemy-info">
-                <div class="name">自定义敌人</div>
-                <div class="desc">手动调整属性数值</div>
+                <div class="name">Custom enemy</div>
+                <div class="desc">Manually adjust</div>
               </div>
             </div>
           </div>
@@ -412,14 +412,14 @@ const transformStyle = computed(() => {
                 <div class="name" :style="{ color: enemy.tier === 'boss' ? '#ff4d4f' : '#f0f0f0' }">
                   {{ enemy.name }}
                 </div>
-                <div class="desc">上限:{{enemy.maxStagger}} | 节点:{{enemy.staggerNodeCount}}</div>
+                <div class="desc">Max:{{enemy.maxStagger}} | Nodes:{{enemy.staggerNodeCount}}</div>
               </div>
             </div>
           </div>
         </div>
 
         <div v-if="groupedEnemyList.length === 0 && !(activeCategoryTab === 'ALL' && !enemySearchQuery)" class="empty-state">
-          未找到相关敌人
+          No matching enemies found
         </div>
 
       </div>
@@ -429,7 +429,7 @@ const transformStyle = computed(() => {
 </template>
 
 <style scoped>
-/* 基础布局与侧边栏容器 */
+/* Base layout & sidebar container */
 .resource-monitor-layout {
   display: grid;
   grid-template-columns: 180px 1fr;
@@ -450,7 +450,7 @@ const transformStyle = computed(() => {
   height: 100%;
 }
 
-/* 敌人选择模块 */
+/* Enemy selection module */
 .enemy-select-module {
   padding: 8px 10px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
@@ -535,7 +535,7 @@ const transformStyle = computed(() => {
   margin-top: 1px;
 }
 
-/* 属性设置区 */
+/* Attribute settings area */
 .settings-scroll-area {
   flex-grow: 1;
   overflow-y: auto;
@@ -604,7 +604,7 @@ const transformStyle = computed(() => {
   font-size: 11px !important;
 }
 
-/* 图表展示区 */
+/* Chart display area */
 .chart-scroll-wrapper {
   grid-column: 2 / 3;
   width: 100%;
@@ -632,7 +632,7 @@ const transformStyle = computed(() => {
   box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-/* 敌人选择弹窗容器 */
+/* Enemy selector popup container */
 .enemy-list-grid {
   max-height: 450px;
   overflow-y: auto;
@@ -641,7 +641,7 @@ const transformStyle = computed(() => {
 }
 .enemy-list-grid::-webkit-scrollbar { display: none; }
 
-/* 分类页签 */
+/* Category tabs */
 .category-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -661,7 +661,7 @@ const transformStyle = computed(() => {
   --ea-btn-px: 16px;
 }
 
-/* --- 分组标题样式 --- */
+/* --- Group header styles --- */
 .enemy-group-section {
   margin-bottom: 24px;
 }
@@ -685,7 +685,7 @@ const transformStyle = computed(() => {
   font-weight: normal;
 }
 
-/* --- 敌人卡片网格布局 (3列) --- */
+/* --- Enemy card grid layout (3 columns) --- */
 .group-items {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -780,7 +780,7 @@ const transformStyle = computed(() => {
   text-overflow: ellipsis;
 }
 
-/* 自定义敌人的特殊头像样式 */
+/* Custom enemy special avatar styles */
 .enemy-avatar.custom {
   width: 100%;
   height: 100%;
@@ -797,14 +797,14 @@ const transformStyle = computed(() => {
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
-/* 选中状态下的自定义头像变化 */
+/* Selected state custom avatar change */
 .enemy-card.selected .enemy-avatar.custom {
   background: rgba(255, 215, 0, 0.15);
   border-style: solid;
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
 }
 
-/* 动画定义 */
+/* Animation definitions */
 @keyframes scan {
   0% { transform: translateY(-10cqh); }
   100% { transform: translateY(110cqh); }

@@ -20,7 +20,7 @@ function close() {
   store.closeContextMenu()
 }
 
-// 点击外部关闭
+// Close on outside click
 function onGlobalClick(e) {
   if (!e.target.closest('.custom-context-menu')) {
     close()
@@ -31,7 +31,7 @@ onMounted(() => window.addEventListener('click', onGlobalClick))
 onUnmounted(() => window.removeEventListener('click', onGlobalClick))
 
 // ===================================================================================
-// 操作逻辑
+// Action logic
 // ===================================================================================
 
 function handleCopy() {
@@ -39,13 +39,13 @@ function handleCopy() {
     store.selectAction(store.contextMenu.targetId)
   }
   store.copySelection()
-  ElMessage.success({ message: '已复制', duration: 800 })
+  ElMessage.success({ message: 'Copied', duration: 800 })
   close()
 }
 
 function handlePaste() {
   store.pasteSelection(store.contextMenu.time)
-  ElMessage.success({ message: '已粘贴', duration: 800 })
+  ElMessage.success({ message: 'Pasted', duration: 800 })
   close()
 }
 
@@ -55,7 +55,7 @@ function handleDelete() {
   }
   const result = store.removeCurrentSelection()
   if (result && result.total > 0) {
-    ElMessage.success({ message: '已删除', duration: 800 })
+    ElMessage.success({ message: 'Removed', duration: 800 })
   }
   close()
 }
@@ -71,12 +71,12 @@ function handleMute() {
 }
 
 const PRESET_COLORS = computed(() => [
-  { val: null, label: '默认' },
-  { val: store.ELEMENT_COLORS.physical, label: '物理' },
-  { val: store.ELEMENT_COLORS.blaze, label: '灼热' },
-  { val: store.ELEMENT_COLORS.cold,  label: '寒冷' },
-  { val: store.ELEMENT_COLORS.emag,  label: '电磁' },
-  { val: store.ELEMENT_COLORS.nature, label: '自然' },
+  { val: null, label: 'Default' },
+  { val: store.ELEMENT_COLORS.physical, label: 'Physical' },
+  { val: store.ELEMENT_COLORS.blaze, label: 'Blaze' },
+  { val: store.ELEMENT_COLORS.cold,  label: 'Cold' },
+  { val: store.ELEMENT_COLORS.emag,  label: 'EMag' },
+  { val: store.ELEMENT_COLORS.nature, label: 'Nature' },
 ])
 
 function handleColor(color) {
@@ -92,15 +92,15 @@ const targetConnection = computed(() => {
 const BASE_ARROW_PATH = 'M12 21 L12 3 M12 3 L5 10 M12 3 L19 10'
 
 const DIRECTION_OPTS = [
-  { val: 'top-left',     label: '左上', rotate: -45 },
-  { val: 'top',          label: '上方', rotate: 0 },
-  { val: 'top-right',    label: '右上', rotate: 45 },
-  { val: 'left',         label: '左侧', rotate: -90 },
-  { val: null,           label: '中心', isSpacer: true },
-  { val: 'right',        label: '右侧', rotate: 90 },
-  { val: 'bottom-left',  label: '左下', rotate: -135 },
-  { val: 'bottom',       label: '下方', rotate: 180 },
-  { val: 'bottom-right', label: '右下', rotate: 135 },
+  { val: 'top-left',     label: 'Top Left', rotate: -45 },
+  { val: 'top',          label: 'Top', rotate: 0 },
+  { val: 'top-right',    label: 'Top Right', rotate: 45 },
+  { val: 'left',         label: 'Left', rotate: -90 },
+  { val: null,           label: 'Center', isSpacer: true },
+  { val: 'right',        label: 'Right', rotate: 90 },
+  { val: 'bottom-left',  label: 'Bottom Left', rotate: -135 },
+  { val: 'bottom',       label: 'Bottom', rotate: 180 },
+  { val: 'bottom-right', label: 'Bottom Right', rotate: 135 },
 ]
 
 function handleSetPort(type, direction) {
@@ -132,7 +132,7 @@ function handleAddCycleBoundary() {
         <span class="icon">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         </span>
-        <span class="label">复制</span>
+        <span class="label">Copy</span>
         <span class="shortcut-hint">Ctrl+C</span>
       </div>
 
@@ -140,7 +140,7 @@ function handleAddCycleBoundary() {
         <span class="icon">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
         </span>
-        <span class="label">粘贴</span>
+        <span class="label">Paste</span>
         <span class="shortcut-hint">Ctrl+V</span>
       </div>
 
@@ -151,7 +151,7 @@ function handleAddCycleBoundary() {
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
           </svg>
         </span>
-        <span class="label">删除</span>
+        <span class="label">Delete</span>
         <span class="shortcut-hint">Delete</span>
       </div>
 
@@ -162,7 +162,7 @@ function handleAddCycleBoundary() {
           <svg v-if="targetAction.isLocked" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
           <svg v-else viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
         </span>
-        <span class="label">{{ targetAction.isLocked ? '解锁位置' : '锁定位置' }}</span>
+        <span class="label">{{ targetAction.isLocked ? 'Unlock position' : 'Lock position' }}</span>
       </div>
 
       <div class="menu-item" @click="handleMute">
@@ -176,11 +176,11 @@ function handleAddCycleBoundary() {
             <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
           </svg>
         </span>
-        <span class="label">{{ targetAction.isDisabled ? '启用 (计算)' : '禁用 (不计算)' }}</span>
+        <span class="label">{{ targetAction.isDisabled ? 'Enable (calculate)' : 'Disable (ignore)' }}</span>
       </div>
 
       <div class="divider"></div>
-      <div class="menu-label">颜色</div>
+      <div class="menu-label">Color</div>
       <div class="color-grid">
         <div v-for="c in PRESET_COLORS" :key="c.val || 'def'"
              class="color-dot"
@@ -198,13 +198,13 @@ function handleAddCycleBoundary() {
     </template>
 
     <template v-else-if="targetConnection">
-      <div class="menu-header">连线设置</div>
+      <div class="menu-header">Connection settings</div>
 
       <div class="menu-item has-submenu">
         <span class="icon">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 9V5 M12 15V19 M9 12H5 M15 12H19"/></svg>
         </span>
-        <span class="label">设置 出点</span>
+        <span class="label">Set source point</span>
         <span class="arrow">▶</span>
 
         <div class="submenu-grid">
@@ -230,7 +230,7 @@ function handleAddCycleBoundary() {
         <span class="icon">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M12 12h.01"/></svg>
         </span>
-        <span class="label">设置 入点</span>
+        <span class="label">Set target point</span>
         <span class="arrow">▶</span>
 
         <div class="submenu-grid">
@@ -256,19 +256,19 @@ function handleAddCycleBoundary() {
       <div class="divider"></div>
       <div class="menu-item delete-item" @click="handleDelete">
         <span class="icon"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></span>
-        <span class="label">删除</span>
+        <span class="label">Delete</span>
         <span class="shortcut-hint">Delete</span>
       </div>
     </template>
 
     <template v-else>
-      <div class="menu-header">全局操作</div>
+      <div class="menu-header">Global operations</div>
 
       <div class="menu-item" @click="handlePaste" :class="{ disabled: !store.clipboard }">
         <span class="icon">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
         </span>
-        <span class="label">粘贴</span>
+        <span class="label">Paste</span>
         <span class="shortcut-hint">Ctrl+V</span>
       </div>
 
@@ -282,14 +282,14 @@ function handleAddCycleBoundary() {
             <polyline points="14 10 12 8 14 6"></polyline>
           </svg>
         </span>
-        <span class="label">添加循环分界线</span>
+        <span class="label">Add a loop boundary line</span>
       </div>
 
       <div class="menu-item has-submenu">
         <span class="icon">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M8 21H3v-5M21 3l-7 7M3 21l7-7" /></svg>
         </span>
-        <span class="label">在此处切人...</span>
+        <span class="label">Switch to OP</span>
         <span class="arrow">▶</span>
 
         <div class="submenu-list">
