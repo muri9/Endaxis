@@ -10,9 +10,9 @@ export async function executeSave(dataToSave) {
         link.click()
         URL.revokeObjectURL(link.href)
 
-        ElMessage.success('gamedata.json 已生成，请覆盖项目文件')
+        ElMessage.success('gamedata.json It has been generated; please overwrite the project files.')
     } catch (e) {
         console.error(e)
-        ElMessage.error('导出失败')
+        ElMessage.error('Export failed')
     }
 }

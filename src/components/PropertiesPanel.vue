@@ -793,14 +793,14 @@ function handleStartConnection(id, type) {
             <div class="conn-row-ports">
               <div class="port-config">
                 <div class="port-select-wrapper">
-                  <span class="port-label">出</span>
+                  <span class="port-label">out</span>
                   <select class="mini-select" :value="conn.rawConnection.sourcePort || 'right'" @change="(e) => updateConnPort(conn.id, 'source', e)">
                     <option v-for="opt in PORT_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                   </select>
                 </div>
                 <span class="port-arrow">>></span>
                 <div class="port-select-wrapper">
-                  <span class="port-label">入</span>
+                  <span class="port-label">in</span>
                   <select class="mini-select" :value="conn.rawConnection.targetPort || 'left'" @change="(e) => updateConnPort(conn.id, 'target', e)">
                     <option v-for="opt in PORT_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                   </select>

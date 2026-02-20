@@ -153,12 +153,12 @@ const showGameTime = computed(() => !isGameTimeCollapsed.value || store.isCaptur
 const gridRowHeight = computed(() => showGameTime.value ? '60px' : '48px')
 
 const ELEMENT_FILTERS = [
-  { label: '全部', value: 'ALL', color: '#888' },
-  { label: '物理', value: 'physical', color: '#e0e0e0' },
-  { label: '灼热', value: 'blaze', color: '#ff4d4f' },
-  { label: '寒冷', value: 'cold', color: '#00e5ff' },
-  { label: '电磁', value: 'emag', color: '#ffd700' },
-  { label: '自然', value: 'nature', color: '#52c41a' }
+  { label: 'All', value: 'ALL', color: '#888' },
+  { label: 'Physical', value: 'physical', color: '#e0e0e0' },
+  { label: 'Fire', value: 'blaze', color: '#ff4d4f' },
+  { label: 'Cold', value: 'cold', color: '#00e5ff' },
+  { label: 'Electro', value: 'emag', color: '#ffd700' },
+  { label: 'Nature', value: 'nature', color: '#52c41a' }
 ]
 
 function openCharacterSelector(index) {
@@ -2144,19 +2144,19 @@ onUnmounted(() => {
             Remove
           </button>
           <div v-if="currentEquipmentForDialog?.level === 70" class="equipment-tier-picker">
-            <span class="tier-label">精锻</span>
+            <span class="tier-label">Refined:</span>
             <el-select :model-value="currentEquipmentTierForDialog" @update:model-value="setCurrentEquipmentTierForDialog" size="small" style="width: 92px">
-              <el-option v-for="t in EQUIPMENT_REFINE_TIERS" :key="`tier_${t}`" :label="t === 0 ? '初始' : `精${t}`" :value="t" />
+              <el-option v-for="t in EQUIPMENT_REFINE_TIERS" :key="`tier_${t}`" :label="t === 0 ? 'initial' : `+${t}`" :value="t" />
             </el-select>
           </div>
         </div>
         <div class="element-filters">
-          <button class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentCategoryFilter === 'ALL' }" :style="{ '--ea-btn-accent': '#2dd4bf' }" @click="equipmentCategoryFilter = 'ALL'">全部分类</button>
-          <button class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentCategoryFilter === '__UNCAT__' }" :style="{ '--ea-btn-accent': '#888' }" @click="equipmentCategoryFilter = '__UNCAT__'">未分类</button>
+          <button class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentCategoryFilter === 'ALL' }" :style="{ '--ea-btn-accent': '#2dd4bf' }" @click="equipmentCategoryFilter = 'ALL'">All</button>
+          <button class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentCategoryFilter === '__UNCAT__' }" :style="{ '--ea-btn-accent': '#888' }" @click="equipmentCategoryFilter = '__UNCAT__'">No category</button>
           <button v-for="cat in store.equipmentCategories" :key="`eqcat_${cat}`" class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentCategoryFilter === cat }" :style="{ '--ea-btn-accent': '#2dd4bf' }" @click="equipmentCategoryFilter = cat">{{ cat }}</button>
         </div>
         <div class="element-filters">
-          <button class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentLevelFilter === 'ALL' }" :style="{ '--ea-btn-accent': '#2dd4bf' }" @click="equipmentLevelFilter = 'ALL'">全部等级</button>
+          <button class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentLevelFilter === 'ALL' }" :style="{ '--ea-btn-accent': '#2dd4bf' }" @click="equipmentLevelFilter = 'ALL'">All</button>
           <button v-for="lv in EQUIPMENT_LEVELS" :key="`eqlv_${lv}`" class="ea-btn ea-btn--glass-cut" :class="{ 'is-active': equipmentLevelFilter === lv }" :style="{ '--ea-btn-accent': getEquipmentLevelColor(lv) }" @click="equipmentLevelFilter = lv">Lv{{ lv }}</button>
         </div>
       </div>

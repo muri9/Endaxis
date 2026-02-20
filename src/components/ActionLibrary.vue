@@ -636,9 +636,9 @@ function onNativeDragEnd() {
         <span class="section-hint">
           {{
             activeLibraryTab === 'weapon'
-              ? '拖拽武器BUFF到轨道，拖拽位置即为开始时间'
+              ? 'Drag the weapon buff onto the track; the drag position will determine the start time.'
               : activeLibraryTab === 'set'
-                ? '拖拽BUFF到轨道，拖拽位置即为开始时间'
+                ? 'Drag the buff onto the track; the drag position will determine the start time.'
                 : 'Click to edit / drag to axis'
           }}
         </span>
